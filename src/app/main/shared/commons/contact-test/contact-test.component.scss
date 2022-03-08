@@ -1,0 +1,103 @@
+.contact-content {
+    p {
+      margin-bottom: 0.2rem;
+  
+      button {
+        position: absolute;
+        top: 45px;
+      }
+    }
+  }
+  
+  .search-input-header {
+    flex: 1;
+    margin-right: 1rem;
+  }
+  
+  .button-header {
+    flex: 0.5;
+  }
+  
+  .top-left-badge-1 {
+    position: absolute;
+    left: -15px;
+    top: 10px;
+  }
+  
+  .top-left-badge-2 {
+    position: absolute;
+    left: -15px;
+    top: 35px;
+  }
+  
+  .search-button-merge {
+    border: 1px solid #d8d6de;
+    background: #fff;
+    border-top-right-radius: 0.357rem;
+    border-bottom-right-radius: 0.357rem;
+  }
+  
+  .badge-phone-left {
+    left: 0;
+    right: auto !important;
+    top: 77px !important;
+  }
+  
+  .badge-email-left {
+    left: 0;
+    right: auto !important;
+    top: 53px !important;
+  }
+  
+  .contact-widget {
+    .card {
+      height: 250px;
+    }
+  
+    &:hover {
+      .actions-container {
+        display: inline-flex;
+      }
+    }
+  
+    &:not(:hover) {
+      .actions-container {
+        display: none;
+      }
+    }
+  }
+  
+  .actions-container {
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+  
+    &.top-left {
+      top: 10px;
+      left: 10px;
+    }
+  
+    &.top-right {
+      top: 5px;
+      right: 5px;
+    }
+  }
+  
+  .bottom-data {
+    position: fixed;
+    bottom: 30px;
+  }
+  
+  .bottom-groups {
+    position: absolute;
+    bottom: 15px;
+  }
+  
+  .error-message {
+    margin-top: 10%;
+  }
+  
+  .ls-1 {
+    letter-spacing: 1px;
+  }
+  

@@ -1,0 +1,169 @@
+<div class="row mt-2">
+    <div class=" offset-1 col-sm-11">
+        <div class="heading-elements flex-grow-1 text-right">
+            <div class="tools ">
+                
+    
+        <div class="row" style="display: none;">
+            <div class="col-md-6 text-left">
+               <p style="margin: -18px 0 0 0px;" > {{dayName}} </p>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-inline mb-0 head-tools">
+                    <li>
+                        <!-- (click)="modalOpenLeaveHourly(modalContentTG1, '')"  -->
+                        <a class="d-grid" style="margin: -18px 0 0 0px;"  [ngbTooltip]="'Use Leave'">
+                            <i class="feather icon-log-out  large-icon lbl_leave"
+                               ></i>
+                            <!-- {{tsService.leaveLabel}}
+                                                    {{this.tsService.timesheetDetailsByIdData.timeSheetDailyActivityDto.totalLeave}} -->
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        </div>
+        <block-ui></block-ui>
+        <form action="#" class="invoice-repeater">
+            <!-- <div class="form-group" *ngFor="let jobL of getJobLeaves(); let i = index"> -->
+            <div *ngFor="let dAct of tsServices.leaveActivities(this.seletecTimeSheetDailyActivityId); let i = index" @heightIn>
+                <div class="row d-flex align-items-end" [formGroup]="dAct">
+                    <!-- <div class="col-md-3 col-12" *ngIf="tsServices.rowIndex!=i">
+                        <div class="form-group">
+                            <ng-select formControlName="activityTypeId" [ngClass]="{ 'is-invalid': dAct.controls.activityTypeId.touched && dAct.controls.activityTypeId.errors,
+                            'is-valid': dAct.controls.activityTypeId.touched && dAct.controls.activityTypeId.valid }"
+                                  name="type{{i}}"  searchable="false">
+                                <ng-option
+                                        *ngFor="let ct of checkinTypes"
+                                        [value]="ct.lookupValue">{{ct.description}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div> -->
+                    <div class="col-md-3 col-12" *ngIf="dAct.controls.isShowTxt.value" >
+                        <div class="form-group">
+                            <input type="text" readonly  placeholder="Enter comments" id="timeSheetDetailActivityTxt{{i}}"
+                            formControlName="timeSheetDetailActivityTxt" class="form-control"/>
+                        </div>
+                        <small class="form-text text-danger"
+                            >
+                             <span>
+                              &nbsp;
+                             </span>
+                         </small>
+                    </div>
+                    <div class="col-md-3 col-12" *ngIf="!dAct.controls.isShow.value && !dAct.controls.isShowTxt.value">
+                        <div class="form-group">
+                            <ng-select  formControlName="activityTypeId" [ngClass]="{ 'is-invalid': dAct.controls.activityTypeId.touched && dAct.controls.activityTypeId.errors,
+                            'is-valid': dAct.controls.activityTypeId.touched && dAct.controls.activityTypeId.valid }"
+                                  name="type{{i}}"  searchable="false">
+                                <ng-option
+                                        *ngFor="let ct of tsServices.checkinTypes"
+                                        
+                                        [value]="ct.lookupValue">{{ct.description}} 
+                                    </ng-option>
+                            </ng-select>
+                            <small class="form-text text-danger"
+                            >
+                             <span>
+                              &nbsp;
+                             </span>
+                         </small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-12" *ngIf="dAct.controls.isShow.value && !dAct.controls.isShowTxt.value" >
+                        <div class="form-group">
+                            <ng-select formControlName="jobLeaveId" [ngClass]="{ 'is-invalid': dAct.controls.jobLeaveId.touched && dAct.controls.jobLeaveId.errors,
+                            'is-valid': dAct.controls.activityTypeId.touched && dAct.controls.jobLeaveId.valid }"
+                                  name="type{{i}}"  searchable="false">
+                                <ng-option
+                                        *ngFor="let ct of tsServices.leavesTypes"
+                                        [value]="ct.lookupValue">{{ct.description}} 
+                                    </ng-option>
+                            </ng-select>
+                            <small class="form-text text-danger"
+                            >
+                             <span>
+                              &nbsp;
+                             </span>
+                         </small>
+                           
+                        </div>
+                    </div>
+                 
+                    <div class="col-md-3 col-12">
+                        <div class="form-group">
+                            <!-- {{dAct.controls.isSysAdded.value}} -->
+                            <!--                                    <label for="itemCost">Time</label>-->
+                            <input [readonly]="dAct.controls.isSysAdded.value"  type="time" (change)="[tsServices.calculateLeavHourSalary(indexId,seletecTimeSheetDailyActivityId)]" placeholder="Enter hours" id="entryDateTime{{i}}"
+                                formControlName="entryDateTime"
+                                [ngClass]="{ 'is-invalid': dAct.controls.entryDateTime.touched && dAct.controls.entryDateTime.errors,
+                                                          'is-valid': dAct.controls.entryDateTime.touched && dAct.controls.entryDateTime.valid }"
+                                required class="form-control" name="entryDateTime{{i}}" />
+                            <small class="form-text text-danger"
+                               >
+                                <span>
+                                    &nbsp;<span *ngIf="dAct.controls.isError.value" >you have cross leave limit</span>
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <!--                                    <label for="itemName{{ i }}">comments</label>-->
+                            <input [readonly]="dAct.controls.isSysAdded.value"  type="text" placeholder="Enter comments" id="comments{{i}}"
+                            formControlName="comments"
+                            [ngClass]="{ 'is-invalid': dAct.controls.comments.touched && dAct.controls.comments.errors,
+                                                      'is-valid': dAct.controls.comments.touched && dAct.controls.comments.valid }"
+                             class="form-control" name="comments{{i}}" />
+                        <!-- <small class="form-text text-danger"
+                            *ngIf="!dAct.controls.comments.valid && nextClicked">
+                            <span>
+                                comments is required
+                            </span>
+                        </small> -->
+                        <small class="form-text text-danger"
+                        >
+                         <span>
+                          &nbsp;
+                         </span>
+                     </small>
+                        </div>
+                    </div>
+              
+                    
+                    <div class="col-md-1 col-12" *ngIf="false">
+                        <div class="form-group">
+                            <input type="checkbox"  (change)="isLeaveSelect($event,i)" id="isLeave{{i}}"
+                            formControlName="isLeave"
+                            [ngClass]="{'is-invalid': dAct.controls.isLeave.touched && dAct.controls.isLeave.errors,
+                                                      'is-valid': dAct.controls.isLeave.touched && dAct.controls.isLeave.valid}"
+                             class="form-control" name="isLeave{{i}}" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 col-12">
+                        <div class="form-group">
+                           
+                            <button *ngIf="tsServices.leaveActivities(this.seletecTimeSheetDailyActivityId).length-1==i  && !dAct.controls.isSysAdded.value" type="button" class="btn btn-icon btn-danger full-width"
+                                (click)="tsServices.deleteLeaveItem(i,indexId,seletecTimeSheetDailyActivityId)" rippleEffect>
+                                <span [data-feather]="'delete'"></span></button>
+                                <span>
+                                    &nbsp;
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-10 col-1">
+                    <button type="button" *ngIf="tsServices.isLocalLeave" class="btn btn-icon btn-primary full-width"
+                        (click)="tsServices.addHorulyLeave(0,this.seletecTimeSheetDailyActivityId)" rippleEffect><span [data-feather]="'plus'">{{this.getseletecTimeSheetDailyActivityId}}-{{seletecTimeSheetDailyActivityId}}</span></button>
+                </div>
+            </div>
+            <!--                            </button>-->
+        </form>
+    </div>
+</div>
+<!-- modal -->

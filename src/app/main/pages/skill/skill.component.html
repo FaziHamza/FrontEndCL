@@ -1,0 +1,205 @@
+<block-ui></block-ui>
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+
+        <!-- <ng-template #selectOrganization let-modal>
+            <div class="modal-header organizationHeader ">
+                <h5 class="modal-title organizationHeaderTxt">Select Organization</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" tabindex="0" ngbAutofocus>
+                <ul class="organizations-list">
+                    <li *ngFor="let org of organizations">
+                        <div class="custom-control custom-radio ">
+                            <input type="radio" class="custom-control-input"
+                                (change)="onChangeOrganization(org.id, inputElement)" #inputElement [value]="org.id"
+                                id="org{{org.id}}" [checked]="tempOrgId === org.id" />
+                            <label class="custom-control-label" for="org{{org.id}}" style="font-size: 20px;font-style: inherit;">{{org.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer " >
+                <button type="button" style="margin: 0px 209px 0px 0px;" class="btn btn-primary text-center" #btnSub (click)="onSubmitSearchCreateOrganization()"
+                    rippleEffect>
+                    Ok
+                </button>
+            </div>
+        </ng-template> -->
+
+        <!-- content-header component -->
+        <!--        <app-content-header [contentHeader]="contentHeader"></app-content-header>-->
+
+        <!-- Basic Alerts start -->
+        <section id="home-actions">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom: 0.5rem;">
+                        <div class="card-body d-inline-flex align-items-center">
+                            <h2 class="content-header-title float-left mb-0">
+                                {{ 'Skill ' }} | {{organization.name}}
+                                <!-- <ul class="organizations-list">
+                                    <li *ngFor="let org of organizations">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   (change)="onChangeOrganization(org.id, inputElement)"
+                                                   #inputElement
+                                                   [value]="org.id" id="org{{org.id}}"
+                                                   [checked]="tempOrgId === org.id"/>
+                                            <label class="custom-control-label" for="org{{org.id}}">{{org.name}}</label>
+                                        </div>
+                                    </li>
+                                </ul> -->
+                            </h2>
+                            <!--                            <div class="h3 ml-1 mb-0">Selected Organization:</div>-->
+                            <div class="content-header-title h4 ml-1 mb-0 cursor-pointer"
+                                (click)="onClickOrganization()">
+                                <!-- {{organization?.name || 'No Organization Selected!'}} -->
+                            </div>
+                            <!-- <button ngbTooltip="Select Organization" *ngIf="organizations.length>1"
+                                class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                (click)="onSelectOrganization(selectOrganization)">
+                                <i class="feather icon-edit"></i>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsShowAlert">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom:4px ;">
+                        <div class="card-body align-items-center" style="padding: 6px 0px 1px 10px !important;;">
+                            <div class="row" style="font-size: 20px;">
+                                <div class="col-md-11">
+                                    <ul>
+                                        <li style="color: #7367f0;" *ngFor="let item of alertList">
+
+                                            <div class="alert " [ngClass]="item.class" role="alert">
+                                                <div class="alert-body"><strong>Hi!</strong> {{item.name}} </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="col-md-2 text-right" style="font-size:12px;">
+
+                                </div>
+                                <!-- <div class="col-md-2">
+                                
+                              </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- form Config  -->
+        <div class="row ">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="row" [formGroup]="skillForm">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="shift">Skill  </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" formControlName="name"
+                                        [ngClass]="{ 'is-invalid': skillForm.controls.name.touched && skillForm.controls.name.errors,
+                                           'is-valid': skillForm.controls.name.touched && skillForm.controls.name.valid }" required
+                                        id="project-name" class="form-control" [maxlength]="30"
+                                        placeholder="Skill Category" />
+                                    <small class="textarea-counter-value float-right">
+                                        <span *ngIf="skillForm.controls.name" class="char-count">
+                                            <!-- {{skillForm.controls.name.value.length }} -->
+                                        </span>
+                                        <span *ngIf="!skillForm.controls.name" class="char-count">0
+                                        </span> / {{30}}
+                                    </small>
+                                    <small class="form-text text-danger"
+                                        *ngIf="skillForm.controls.name.invalid && skillForm.controls.name.touched">
+                                        This field is required!</small>
+                                </div>
+                                <div class="col-12 mt-1">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3 col-form-label">
+                                            <label for="refIndustry">Select Skill Category</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <ng-select [items]="skillCategoryTpe" id="skillCategory"  required  formControlName="skillCategory"
+                                                 bindLabel="name">
+                                                <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                    {{ item.name }}
+                                                </ng-template>
+                                            </ng-select>
+                                   
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6">2</div> -->
+                                <div class="col-sm-10 mt-1"></div>
+                                <div class="col-sm-2 text-right mt-1">
+                                    <button class="btn btn-primary btn-md  btn-submit" rippleEffect
+                                        (click)="orgConfigSave()">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12" *ngIf="this.skillService.skillDtoList.length>0">
+                                    <table class="table timesheet-table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Name </td>
+                                                <td>Type </td>
+
+                                                <td>Action</td>
+                                                <!-- <td>Year</td> -->
+                                            </tr>
+                                        </thead>
+                                        <!-- <tr> -->
+                                            <tr *ngFor="let item of skillService.skillDtoList ;index as i">
+                                            <td> {{i+1}} </td>
+                                            <td> {{item.name}} </td>
+                                            <td> {{getType(item.skillCategoryId)}} </td>
+
+                                            <td>
+                                                 
+                                                <button ngbTooltip="Edit Skill Category"
+                                                (click)="editSkill(item ,'edit')"
+                                                    class="action-btn btn btn-icon btn-primary btn-sm ml-25">
+                                                    <i class="feather icon-edit"></i>
+                                                </button>
+                                                <button ngbTooltip="Delete Skill Category"   (click)="deleteSkill(item ,'edit')"
+                                                class="action-btn btn btn-icon btn-danger btn-sm ml-25">
+                                                <i class="feather icon-trash"></i>
+                                            </button>
+                                            </td>
+
+                                        </tr>
+                                 
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

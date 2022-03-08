@@ -1,0 +1,200 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <button type="button"
+                        [ngbTooltip]="viewType === 'grid' ? 'Switch to List' :'Switch to Grid'"
+                        class="btn-icon btn btn-primary btn-round btn-sm waves-effect waves-float waves-light"
+                        (click)="viewType = viewType === 'grid' ? 'list' : 'grid'">
+                    <span *ngIf="viewType === 'grid'">
+                        <span [data-feather]="'grid'"></span>
+                    </span>
+                    <span *ngIf="viewType === 'list'">
+                        <span [data-feather]="'list'"></span>
+                    </span>
+
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="viewType === 'list'">
+    <div class="col-12" *ngFor="let ts of availableTimeSheets">
+        <div class="card timesheet-card">
+            <div class="row">
+                <div class="col-1 bg-primary align-self-center text-center rounded-left">
+                    <div class="week-counter">
+                        <h1>{{ts.week}}</h1>
+                        <small>{{ts.startDate | date:'MM-dd-YYYY'}}</small>
+                    </div>
+                </div>
+                <div class="col-3 align-self-center text-center">
+                    <ul class="list-inline list-first-section mb-0">
+                        <!-- collapse -->
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-clock large-icon"></i>
+                                4:32
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-briefcase large-icon"></i>
+                                $1,020
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-dollar-sign large-icon"></i>
+                                $1,200
+                            </a>
+                        </li>
+                        <!--                        <li>-->
+                        <!--                            <a class="d-grid">-->
+                        <!--                                <i class="feather icon-message-circle large-icon"></i>-->
+                        <!--                                120-->
+                        <!--                            </a>-->
+                        <!--                        </li>-->
+
+                    </ul>
+                </div>
+                <div class="col-4 border-left-primary align-self-center text-center">
+                    <ul class="list-inline list-second-section mb-0">
+                        <!-- collapse -->
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">M</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">T</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">W</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">T</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">F</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">S</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <div class="avatar bg-light-success avatar-lg">
+                                <span class="avatar-content">S</span>
+                            </div>
+                            <span>9</span>
+                        </li>
+
+                        <!--                        <li>-->
+                        <!--                            <a class="d-grid">-->
+                        <!--                                <i class="feather icon-message-circle large-icon"></i>-->
+                        <!--                                120-->
+                        <!--                            </a>-->
+                        <!--                        </li>-->
+
+                    </ul>
+                </div>
+                <div class="col-4 border-left-primary align-self-center text-center">
+                    <ul class="list-inline list-first-section mb-0">
+                        <!-- collapse -->
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-clock large-icon"></i>
+                                4:32
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-briefcase large-icon"></i>
+                                $1,020
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-dollar-sign large-icon"></i>
+                                $1,200
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-grid">
+                                <i class="feather icon-message-circle large-icon"></i>
+                                120
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="viewType === 'grid'">
+    <div class="col-3" *ngFor="let ts of availableTimeSheets">
+        <div class="card timesheet-card-grid">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 border-bottom-primary mb-1">
+                        <div class="row">
+                            <div class="col-5">
+                                <h3>Week {{ts.week}}</h3>
+                            </div>
+                            <div class="col-7 text-right">
+                                <small ngbTooltip="End Date: {{ts.startDate | date: 'MM-dd-YYYY'}}"><strong>Start
+                                    Date: </strong>{{ts.startDate | date:'MM-dd-YYYY'}}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row mb-1">
+                            <div class="col-12 align-self-center text-center">
+                                <ul class="list-inline list-first-section mb-0">
+                                    <li>
+                                        <a class="d-grid" [ngbTooltip]="'Hours Worked'">
+                                            <i class="feather icon-clock large-icon"></i>
+                                            4:32
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="d-grid" [ngbTooltip]="'Salary'">
+                                            <i class="feather icon-briefcase large-icon"></i>
+                                            $1,020
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="d-grid" [ngbTooltip]="'Expenses'">
+                                            <i class="feather icon-dollar-sign large-icon"></i>
+                                            $1,200
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="badge badge-glow badge-success pull-right">Success</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

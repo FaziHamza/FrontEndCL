@@ -1,0 +1,29 @@
+<div class="d-inline-flex">
+    <div class="profile-picker">
+        <i class="feather icon-upload"></i>
+        <img [src]="croppedImage" class="profile-img" [style.border]="croppedImage ? '1px solid black' : 'none'"
+             *ngIf="croppedImage !== null && croppedImage !== undefined && croppedImage !== ''" alt="Logo"/>
+        <input type="file"
+               (change)="fileChangeEvent($event)"
+               class="profile-picker-control file-input">
+    </div>
+</div>
+<image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="true"
+        [aspectRatio]="1"
+        [resizeToWidth]="256"
+        [cropperMinWidth]="128"
+        [cropperMinHeight]="128"
+        [onlyScaleDown]="true"
+        [roundCropper]="false"
+        [canvasRotation]="0"
+        [alignImage]="'center'"
+        [style.display]="showCropper ? null : 'none'"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+></image-cropper>

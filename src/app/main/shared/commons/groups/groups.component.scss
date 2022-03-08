@@ -1,0 +1,70 @@
+.animate-width {
+  transition: all 1s ease-in-out;
+}
+
+.scroll-content {
+  max-height: 100vh;
+  overflow: scroll;
+}
+
+.contacts-container {
+  border: 1px solid #c6c6c6;
+  padding-top: 0.8rem;
+
+}
+
+.col-0 {
+  position: relative;
+  width: 100%;
+  //padding-right: 1rem;
+  //padding-left: 1rem;
+  flex: 0 0 0;
+  max-width: 0;
+}
+
+.groups-container {
+
+  .card {
+    min-height: 300px;
+
+    &:hover {
+      .actions-container {
+        display: inline-flex;
+      }
+    }
+
+    &:not(:hover) {
+      .actions-container {
+        display: none;
+      }
+    }
+  }
+
+  .cdk-drag-placeholder {
+    display: none;
+  }
+
+}
+
+
+.actions-container {
+  display: inline-flex;
+  position: absolute;
+  align-items: center;
+
+  &.top-left {
+    top: 10px;
+    left: 10px;
+  }
+
+  &.top-right {
+    top: 5px;
+    right: 5px;
+  }
+}
+
+
+.bottom-groups {
+  position: absolute;
+  bottom: 15px;
+}

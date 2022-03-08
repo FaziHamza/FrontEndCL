@@ -1,0 +1,240 @@
+<!--<div class="content-wrapper container-xxl p-0">-->
+<!--  <div class="content-body">-->
+<!--    &lt;!&ndash; content-header component &ndash;&gt;-->
+<!--    <app-content-header [contentHeader]="contentHeader"></app-content-header>-->
+
+<!--    &lt;!&ndash; Basic Alerts start &ndash;&gt;-->
+<!--    <section id="sample-page">-->
+<!--      <div class="row">-->
+<!--        <div class="col-12">-->
+<!--          <div class="card">-->
+<!--            <div class="card-header">-->
+<!--              <h4 class="card-title">{{ 'SAMPLE.AWESOME' | translate }}</h4>-->
+<!--            </div>-->
+<!--            <div class="card-body pb-1">-->
+<!--              <p class="card-text">This is your second page.</p>-->
+<!--              <p class="card-text">-->
+<!--                Chocolate sesame snaps pie carrot cake pastry pie lollipop muffin. Carrot cake dragée chupa chups-->
+<!--                jujubes. Macaroon liquorice cookie wafer tart marzipan bonbon. Gingerbread jelly-o dragée chocolate.-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+<!--    &lt;!&ndash; Basic Alerts end &ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+<div app-top-menu [contentHeader]="contentHeader"></div>
+
+<div class="row">
+    <!--    <div class="col-6">-->
+    <!--        <div class="card">-->
+    <!--            <h4 class="card-title">Day 1</h4>-->
+    <!--            <div class="heading-elements">-->
+    <!--                <ul class="list-inline mb-0">-->
+    <!--                    &lt;!&ndash; collapse &ndash;&gt;-->
+    <!--                    <li>-->
+    <!--                        < >-->
+    <!--                            <i class="feather icon-chevron-down"></i>-->
+    <!--                        </>-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+    <!--            <div class="card-body">-->
+    <!--                <div class="row">-->
+    <!--                    <div class="col-sm-12">-->
+    <!--                        <form action="#" class="invoice-repeater">-->
+    <!--                            <div *ngFor="let item of items; let i = index" @heightIn>-->
+    <!--                                <div class="row d-flex align-items-end">-->
+    <!--                                    <div class="col-md-4 col-12">-->
+    <!--                                        <div class="form-group">-->
+    <!--                                            &lt;!&ndash;                                            <ng-select [(ngModel)]="item.type" name="type" searchable="false">&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                                <ng-option *ngFor="let ct of checkinTypes"&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                                           [value]="ct.name">{{ct.name}}</ng-option>&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                            </ng-select>&ndash;&gt;-->
+    <!--                                            <select name="type" class="form-control" [(ngModel)]="item.type"-->
+    <!--                                                    id="basicSelect{{i}}">-->
+    <!--                                                <option *ngFor="let ct of checkinTypes"-->
+    <!--                                                        [value]="ct.name">{{ct.name}}</option>-->
+    <!--                                            </select>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+
+    <!--                                    <div class="col-md-2 col-12">-->
+    <!--                                        <div class="form-group">-->
+    <!--                                            &lt;!&ndash;                                    <label for="itemCost">Time</label>&ndash;&gt;-->
+    <!--                                            <input-->
+    <!--                                                    type="time"-->
+    <!--                                                    class="form-control"-->
+    <!--                                                    id="time{{i}}"-->
+    <!--                                                    [(ngModel)]="item.time"-->
+    <!--                                                    name="itemCost{{ i }}"-->
+    <!--                                                    placeholder="9:00"-->
+    <!--                                            />-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="col-md-4 col-12">-->
+    <!--                                        <div class="form-group">-->
+    <!--                                            &lt;!&ndash;                                    <label for="itemName{{ i }}">Comment</label>&ndash;&gt;-->
+    <!--                                            <input-->
+    <!--                                                    type="text"-->
+    <!--                                                    class="form-control"-->
+    <!--                                                    [(ngModel)]="item.comment"-->
+    <!--                                                    name="comment{{ i }}"-->
+    <!--                                                    id="comment{{i}}"-->
+    <!--                                                    placeholder="Comment"-->
+    <!--                                            />-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+
+    <!--                                    <div class="col-md-2 col-12">-->
+    <!--                                        <div class="form-group">-->
+    <!--                                            &lt;!&ndash;                                            <button class="btn btn-outline-danger text-nowrap px-1"&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                                    rippleEffect>&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                                <i data-feather="x" class="mr-25"></i>&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                                <span>Delete</span>&ndash;&gt;-->
+    <!--                                            &lt;!&ndash;                                            </button>&ndash;&gt;-->
+    <!--                                            <button type="button" class="btn btn-icon btn-danger"-->
+    <!--                                                    (click)="deleteItem(i)"-->
+    <!--                                                    rippleEffect>-->
+    <!--                                                <span [data-feather]="'delete'"></span></button>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <hr/>-->
+    <!--                                <button type="button" class="btn btn-primary pull-right" (click)="addItem()"-->
+    <!--                                        rippleEffect>Add-->
+    <!--                                </button>-->
+    <!--                            </div>-->
+    <!--                        </form>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="card-footer">-->
+    <!--                <button type="button" class="btn btn-success pull-right" style="margin-bottom: 1rem" rippleEffect>Save-->
+    <!--                </button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <div class="offset-2 col-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Day 1 3</h4>
+                <div class="heading-elements">
+                    <div class="tools ">
+                        <ul class="list-inline mb-0">
+                            <!-- collapse -->
+                            <li>
+                                <a class="d-grid">
+                                    <i class="feather icon-clock large-icon"></i>
+                                    4:32
+                                </a>
+                            </li>
+                            <li>
+                                <a class="d-grid">
+                                    <i class="feather icon-briefcase large-icon"></i>
+                                    $1,020
+                                </a>
+                            </li>
+                            <li>
+                                <a class="d-grid">
+                                    <i class="feather icon-dollar-sign large-icon"></i>
+                                    $1,200
+                                </a>
+                            </li>
+                            <li>
+                                <a class="d-grid">
+                                    <i class="feather icon-message-circle large-icon"></i>
+                                    120
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="#" class="invoice-repeater">
+                            <div *ngFor="let item of items; let i = index" @heightIn>
+                                <div class="row d-flex align-items-end">
+                                    <div class="col-md-3 col-12">
+                                        <div class="form-group">
+                                            <!--                                            <ng-select [(ngModel)]="item.type" name="type" searchable="false">-->
+                                            <!--                                                <ng-option *ngFor="let ct of checkinTypes"-->
+                                            <!--                                                           [value]="ct.name">{{ct.name}}</ng-option>-->
+                                            <!--                                            </ng-select>-->
+                                            <select name="type" class="form-control" [(ngModel)]="item.type"
+                                                    id="basicSelect">
+                                                <option *ngFor="let ct of checkinTypes"
+                                                        [value]="ct.name">{{ct.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-12">
+                                        <div class="form-group">
+                                            <!--                                    <label for="itemCost">Time</label>-->
+                                            <input
+                                                    type="time"
+                                                    class="form-control"
+                                                    id="time"
+                                                    [(ngModel)]="item.time"
+                                                    name="itemCost{{ i }}"
+                                                    id="time{{ i }}"
+                                                    placeholder="9:00"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-12">
+                                        <div class="form-group">
+                                            <!--                                    <label for="itemName{{ i }}">Comment</label>-->
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    [(ngModel)]="item.comment"
+                                                    name="itemName{{ i }}"
+                                                    id="itemName{{ i }}"
+                                                    placeholder="Comment"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 col-12">
+                                        <div class="form-group">
+                                            <!--                                            <button class="btn btn-outline-danger text-nowrap px-1"-->
+                                            <!--                                                    rippleEffect>-->
+                                            <!--                                                <i data-feather="x" class="mr-25"></i>-->
+                                            <!--                                                <span>Delete</span>-->
+                                            <!--                                            </button>-->
+                                            <button type="button" class="btn btn-icon btn-outline-danger full-width"
+                                                    (click)="deleteItem(i)"
+                                                    rippleEffect>
+                                                <span [data-feather]="'delete'"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-11 col-1">
+                                    <button type="button" class="btn btn-icon btn-outline-primary full-width"
+                                            (click)="addItem()"
+                                            rippleEffect><span [data-feather]="'plus'"></span></button>
+                                </div>
+                            </div>
+                            <!--                            </button>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn btn-success pull-right" style="margin-bottom: 1rem" rippleEffect>Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

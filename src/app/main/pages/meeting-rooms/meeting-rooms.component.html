@@ -1,0 +1,163 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Room </h4>
+        <div class="header-actions">
+            <button
+                    type="button"
+                    class="btn"
+                    [class.btn-outline-primary]="isCollapsed"
+                    [class.btn-primary]="!isCollapsed"
+                    (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapse"
+                    rippleEffect
+            >
+                Add Room
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div [ngbCollapse]="isCollapsed">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <form class="form form-vertical">
+                        <div class="row">
+                         
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="amount">Title</label>
+                                    <input type="number" id="Name" class="form-control" name="Name"
+                                           placeholder="Name"/>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="expense-types">Status</label>
+                                    <ng-select
+                                            [items]="expenseTypes"
+                                            bindLabel="name"
+                                            bindValue="name"
+                                            name="expense-type"
+                                            id="expense-types"
+                                            [(ngModel)]="expenseType"
+                                    >
+                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                            {{ item.name }}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="expense-types">Group Type</label>
+                                    <ng-select
+                                            [items]="expenseTypes"
+                                            bindLabel="name"
+                                            bindValue="name"
+                                            name="expense-type"
+                                            id="expense-types"
+                                            [(ngModel)]="expenseType"
+                                    >
+                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                            {{ item.name }}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="amount">Address</label>
+                                    <input type="number" id="Name" class="form-control" name="Name"
+                                           placeholder="Address"/>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="amount">Where</label>
+                                    <input type="number" id="Name" class="form-control" name="Name"
+                                           placeholder="Where"/>
+                                </div>
+                            </div>
+                          
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="amount">Is Notification On</label>
+                                    <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="remember" checked />
+                                    <label class="custom-control-label" for="remember">
+                                        <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                        <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="amount">Is Public</label>
+                                    <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="remember" checked />
+                                    <label class="custom-control-label" for="remember">
+                                        <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                        <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="col-12 text-right">
+                                <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>
+                                <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Datatable -->
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12" [contextMenuTrigger]="animatedContextMenu" *ngFor="let contact of contacts">
+                <div class="card bg-gray">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="offset-3 col-6 text-center">
+                                <div class="avatar avatar-xl">
+                                    <img src="assets/images/portrait/small/avatar-s-20.jpg" alt="avatar">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-1 contact-content">
+                                <h4>{{contact.name}}</h4>
+                                <!-- <p>{{contact.email}}
+                                    <button type="button"
+                                            class="btn btn-icon btn-icon rounded-circle btn-flat-success"
+                                            ngbTooltip="Send Invite Link"
+                                            rippleEffect>
+                                        <span [data-feather]="'share'"></span></button
+                                    >
+                                </p> -->
+                                <p>{{contact.type}}</p>
+                                <p>{{contact.description}}</p>
+                                <p>public : {{contact.isPublic}}</p>
+                            </div>
+                            <div class="col-12">
+                                <div class="avatar-group">
+                                    <div class="avatar pull-up" *ngFor="let g of contact.groups">
+                                        <div class="avatar-content">
+                                            {{g}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+<!--    <div class="card-footer text-right">-->
+<!--        <button type="reset" rippleEffect class="btn btn-outline-secondary mr-1">Reset</button>-->
+<!--        <button type="submit" (click)="(UserForm.onSubmit($event))" rippleEffect class="btn btn-primary">Submit</button>-->
+<!--    </div>-->
+</div>

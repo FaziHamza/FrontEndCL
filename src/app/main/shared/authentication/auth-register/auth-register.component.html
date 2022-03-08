@@ -1,0 +1,256 @@
+<div class="auth-wrapper auth-v2">
+    <div class="auth-inner row m-0">
+        <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
+        <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28"/>
+        <h2 class="brand-text text-primary ml-1">ClCong</h2></a
+    >
+        <!-- /Brand logo-->
+        <!-- Left Text-->
+
+        <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
+            <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+                <img
+                        class="img-fluid"
+                        [src]="
+            coreConfig.layout.skin === 'dark'
+              ? 'assets/images/pages/register-v2-dark.svg'
+              : 'assets/images/pages/register-v2.svg'
+          "
+                        alt="Register V2"
+                />
+            </div>
+        </div>
+        <!-- /Left Text-->
+        <!-- Register-->
+
+        <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5"
+             *blockUI="'register-section'; message: 'Signing Up...'; ">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+                <h2 class="card-title font-weight-bold mb-1">ClCong App</h2>
+                <!-- <p class="card-text mb-2">Make your app management easy and fun!</p> -->
+                <form class="auth-register-form mt-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                                id="email"
+                                type="text"
+                                formControlName="email"
+                                class="form-control"
+                                placeholder="john@example.com"
+                                aria-describedby="email"
+                                required
+                                ngvemail
+                                tabindex="2"
+                                [ngClass]="validateControl(registerForm.controls.email)"
+                        />
+                        <error-messages
+                                *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors"
+                                [errors]="registerForm.controls.email.errors"
+                                [controlName]="registerForm.controls.email">
+                        </error-messages>
+                    </div>
+                    <div *ngIf="registerForm.controls.email.touched && registerForm.controls.email.valid" @heightIn>
+
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input
+                                    id="firstName"
+                                    type="text"
+                                    required
+                                    [ngClass]="validateControl(registerForm.controls.firstName)"
+                                    formControlName="firstName"
+                                    class="form-control"
+                                    placeholder="johan"
+                                    maxlength="15"
+                                    aria-describedby="register-email"
+                                    tabindex="2"
+                            />
+                            <error-messages
+                                    *ngIf="registerForm.controls.firstName.touched && registerForm.controls.firstName.errors"
+                                    [errors]="registerForm.controls.firstName.errors"
+                                    [controlName]="registerForm.controls.firstName">
+                            </error-messages>
+                        </div>
+                        <div class="form-group">
+                            <label for="middleName" class="form-label">Middle Name</label>
+                            <input
+                                    id="middleName"
+                                    type="text"
+                                    maxlength="15"
+                                    [ngClass]="validateControl(registerForm.controls.middleName)"
+                                    formControlName="middleName"
+                                    class="form-control"
+                                    placeholder="johan"
+                                    aria-describedby="register-email"
+                                    tabindex="2"
+                            />
+                            <error-messages
+                                    *ngIf="registerForm.controls.middleName.touched && registerForm.controls.middleName.errors"
+                                    [errors]="registerForm.controls.middleName.errors"
+                                    [controlName]="registerForm.controls.middleName">
+                            </error-messages>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input
+                                    id="lastName"
+                                    type="text"
+                                    maxlength="15"
+                                    required
+                                    [ngClass]="validateControl(registerForm.controls.lastName)"
+                                    formControlName="lastName"
+                                    class="form-control"
+                                    placeholder="johan"
+                                    aria-describedby="register-email"
+                                    tabindex="2"
+                            />
+                            <error-messages
+                                    *ngIf="registerForm.controls.lastName.touched && registerForm.controls.lastName.errors"
+                                    [errors]="registerForm.controls.lastName.errors"
+                                    [controlName]="registerForm.controls.lastName">
+                            </error-messages>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNo" class="form-label">Phone No</label>
+                            <input
+                                    type="text"
+                                    formControlName="phoneNo"
+                                    class="form-control"
+                                    placeholder="+1 235 440 3123"
+                                    id="phoneNo"
+                                    minlength="8"
+                                    maxlength="20"
+                                    digits
+                                    aria-describedby="phoneNo"
+                                    tabindex="2"
+                                    [ngClass]="validateControl(registerForm.controls.phoneNo)"
+                            />
+                            <error-messages
+                                    *ngIf="registerForm.controls.phoneNo.touched && registerForm.controls.phoneNo.errors"
+                                    [errors]="registerForm.controls.phoneNo.errors"
+                                    [controlName]="registerForm.controls.phoneNo">
+                            </error-messages>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input
+                                        id="password"
+                                        [type]="passwordTextType ? 'text' : 'password'"
+                                        formControlName="password"
+                                        class="form-control form-control-merge"
+                                        placeholder="············"
+                                        aria-describedby="password"
+                                        required
+                                        minlength="8"
+                                        maxlength="20"
+                                        password
+                                        [digitCharacter]="1"
+                                        uppercaseCharacter="1"
+                                        lowercaseCharacter="1"
+                                        notMatching='cPassword'
+                                        tabindex="3"
+                                        [ngClass]="validateControl(registerForm.controls.password)"
+                                />
+                                <div class="input-group-append">
+                <span class="input-group-text cursor-pointer"
+                ><i
+                        class="feather font-small-4"
+                        [ngClass]="{
+                      'icon-eye-off': passwordTextType,
+                      'icon-eye': !passwordTextType
+                    }"
+                        (click)="togglePasswordTextType()"
+                ></i></span>
+                                </div>
+                            </div>
+
+                            <error-messages
+                                    *ngIf="registerForm.controls.password.touched && registerForm.controls.password.errors"
+                                    [errors]="registerForm.controls.password.errors"
+                                    [controlName]="registerForm.controls.password">
+                            </error-messages>
+                            <!--                        <small class="form-text text-danger"-->
+                            <!--                               *ngIf="registerForm.controls.password.touched && registerForm.controls.password.errors">-->
+                            <!--                            <span *ngIf="registerForm.controls.password.hasError('repeatCharacterRegexRule')">Password contains repeating characters</span>-->
+                            <!--                            <span *ngIf="registerForm.controls.password.hasError('digitCharacterRule')">Password should contain at least one digit</span>-->
+                            <!--                            <span *ngIf="registerForm.controls.password.hasError('alphabeticalCharacterRule')">Password should contain at least one alphabetical character</span>-->
+                            <!--                            <span *ngIf="registerForm.controls.password.hasError('lowercaseCharacterRule')">Password should contain at least one lowercase character</span>-->
+                            <!--                            <span *ngIf="registerForm.controls.password.hasError('uppercaseCharacterRule')">Password should contain at least one uppercase character</span>-->
+                            <!--                        </small>-->
+                            <!--                        <error-messages-->
+                            <!--                                *ngIf="registerForm.controls.password.touched && registerForm.controls.password.errors"-->
+                            <!--                                [controlName]="registerForm.controls.password">-->
+                            <!--                        </error-messages>-->
+
+                        </div>
+                        <!-- C passwod -->
+                        <div class="form-group">
+                            <label for="cPassword" class="form-label">Confirm Password</label>
+
+                            <div class="input-group input-group-merge form-cPassword-toggle">
+                                <input
+                                        id="cPassword"
+                                        [type]="passwordTextType ? 'text' : 'Password'"
+                                        formControlName="cPassword"
+                                        class="form-control form-control-merge"
+                                        placeholder="············"
+                                        aria-describedby="cPassword"
+                                        tabindex="3"
+                                        [ngClass]="validateControl(registerForm.controls.cPassword)"
+                                />
+                                <div class="input-group-append">
+                <span class="input-group-text cursor-pointer"
+                ><i
+                        class="feather font-small-4"
+                        [ngClass]="{
+                      'icon-eye-off': passwordTextType,
+                      'icon-eye': !passwordTextType
+                    }"
+                        (click)="togglePasswordTextType()"
+                ></i
+                ></span>
+                                </div>
+                            </div>
+                            <error-messages
+                                    *ngIf="registerForm.controls.cPassword.touched && registerForm.controls.cPassword.errors"
+                                    [errors]="registerForm.controls.cPassword.errors"
+                                    [controlName]="registerForm.controls.cPassword">
+                            </error-messages>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" required
+                                       id="register-privacy-policy"
+                                       tabindex="4"/>
+                                <label class="custom-control-label" for="register-privacy-policy">
+                                    I agree to <a href="javascript:void(0);">privacy policy & terms</a>
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" tabindex="5" rippleEffect>Sign up</button>
+                    </div>
+                </form>
+                <p class="text-center mt-2">
+          <span>Already have an account?</span
+          ><a routerLink="/authentication/login"><span>&nbsp;Sign in instead</span></a>
+                </p>
+                <div class=" divider my-2">
+                    <div class="divider-text">or</div>
+                </div>
+                <div class="auth-footer-btn d-flex justify-content-center">
+                    <a class="btn btn-facebook" href="javascript:void(0)"><i data-feather="facebook"></i></a
+                    ><a class="btn btn-twitter white" href="javascript:void(0)"><i data-feather="twitter"></i></a
+                ><a class="btn btn-google" href="javascript:void(0)"><i data-feather="mail"></i></a
+                ><a class="btn btn-github" href="javascript:void(0)"><i data-feather="github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- /Register-->
+    </div>
+</div>

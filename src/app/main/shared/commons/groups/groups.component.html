@@ -1,0 +1,240 @@
+<app-content-header [contentHeader]="contentHeader" [elementRef]="button"></app-content-header>
+<ng-template #button>
+    <div class="d-inline-flex">
+        <button
+                type="button"
+                class="btn mr-1"
+                [class.btn-outline-primary]="isAddContactsCollapsed"
+                [class.btn-primary]="!isAddContactsCollapsed"
+                (click)="onShowHideContacts(contactsCont)"
+                [attr.aria-expanded]="!isAddContactsCollapsed"
+                aria-controls="collapse"
+                rippleEffect>
+            Add Members To Groups
+        </button>
+        <button
+                type="button"
+                class="btn"
+                [class.btn-outline-primary]="isCollapsed"
+                [class.btn-primary]="!isCollapsed"
+                (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapse"
+                rippleEffect>
+            Add Group
+        </button>
+    </div>
+</ng-template>
+
+<block-ui></block-ui>
+
+<div [ngbCollapse]="isCollapsed">
+    <div class="card mb-1">
+        <div class="card-body">
+            <form class="form form-vertical" [formGroup]="mainForm">
+                <div class="row">
+
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" formControlName="name"
+                                   required [ngClass]="{ 'is-invalid': mainForm.controls.name.touched && mainForm.controls.name.errors,
+                                                              'is-valid': mainForm.controls.name.touched && mainForm.controls.name.valid }"
+                                   [maxLength]="25"
+                                   [minLength]="8"
+                                   placeholder="Name"/>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.name"
+                                                                  class="char-count">{{ mainForm.controls.name.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.name" class="char-count">0 </span> / 25
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.name.invalid && mainForm.controls.name.touched">
+                                Name is Required!
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.name.invalid && mainForm.controls.name.touched && mainForm.controls.name.errors.minLength">
+                                Group name needs to be at-least 8 characters
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="groupTypeId">Group Type</label>
+                            <ng-select
+                                    [items]="groupTypes"
+                                    bindLabel="description"
+                                    bindValue="id"
+                                    formControlName="groupTypeId"
+                                    required
+                                    [ngClass]="{ 'is-invalid': mainForm.controls.groupTypeId.touched && mainForm.controls.groupTypeId.errors,
+                                                               'is-valid': mainForm.controls.groupTypeId.touched && mainForm.controls.groupTypeId.valid }"
+                                    id="groupTypeId"
+                            >
+                                <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                    {{ item.description }}
+                                </ng-template>
+                            </ng-select>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.groupTypeId.invalid && mainForm.controls.groupTypeId.touched">
+                                Group Type is Required!</small>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input type="text" id="Description"
+                                   [ngClass]="{ 'is-invalid': mainForm.controls.description.touched && mainForm.controls.description.errors,
+                                                              'is-valid': mainForm.controls.description.touched && mainForm.controls.description.valid }"
+                                   class="form-control" formControlName="description"
+                                   [maxlength]="100"
+                                   placeholder="Description"/>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.description"
+                                                                  class="char-count">{{ mainForm.controls.description.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.description" class="char-count">0 </span> / 100
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-right">
+                        <button type="button" rippleEffect (click)="onCancelGroup()"
+                                class="btn btn-outline-secondary mr-1">Cancel
+                        </button>
+                        <button type="submit" rippleEffect (click)="onSubmitGroup()" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row" cdkDropListGroup>
+    <div class="animate-width scroll-content hidden" #contactsCont [class.col-0]="isAddContactsCollapsed"
+         [class.col-4]="!isAddContactsCollapsed">
+        <div class="row contacts-container" cdkDropList>
+            <div class="col-xl-6 col-lg-12" [contextMenuTrigger]="animatedContextMenu"
+                 *ngFor="let contact of contacts" cdkDrag [cdkDragData]="contact">
+                <div *cdkDragPreview class="avatar pull-up">
+                    <div class="avatar-content">
+                        {{getContactFullName(contact) | initials}}
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="offset-3 col-6 text-center">
+                                <div class="avatar avatar-xl">
+                                    <img src="../../../../../assets/images/portrait/small/avatar-s-20.jpg" alt="avatar">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-1 contact-content">
+                                <h4 class="text-ellipsis">{{getContactFullName(contact)}}</h4>
+                                <p class="text-ellipsis">{{contact.title}}</p>
+                                <p class="text-ellipsis">{{contact.email}}
+                                    <button type="button" class="btn btn-icon btn-icon rounded-circle btn-flat-success"
+                                            ngbTooltip="Send Invite Link" rippleEffect>
+                                        <span [data-feather]="'share'"></span></button>
+                                    <span *ngFor="let data1 of filterFunction(contact.emails)"
+                                          class="badge badge-pill badge-primary badge-up badge-email-left"
+                                          ngbTooltip="Total Number of Emails {{contact.emails}}">{{filterFunctionCount(contact.emails)}}</span>
+                                </p>
+                                <p>{{contact.organizationId}}</p>
+                                <p class="text-ellipsis ls-1">{{contact.phone}}
+                                    <span *ngFor="let data of filterFunction(contact.phoneNumbers)"
+                                          class="badge badge-pill badge-primary badge-up badge-phone-left"
+                                          ngbTooltip="Total Number of Phones  {{contact.phoneNumbers}}">{{filterFunctionCount(contact.phoneNumbers)}}</span>
+                                </p>
+                            </div>
+                            <div class="col-12 bottom-groups">
+                                <div class="avatar-group">
+                                    <div class="avatar pull-up" *ngFor="let g of contact.groupMembers;let i=index"
+                                         [ngbTooltip]="g.group.name" container="body" [routerLink]="'/commons/groups'">
+                                        <div class="avatar-content">
+                                            {{g.group.name | initials}}
+                                            <!-- Id {{contact.GroupIds[i]}} -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="animate-width" [class.col-12]="isAddContactsCollapsed" [class.col-8]="!isAddContactsCollapsed">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 groups-container"
+                 [contextMenuTrigger]="animatedContextMenu"
+                 *ngFor="let group of groups" cdkDropList (cdkDropListDropped)="onDropContact($event,group)"
+                 (cdkDropListEntered)="onDropContactEnter($event)"
+                 (cdkDropListExited)="onDropContactExit($event)"
+                 [cdkDropListData]="group.groupMembers"
+                 [id]="'group_'+group.id">
+                <div class="card">
+                    <div class="actions-container top-right">
+                        <div class="custom-control custom-switch custom-switch-primary ml-25"
+                             ngbTooltip="Is Public Group?">
+                            <input type="checkbox" class="custom-control-input" id="isPublicG{{group.id}}"
+                                   [(ngModel)]="group.isPublic"
+                                   (ngModelChange)="onGroupAction(group,'publicChange')"/>
+                            <label class="custom-control-label" for="isPublicG{{group.id}}">
+                                <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                            </label>
+                        </div>
+                        <button ngbTooltip="Edit Group"
+                                class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                (click)="onGroupAction(group, 'edit')">
+                            <i class="feather icon-edit"></i>
+                        </button>
+                        <button ngbTooltip="Remove Group"
+                                class="action-btn btn btn-icon btn-danger btn-sm ml-25"
+                                (click)="onGroupAction(group, 'remove')">
+                            <i class="feather icon-x"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="offset-3 col-6 text-center">
+                                <div class="avatar avatar-xl">
+                                    <img src="../../../../../assets/images/portrait/small/avatar-s-20.jpg" alt="avatar">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-1 contact-content">
+                                <h4 class="text-ellipsis" [ngbTooltip]="getTooltip(group.name)">{{group.name}}</h4>
+                                <!-- <p>{{contact.email}}
+                                    <button type="button"
+                                            class="btn btn-icon btn-icon rounded-circle btn-flat-success"
+                                            ngbTooltip="Send Invite Link"
+                                            rippleEffect>
+                                        <span [data-feather]="'share'"></span></button
+                                    >
+                                </p> -->
+                                <p>{{group?.groupType?.description || 'N/A'}}</p>
+                                <p class="text-ellipsis"
+                                   [ngbTooltip]="getTooltip(group?.description || '')">{{group?.description || ""}}</p>
+                                <p>public : {{group.isPublic}}</p>
+                            </div>
+                            <div class="col-12 bottom-groups">
+                                <div class="avatar-group">
+                                    <div class="avatar pull-up" *ngFor="let c of group.groupMembers">
+                                        <div class="avatar-content" container="body" [routerLink]="'/commons/contacts'"
+                                             [ngbTooltip]="getContactFullName(c.contact)">
+                                            {{getContactFullName(c.contact) | initials}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="auth-wrapper auth-v2">
+    <div class="auth-inner row m-0">
+        <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
+        <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28"/>
+        <h2 class="brand-text text-primary ml-1">ClCong</h2></a
+    >
+        <!-- /Brand logo-->
+        <!-- Left Text-->
+        <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
+            <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+                <img
+                        class="img-fluid"
+                        [src]="
+            coreConfig.layout.skin === 'dark'
+              ? 'assets/images/pages/verify-dark.svg'
+              : 'assets/images/pages/verify.svg'
+          "
+                        alt="Verify"
+                />
+            </div>
+        </div>
+        <!-- /Left Text-->
+        <!-- Verify-->
+        <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto text-center">
+                <h2 class="card-title font-weight-bold mb-1">Verify your Email! 📧</h2>
+                <p class="card-text mb-2">You are almost there! We sent an email to</p>
+                <p class="card-text mb-2 font-weight-bold">{{emailVar}}
+                    <button type="button" class="btn btn-icon btn-icon rounded-circle btn-flat-success"
+                            (click)="changeEmailCollapse = !changeEmailCollapse"
+                            [attr.aria-expanded]="!changeEmailCollapse"
+                            aria-controls="changeEmailCollapse"
+                            ngbTooltip="Incorrect Email? Change It!" rippleEffect>
+                        <span [data-feather]="'refresh-ccw'"></span></button
+                    >
+                </p>
+                <div [ngbCollapse]="!changeEmailCollapse">
+                    <p class="card-text mb-2">Just click on the link in that email to complete your signup.<br>
+                        If you don't see it, you may need to <strong>check your spam</strong> folder.</p>
+                    <p>Still can't find the email?</p>
+                    <button class="btn btn-primary btn-block" tabindex="2" (click)="resendEmail()" rippleEffect>Resend Email
+                    </button>
+
+                    <p class="mt-2">Need Help? <a href="#">Contact Us</a></p>
+                    <p class="mt-2">Logged in by Mistake? <a class="cursor-pointer" href="#" (click)="logout()">Logout</a></p>
+                </div>
+                <div [ngbCollapse]="changeEmailCollapse">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <form class="auth-forgot-password-form mt-2" [formGroup]="authVerifyForm"
+                                  (ngSubmit)="onSubmit()">
+                                <div class="form-group">
+                                    <label class="form-label" for="change-email">Email</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="change-email"
+                                            formControlName="email"
+                                            placeholder="john@example.com"
+                                            aria-describedby="change-email"
+                                            autofocus=""
+                                            tabindex="1"
+                                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                    />
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-block" tabindex="2" rippleEffect>Change Email & Send link</button>
+                            </form>
+                            <p class="text-center mt-2">
+                                <a class="cursor-pointer" (click)="changeEmailCollapse = !changeEmailCollapse">
+                                    <i data-feather="chevron-left" class="mb-25"></i> Cancel</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Verify-->
+    </div>
+</div>

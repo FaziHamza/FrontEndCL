@@ -1,0 +1,445 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+
+        <!-- <ng-template #selectOrganization let-modal>
+            <div class="modal-header organizationHeader ">
+                <h5 class="modal-title organizationHeaderTxt">Select Organization</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" tabindex="0" ngbAutofocus>
+                <ul class="organizations-list">
+                    <li *ngFor="let org of organizations">
+                        <div class="custom-control custom-radio ">
+                            <input type="radio" class="custom-control-input"
+                                (change)="onChangeOrganization(org.id, inputElement)" #inputElement [value]="org.id"
+                                id="org{{org.id}}" [checked]="tempOrgId === org.id" />
+                            <label class="custom-control-label" for="org{{org.id}}" style="font-size: 20px;font-style: inherit;">{{org.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer " >
+                <button type="button" style="margin: 0px 209px 0px 0px;" class="btn btn-primary text-center" #btnSub (click)="onSubmitSearchCreateOrganization()"
+                    rippleEffect>
+                    Ok
+                </button>
+            </div>
+        </ng-template> -->
+
+        <!-- content-header component -->
+        <!--        <app-content-header [contentHeader]="contentHeader"></app-content-header>-->
+
+        <!-- Basic Alerts start -->
+        <section id="home-actions">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom: 0.5rem;">
+                        <div class="card-body d-inline-flex align-items-center">
+                            <h2 class="content-header-title float-left mb-0">
+                                {{ 'Project' }} | {{organization.name}}
+                                <!-- <ul class="organizations-list">
+                                    <li *ngFor="let org of organizations">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   (change)="onChangeOrganization(org.id, inputElement)"
+                                                   #inputElement
+                                                   [value]="org.id" id="org{{org.id}}"
+                                                   [checked]="tempOrgId === org.id"/>
+                                            <label class="custom-control-label" for="org{{org.id}}">{{org.name}}</label>
+                                        </div>
+                                    </li>
+                                </ul> -->
+                            </h2>
+                            <!--                            <div class="h3 ml-1 mb-0">Selected Organization:</div>-->
+                            <div class="content-header-title h4 ml-1 mb-0 cursor-pointer"
+                                (click)="onClickOrganization()">
+                                <!-- {{organization?.name || 'No Organization Selected!'}} -->
+                            </div>
+                            <!-- <button ngbTooltip="Select Organization" *ngIf="organizations.length>1"
+                                class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                (click)="onSelectOrganization(selectOrganization)">
+                                <i class="feather icon-edit"></i>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsShowAlert">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom:4px ;">
+                        <div class="card-body align-items-center" style="padding: 6px 0px 1px 10px !important;;">
+                            <div class="row" style="font-size: 20px;">
+                                <div class="col-md-11">
+                                    <ul>
+                                        <li style="color: #7367f0;" *ngFor="let item of alertList">
+
+                                            <div class="alert " [ngClass]="item.class" role="alert">
+                                                <div class="alert-body"><strong>Hi!</strong> {{item.name}} </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="col-md-2 text-right" style="font-size:12px;">
+
+                                </div>
+                                <!-- <div class="col-md-2">
+                                
+                              </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- form Config  -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form class="form form-horizontal">
+                            <div class="row" [formGroup]="projectForm">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <!-- Shift -->
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="shift">Project Id </label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" formControlName="projectId" (change)="loadFormData(projectForm.controls.projectId.value)"
+                                                        [ngClass]="{ 'is-invalid': projectForm.controls.projectId.touched && projectForm.controls.projectId.errors,
+                                                           'is-valid': projectForm.controls.projectId.touched && projectForm.controls.projectId.valid }"
+                                                         id="project-projectId" class="form-control"
+                                                        [maxlength]="30" placeholder="project id" />
+                                                    <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="projectForm.controls.projectId"
+                                                            class="char-count">{{
+                                                            projectForm.controls.projectId.value.length }}</span>
+                                                        <span *ngIf="!projectForm.controls.projectId"
+                                                            class="char-count">0 </span> / {{10}}
+                                                    </small>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="shift">Name</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" formControlName="name"
+                                                        [ngClass]="{ 'is-invalid': projectForm.controls.name.touched && projectForm.controls.name.errors,
+                                                           'is-valid': projectForm.controls.name.touched && projectForm.controls.name.valid }" required
+                                                        id="project-name" class="form-control" [maxlength]="30"
+                                                        placeholder="Project Name" />
+                                                    <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="projectForm.controls.name" class="char-count">{{
+                                                            projectForm.controls.name.value.length }}</span>
+                                                        <span *ngIf="!projectForm.controls.name" class="char-count">0
+                                                        </span> / {{30}}
+                                                    </small>
+                                                    <small class="form-text text-danger"
+                                                        *ngIf="projectForm.controls.name.invalid && projectForm.controls.name.touched">
+                                                        This field is required!</small>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Detail -->
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="shift">Detail </label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" formControlName="description"
+                                                        [ngClass]="{ 'is-invalid': projectForm.controls.description.touched && projectForm.controls.description.errors,
+                                                           'is-valid': projectForm.controls.description.touched && projectForm.controls.description.valid }"
+                                                         id="project-description" class="form-control"
+                                                        [maxlength]="30" placeholder="Detail" />
+                                                    <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="projectForm.controls.description"
+                                                            class="char-count">{{
+                                                            projectForm.controls.description.value.length }}</span>
+                                                        <span *ngIf="!projectForm.controls.description"
+                                                            class="char-count">0 </span> / {{50}}
+                                                    </small>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="endTime">Project No </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" formControlName="projectNo"
+                                                        [ngClass]="{ 'is-invalid': projectForm.controls.projectNo.touched && projectForm.controls.projectNo.errors,
+                                                           'is-valid': projectForm.controls.projectNo.touched && projectForm.controls.projectNo.valid }" 
+                                                        id="project-projectNo" class="form-control" [maxlength]="30"
+                                                        placeholder="Project No" />
+                                                    <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="projectForm.controls.projectNo"
+                                                            class="char-count">{{
+                                                            projectForm.controls.projectNo.value.length }}</span>
+                                                        <span *ngIf="!projectForm.controls.projectNo"
+                                                            class="char-count">0 </span> / {{30}}
+                                                    </small>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="endTime">Version </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" formControlName="version"
+                                                        [ngClass]="{ 'is-invalid': projectForm.controls.version.touched && projectForm.controls.version.errors,
+                                                           'is-valid': projectForm.controls.version.touched && projectForm.controls.version.valid }" 
+                                                        id="project-version" class="form-control" [maxlength]="10"
+                                                        placeholder="Version" />
+                                                    <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="projectForm.controls.version" class="char-count">{{
+                                                            projectForm.controls.version.value.length }}</span>
+                                                        <span *ngIf="!projectForm.controls.version" class="char-count">0
+                                                        </span> / {{10}}
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- copy here -->
+
+
+                                        <!-- // Coy Hear -->
+
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="startTime">Start Date</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="date" class="form-control">
+                                                    <!-- <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
+                                                        [(bsValue)]="projectStartDate" /> -->
+
+                                                        <!-- type="text"
+                                                        class="form-control"
+                                                        placeholder="mm-dd-yyyy"
+                                                        formControlName="projectStartDate"
+                                                        id="projectStartDate"
+                                                        bsDatepicker
+                                                        required
+                                                        #basicSD="bsDatepicker" [(bsValue)]="projectStartDate" -->
+
+
+                                                    <!-- <input type="text"
+                                                     placeholder="Daterangepicker"
+                                                     class="form-control"
+                                                     bsDatepicker> -->
+                                                    <!-- <small class="form-text text-danger"
+                                                     *ngIf="projectForm.controls.projectStartDate.invalid">
+                                                   This field is required!</small> -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- End time -->
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="endTime">End Date</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="date" class="form-control">
+                                                    <!-- <input type="text" class="form-control" placeholder="mm-dd-yyyy"
+                                                        formControlName="projectEndDate" id="projectEndDate"
+                                                        bsDatepicker required #basicSD="bsDatepicker"
+                                                        [(bsValue)]="projectEndDate" /> -->
+                                                        <!-- <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
+                                                        [(bsValue)]="projectStartDate" /> -->
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <!-- project plan -->
+                                        <!-- project plan -->
+
+
+                                        <!-- // Prorjct no  -->
+
+
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="isPublic">Is Public </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" formControlName="isPublic"
+                                                            class="custom-control-input" id="isPublic" checked />
+                                                        <label class="custom-control-label" for="isPublic">
+                                                            <span class="switch-icon-left"><i
+                                                                    data-feather="check"></i></span>
+                                                            <span class="switch-icon-right"><i
+                                                                    data-feather="x"></i></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3 col-form-label">
+                                            <label for="isDefault">Is Default </label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" formControlName="isDefault"
+                                                    class="custom-control-input" id="isDefault" checked />
+                                                <label class="custom-control-label" for="isDefault">
+                                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                                </label>
+                                            </div>
+
+
+                                        </div>
+
+                                        <!-- Is hourlylog -->
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="isNotificationOn">Notification On </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" formControlName="isNotificationOn"
+                                                            class="custom-control-input" id="isNotificationOn" checked />
+                                                        <label class="custom-control-label" for="isNotificationOn">
+                                                            <span class="switch-icon-left"><i
+                                                                    data-feather="check"></i></span>
+                                                            <span class="switch-icon-right"><i
+                                                                    data-feather="x"></i></span>
+                                                        </label>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="isNotifyUserByEmail">Notify By Email </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" formControlName="isNotifyUserByEmail"
+                                                            class="custom-control-input" id="isNotifyUserByEmail" checked />
+                                                        <label class="custom-control-label" for="isNotifyUserByEmail">
+                                                            <span class="switch-icon-left"><i
+                                                                    data-feather="check"></i></span>
+                                                            <span class="switch-icon-right"><i
+                                                                    data-feather="x"></i></span>
+                                                        </label>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="endTime">Priority </label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <ng-select [items]="priorityTypes" id="priorityType"
+                                                        formControlName="priorityType" bindLabel="description">
+                                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                            {{ item.description }}
+                                                        </ng-template>
+                                                    </ng-select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="startTime">Project Plan Start Date</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                  
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="endTime">Project Plan End Date</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                  
+
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div> -->
+
+                                        <!-- copy end -->
+
+
+                                        <div class="col-sm-9"></div>
+                                        <div class="col-sm-3">
+                                            <button class="btn btn-primary btn-md btn-block btn-submit" rippleEffect
+                                                (click)="orgConfigSave()">
+                                                Submit
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

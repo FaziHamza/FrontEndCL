@@ -1,0 +1,111 @@
+<form class="form form-horizontal" (ngSubmit)="onJobSalarySubmit()" #userForm="ngForm">
+    <div class="row my-1" [formGroup]="jobSalaryForm">
+        <button [ngClass]="{ ' fa-minus' :this.jobService.IsShowSalary ==true, ' fa-plus':this.jobService.IsShowSalary != true }"
+         class="fa btn btn-primary fa btn-sm  " 
+        type="button" (click)="showSalary();"></button>
+
+        <div *ngIf="this.jobService.IsShowSalary" class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="job-title">Job Title</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="title" [ngClass]="{ 'is-invalid': jobSalaryForm.controls.title.touched && jobSalaryForm.controls.title.errors,
+                           'is-valid': jobSalaryForm.controls.title.touched && jobSalaryForm.controls.title.valid }"
+                        required id="title" class="form-control" [maxlength]="30" placeholder="C.E.O" />
+                    <small class="textarea-counter-value float-right">
+                        <span *ngIf="jobSalaryForm.controls.title" class="char-count">{{
+                            jobSalaryForm.controls.title.value.length }}</span>
+                        <span *ngIf="!jobSalaryForm.controls.title" class="char-count">0 </span> /
+                        {{textFieldMaxLength}}
+                    </small>
+                    <small class="form-text text-danger"
+                        *ngIf="jobSalaryForm.controls.title.invalid && jobSalaryForm.controls.title.touched">
+                        This field is required!</small>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.jobService.IsShowSalary" class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="organizationId">Select Type</label>
+                </div>
+                <div class="col-sm-9">
+                    <ng-select [items]="salaryTypes" id="salaryType" formControlName="salaryType"
+                        bindLabel="description" [loading]="selectBasicLoading">
+                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                            {{ item.description }}
+                        </ng-template>
+                    </ng-select>
+                    <small class="form-text text-danger"
+                        *ngIf="jobSalaryForm.controls.salaryType.invalid && jobSalaryForm.controls.salaryType.touched">
+                        This field is required!</small>
+                </div>
+            </div>
+        </div>
+
+        <div  *ngIf="this.jobService.IsShowSalary" class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="job-title">Job Salary</label>
+                </div>
+                <div class="col-sm-6">
+                    <input type="number" 
+                    (click)="jobSalaryForm.controls.salary.value == 0 ? resetDeafult('salary') : setDefault('salary')"
+                    formControlName="salary" [ngClass]="{ 'is-invalid': jobSalaryForm.controls.salary.touched && jobSalaryForm.controls.salary.errors,
+                           'is-valid': jobSalaryForm.controls.salary.touched && jobSalaryForm.controls.salary.valid }"
+                        required id="salary" class="form-control" [maxlength]="30" placeholder="00.00" />
+                    <small class="textarea-counter-value float-right">
+                        <span *ngIf="jobSalaryForm.controls.salary" class="char-count">{{
+                            jobSalaryForm.controls.salary.value.length }}</span>
+                        <span *ngIf="!jobSalaryForm.controls.salary" class="char-count">0 </span> /
+                        {{textFieldMaxLength}}
+                    </small>
+                    <small class="form-text text-danger"
+                        *ngIf="jobSalaryForm.controls.salary.invalid && jobSalaryForm.controls.salary.touched">
+                        This field is required!</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 mt-1" *ngIf="jobService.IsShowTable ">
+            <table class="table timesheet-table table-striped">
+                <thead>
+                    <tr>
+                        <td>Entry Date</td>
+                        <td>Title</td>
+                        <td>Slaray Type</td>
+
+                        <td>Salary/Rate</td>
+                        <td>Action</td>
+
+                    </tr>
+                </thead>
+                <tr *ngFor="let item of jobService.jobSalaryList; index as i ">
+                    <td> {{item.createdDate | date:'MM/dd/yyyy'}} </td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.salaryType.description}}</td>
+                    <td>{{item.salary}}</td>
+                    <td>
+                        <!-- {{jobService.jobSalaryList.length}} -->
+                        <button *ngIf="0==i" ngbTooltip="Edit Salary" (click)="editSalary(item ,'edit')"
+                            class="action-btn btn btn-icon btn-primary btn-sm ml-25">
+                            <i class="feather icon-edit"></i>
+                        </button>
+                        <!-- <button ngbTooltip="Delete Salary" (click)="editSalary(item, 'delete')"
+                            class="action-btn btn btn-icon btn-danger btn-sm ml-25">
+                            <i class="feather icon-delete"></i>
+                        </button> -->
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+
+
+
+    </div>
+
+</form>

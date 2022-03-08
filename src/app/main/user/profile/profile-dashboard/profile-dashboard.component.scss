@@ -1,0 +1,235 @@
+// Form Validation
+
+//@import '../../../../@core/scss/base/plugins/forms/form-validation.scss';
+//@import '../../../../@core/scss/angular/libs/select.component.scss';
+// @import 'src/@core/scss/base/bootstrap-extended/include';
+// Bootstrap includes
+@import '~@core/scss/base/pages/app-user.scss';
+
+.mt-50 {
+  margin-top: 0.5rem;
+}
+
+.ml-50 {
+  margin-left: 0.5rem;
+}
+
+.wh-same {
+
+  &.small {
+    width: 60px;
+    height: 60px;
+  }
+
+  &:not(.small) {
+    width: 104px;
+    height: 104px;
+  }
+}
+
+.padding-1 {
+  padding: 1.5rem;
+}
+
+.avatar-xxxl {
+  font-size: 5rem;
+
+  img {
+    width: 150px;
+    height: 150px
+  }
+}
+
+.education-pic {
+  height: 100px;
+  width: 100px;
+}
+
+.bg-card-gray {
+  background-color: #f2f3f3;
+}
+
+.skill-badge {
+  display: inline-flex;
+  place-items: center;
+  padding: 0.25rem;
+  border-radius: $border-radius;
+  border: 1px solid $primary;
+  transition: all 1s ease-in-out;
+
+  .actions {
+    display: inline-flex;
+    transition: all 1s ease-in-out;
+  }
+
+  .badge {
+    transition: all 1s ease-in-out;
+    width: 100%;
+    min-width: 100px;
+  }
+
+  &:hover {
+    max-width: 350px;
+
+    .actions {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+
+  &:not(:hover) {
+    max-width: 200px;
+    overflow: hidden;
+
+    .actions {
+      width: 0;
+      opacity: 0;
+    }
+
+  }
+
+}
+
+.job-experience-widget {
+  text-align: -webkit-center;
+  padding: 0.25rem;
+  border-radius: $border-radius;
+  border: 1px solid $primary;
+
+  &:hover {
+    .actions-container {
+      display: inline-flex;
+    }
+  }
+
+  &:not(:hover) {
+    .actions-container {
+      display: none;
+    }
+  }
+
+  &:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+
+  .skills-container {
+    .badge:not(:first-of-type) {
+      margin-left: 0.25rem;
+    }
+  }
+}
+
+.reference-widget {
+  text-align: left;
+  padding: 0.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $primary;
+  display: flex;
+
+  &:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+
+  &:hover {
+    .actions-container {
+      display: inline-flex;
+    }
+  }
+
+  &:not(:hover) {
+    .actions-container {
+      display: none;
+    }
+  }
+
+}
+
+.actions-container {
+  display: inline-flex;
+  position: absolute;
+  align-items: center;
+
+  &.top-left {
+    top: 10px;
+    left: 10px;
+  }
+
+  &.top-right {
+    top: 5px;
+    right: 5px;
+  }
+}
+
+.education-widget {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $primary;
+
+  &:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+
+  &:hover {
+    .actions-container {
+      display: inline-flex;
+    }
+  }
+
+  &:not(:hover) {
+    .actions-container {
+      display: none;
+    }
+  }
+
+  .education-content {
+    margin-left: 0.5rem;
+
+    p {
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+
+.add-address-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.address-actions {
+  max-width: 55%;
+  margin-bottom: 0.50rem;
+
+  .right {
+    text-align: right;
+  }
+
+  .left {
+    text-align: left;
+  }
+
+  .center {
+    text-align: center;
+  }
+}
+
+//.address-btn {
+//  position: absolute;
+//
+//  &.start {
+//    left: 10px;
+//    top: -35px;
+//  }
+//
+//  &.end {
+//    left: 50%;
+//    top: -35px;
+//  }
+//
+//  &.center{
+//    left: 25%;
+//    top: -35px;
+//  }
+//}

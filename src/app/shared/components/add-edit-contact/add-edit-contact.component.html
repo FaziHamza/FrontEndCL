@@ -1,0 +1,397 @@
+<form class="form form-vertical" autocomplete="off">
+    <div class="row" [formGroup]="contactForm">
+        <ng-container *ngIf="useCompactLayout">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="first-name">First Name</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input required type="text" id="first-name"
+                               [ngClass]="{ 'is-invalid': contactForm.controls.firstName.touched && contactForm.controls.firstName.errors,
+                                                  'is-valid': contactForm.controls.firstName.touched && contactForm.controls.firstName.valid }"
+                               class="form-control" formControlName="firstName"
+                               [maxlength]="textFieldMaxLength"
+                               placeholder="First Name"/>
+                        <error-messages
+                                *ngIf="contactForm.controls.firstName.touched && contactForm.controls.firstName.errors"
+                                [errors]="contactForm.controls.firstName.errors"
+                                [controlName]="contactForm.controls.firstName"></error-messages>
+                        <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.firstName"
+                                                      class="char-count">{{ contactForm.controls.firstName.value.length }}</span>
+                            <span *ngIf="!contactForm.controls.firstName" class="char-count">0 </span>
+                            / {{textFieldMaxLength}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="middle-name">Middle Name</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" [ngClass]="{ 'is-invalid': contactForm.controls.middleName.touched && contactForm.controls.middleName.errors,
+                                           'is-valid': contactForm.controls.middleName.touched && contactForm.controls.middleName.valid }"
+                               id="middle-name" class="form-control" formControlName="middleName"
+                               [maxlength]="textFieldMaxLength"
+                               placeholder="Middle Name"/>
+                        <error-messages
+                                *ngIf="contactForm.controls.middleName.touched && contactForm.controls.middleName.errors"
+                                [errors]="contactForm.controls.middleName.errors"
+                                [controlName]="contactForm.controls.middleName"></error-messages>
+                        <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.middleName"
+                                                      class="char-count">{{ contactForm.controls.middleName.value.length }}</span>
+                            <span *ngIf="!contactForm.controls.middleName" class="char-count">0 </span>
+                            / {{textFieldMaxLength}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="last-name">Last Name</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" required [ngClass]="{ 'is-invalid': contactForm.controls.lastName.touched && contactForm.controls.lastName.errors,
+                                           'is-valid': contactForm.controls.lastName.touched && contactForm.controls.lastName.valid }"
+                               id="last-name" class="form-control" formControlName="lastName"
+                               [maxlength]="textFieldMaxLength"
+                               placeholder="Last Name"/>
+                        <error-messages
+                                *ngIf="contactForm.controls.lastName.touched && contactForm.controls.lastName.errors"
+                                [errors]="contactForm.controls.lastName.errors"
+                                [controlName]="contactForm.controls.lastName"></error-messages>
+                        <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.lastName"
+                                                      class="char-count">{{ contactForm.controls.lastName.value.length }}</span>
+                            <span *ngIf="!contactForm.controls.lastName" class="char-count">0 </span>
+                            / {{textFieldMaxLength}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for=email>Email</label>
+
+                    </div>
+                    <div class="col-sm-9">
+                        <input required
+                               type="email"
+                               [ngClass]="{ 'is-invalid': contactForm.controls.email.touched && contactForm.controls.email.errors,
+                           'is-valid': contactForm.controls.email.touched && contactForm.controls.email.valid }"
+                               ngvemail
+                               class="form-control"
+                               formControlName="email"
+                               [maxlength]="35"
+                               id="email"
+                               placeholder="Email"
+                        />
+                        <error-messages
+                                *ngIf="contactForm.controls.email.touched && contactForm.controls.email.errors"
+                                [errors]="contactForm.controls.email.errors"
+                                [controlName]="contactForm.controls.email"></error-messages>
+                        <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="contactForm.controls.email"
+                                                                  class="char-count">{{ contactForm.controls.email.value.length }}</span>
+                            <span *ngIf="!contactForm.controls.email" class="char-count">0 </span> / {{35}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="phone">Phone</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               [ngClass]="{ 'is-invalid': contactForm.controls.phone.touched && contactForm.controls.phone.errors,
+                           'is-valid': contactForm.controls.phone.touched && contactForm.controls.phone.valid }"
+                               class="form-control"
+                               formControlName="phone"
+                               digits
+                               [minlength]="10"
+                               [maxlength]="16"
+                               id="phone"
+                               placeholder="Phone"
+                        />
+                        <error-messages
+                                *ngIf="contactForm.controls.phone.touched && contactForm.controls.phone.errors"
+                                [errors]="contactForm.controls.phone.errors"
+                                [controlName]="contactForm.controls.phone"></error-messages>
+                        <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="contactForm.controls.phone"
+                                                                  class="char-count">{{ contactForm.controls.phone.value.length }}</span>
+                            <span *ngIf="!contactForm.controls.phone" class="char-count">0 </span> / {{16}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!useCompactLayout">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input required type="text" id="first-name"
+                           [ngClass]="{ 'is-invalid': contactForm.controls.firstName.touched && contactForm.controls.firstName.errors,
+                                                  'is-valid': contactForm.controls.firstName.touched && contactForm.controls.firstName.valid }"
+                           class="form-control" formControlName="firstName"
+                           [maxlength]="textFieldMaxLength"
+                           placeholder="First Name"/>
+                    <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.firstName"
+                                                      class="char-count">{{ contactForm.controls.firstName.value.length }}</span>
+                        <span *ngIf="!contactForm.controls.firstName" class="char-count">0 </span>
+                        / {{textFieldMaxLength}}
+                    </small>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="middle-name">Middle Name</label>
+                    <input type="text" required [ngClass]="{ 'is-invalid': contactForm.controls.middleName.touched && contactForm.controls.middleName.errors,
+                                           'is-valid': contactForm.controls.middleName.touched && contactForm.controls.middleName.valid }"
+                           id="middle-name" class="form-control" formControlName="middleName"
+                           [maxlength]="textFieldMaxLength"
+                           placeholder="Middle Name"/>
+                    <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.middleName"
+                                                      class="char-count">{{ contactForm.controls.middleName.value.length }}</span>
+                        <span *ngIf="!contactForm.controls.middleName" class="char-count">0 </span>
+                        / {{textFieldMaxLength}}
+                    </small>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" required [ngClass]="{ 'is-invalid': contactForm.controls.lastName.touched && contactForm.controls.lastName.errors,
+                                           'is-valid': contactForm.controls.lastName.touched && contactForm.controls.lastName.valid }"
+                           id="last-name" class="form-control" formControlName="lastName"
+                           [maxlength]="textFieldMaxLength"
+                           placeholder="Last Name"/>
+                    <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.lastName"
+                                                      class="char-count">{{ contactForm.controls.lastName.value.length }}</span>
+                        <span *ngIf="!contactForm.controls.lastName" class="char-count">0 </span>
+                        / {{textFieldMaxLength}}
+                    </small>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="contactType">Contact Type</label>
+                    <ng-select required
+                               [items]="contactTypes"
+                               [ngClass]="{ 'is-invalid': contactForm.controls.contactType.touched && contactForm.controls.contactType.errors,
+                                                   'is-valid': contactForm.controls.contactType.touched && contactForm.controls.contactType.valid }"
+                               bindLabel="description"
+                               bindValue="lookupId"
+                               id="contactType"
+                               formControlName="contactTypeId"
+                    >
+                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                            {{ item.description }}
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" required [ngClass]="{ 'is-invalid': contactForm.controls.title.touched && contactForm.controls.title.errors,
+                                           'is-valid': contactForm.controls.title.touched && contactForm.controls.title.valid }"
+                           id="title" class="form-control" formControlName="title"
+                           [maxlength]="30"
+                           placeholder="Title"/>
+                    <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.title"
+                                                      class="char-count">{{ contactForm.controls.title.value.length }}</span>
+                        <span *ngIf="!contactForm.controls.title" class="char-count">0 </span> / {{30}}
+                    </small>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="detail">Details</label>
+                    <input type="text" [ngClass]="{ 'is-invalid': contactForm.controls.detail.touched && contactForm.controls.detail.errors,
+                                           'is-valid': contactForm.controls.detail.touched && contactForm.controls.detail.valid }"
+                           id="detail" class="form-control" formControlName="detail"
+                           [maxlength]="100"
+                           placeholder="Details"/>
+                    <small class="textarea-counter-value float-right">
+                                                <span *ngIf="contactForm.controls.detail"
+                                                      class="char-count">{{ contactForm.controls.detail.value.length }}</span>
+                        <span *ngIf="!contactForm.controls.detail" class="char-count">0 </span> / {{100}}
+                    </small>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="divider divider-left">
+                    <div class="divider-text">Phone Numbers</div>
+                </div>
+                <div *ngFor="let pNG of phoneNumberControls; let i = index" @heightIn>
+                    <div class="row d-flex align-items-end" [formGroup]="pNG">
+
+                        <div class="col-md-4 col-12">
+                            <div class="form-group">
+                                <label for="type{{ i }}">Type</label>
+                                <ng-select
+                                        [items]="contactTypes"
+                                        [ngClass]="{ 'is-invalid': pNG.controls.type.touched && pNG.controls.type.errors,
+                                                               'is-valid': pNG.controls.type.touched && pNG.controls.type.valid }"
+                                        bindLabel="description"
+                                        bindValue="description"
+                                        formControlName="subType"
+                                        id="type{{ i }}"
+                                >
+                                    <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                        {{ item.description }}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-12">
+                            <div class="form-group">
+                                <label for="valueP{{ i }}">Phone</label>
+                                <input required
+                                       type="text"
+                                       [ngClass]="{ 'is-invalid': pNG.controls.value.touched && pNG.controls.value.errors,
+                           'is-valid': pNG.controls.value.touched && pNG.controls.value.valid }" class="form-control"
+                                       formControlName="value"
+                                       digits
+                                       [minlength]="10"
+                                       [maxlength]="16"
+                                       id="valueP{{ i }}"
+                                       placeholder="Phone"
+                                />
+                                <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="pNG.controls.value"
+                                                                  class="char-count">{{ pNG.controls.value.value?.length }}</span>
+                                    <span *ngIf="!pNG.controls.value" class="char-count">0 </span> / {{16}}
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <div class="form-group">
+                                <label for="isDefault{{i}}">Is Default</label>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="isDefault{{i}}"
+                                           (change)="onChangeDefault(i,isDef,'phone')"
+                                           formControlName="isDefault"
+                                           #isDef
+                                           [checked]="pNG.controls.isDefault.value">
+                                    <label class="custom-control-label" for="isDefault{{i}}">
+                                        <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                        <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <div class="form-group">
+                                <button type="button"
+                                        *ngIf="i > 0"
+                                        class="btn btn-icon btn-icon rounded-circle btn-outline-danger pull-right"
+                                        (click)="deleteItem(i, pNG.controls.isDefault.value,'phone')" rippleEffect>
+                                    <span [data-feather]="'x'"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <button type="button"
+                        class="btn btn-icon btn-icon rounded-circle btn-outline-success pull-right"
+                        (click)="addItem('phone')" rippleEffect>
+                    <span [data-feather]="'plus'"></span></button>
+            </div>
+            <div class="col-6">
+                <div class="divider divider-left">
+                    <div class="divider-text">Emails</div>
+                </div>
+                <div *ngFor="let eGroup of emailControls; let i = index" @heightIn>
+                    <div class="row d-flex align-items-end" [formGroup]="eGroup">
+
+                        <div class="col-md-4 col-12">
+                            <div class="form-group">
+                                <label for="emailType{{ i }}">Type</label>
+                                <ng-select
+                                        [items]="contactTypes"
+                                        bindLabel="description"
+                                        [ngClass]="{ 'is-invalid': eGroup.controls.type.touched && eGroup.controls.type.errors,
+                           'is-valid': eGroup.controls.type.touched && eGroup.controls.type.valid }"
+                                        bindValue="description"
+                                        id="emailType{{ i }}"
+                                        formControlName="subType">
+                                    <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                        {{ item.description }}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-12">
+                            <div class="form-group">
+                                <label for="valueE{{ i }}">Email</label>
+                                <input required
+                                       type="email"
+                                       [ngClass]="{ 'is-invalid': eGroup.controls.value.touched && eGroup.controls.value.errors,
+                           'is-valid': eGroup.controls.value.touched && eGroup.controls.value.valid }" ngvemail
+                                       class="form-control"
+                                       formControlName="value"
+                                       [maxlength]="35"
+                                       id="valueE{{ i }}"
+                                       placeholder="Email"
+                                />
+                                <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="eGroup.controls.value"
+                                                                  class="char-count">{{ eGroup.controls.value.value?.length }}</span>
+                                    <span *ngIf="!eGroup.controls.value" class="char-count">0 </span> / {{35}}
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <div class="form-group">
+                                <label for="isEmailDefault{{i}}">Is Default</label>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="isEmailDefault{{i}}"
+                                           (change)="onChangeDefault(i,isDef,'email')"
+                                           #isDef
+                                           formControlName="isDefault"
+                                           [checked]="eGroup.controls.isDefault.value">
+                                    <label class="custom-control-label" for="isEmailDefault{{i}}">
+                                        <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                        <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <div class="form-group">
+                                <button type="button"
+                                        *ngIf="i > 0"
+                                        class="btn btn-icon btn-icon rounded-circle btn-outline-danger pull-right"
+                                        (click)="deleteItem(i, eGroup.controls.isDefault.value,'email')" rippleEffect>
+                                    <span [data-feather]="'x'"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <button type="button"
+                        class="btn btn-icon btn-icon rounded-circle btn-outline-success pull-right"
+                        (click)="addItem('email')" rippleEffect>
+                    <span [data-feather]="'plus'"></span>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</form>

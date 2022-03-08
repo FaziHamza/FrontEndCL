@@ -1,0 +1,239 @@
+<div class="row">
+    <div class="offset-2 col-8">
+        <div class="card">
+            <div class="card-header1">
+                <!-- <h4 class="card-title flex-grow-0"> </h4> -->
+                <!-- <div class="ml-1 flex-grow-0 custom-control custom-control-primary custom-switch"
+                    [ngbTooltip]="applyForLeave ? 'Turn Off To go back to regular check-in/check-out' : 'Turn On To Apply for Leave'">
+                    <input type="checkbox" [(ngModel)]="applyForLeave" class="custom-control-input"
+                        id="customSwitch3" />
+                    <label class="custom-control-label" for="customSwitch3"></label>
+                </div> -->
+                <div class="row mt-4 mb-2 m-2 ">
+                    <div class="col-md-3">
+                        <h3 >Leave Detail </h3>
+                        <p>
+                            {{commonFunctionService.getFullDayNameByDayId(this.getDayId)}}
+                        </p>
+
+                    </div>
+                    <div class="col-md-9">
+                        <div class="heading-elements flex-grow-1 text-right group-screen-daily">
+                            <div class="tools ">
+                                <!-- *ngIf="isLoad" -->
+                                <ul class="list-inline mb-0 head-tools">
+                                    <!-- collapse -->
+                                    <li>
+                                        <a class="d-grid-daily" routerLink="">
+                                            <i class="feather icon-clock medium-icon"></i>
+                                            <!-- {{this.timesheetDetailsByIdData.hours}}  -->
+                                            <p class="icon-alginment-daily">Hours</p>
+                                            <p class="show-number-daily">
+                                                {{this.commonFunctionService.hoursToTimeconvert(this.tsService.timesheetDetailsByIdData.timeSheetDailyActivityDto.hours)}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/timesheet/expenses" class="d-grid-daily">
+                                            <i class="feather icon-briefcase medium-icon"></i>
+                                            <p class="icon-alginment-daily">Salary</p>
+                                            <p class="show-number-daily">
+                                                {{(this.commonFunctionService.hoursToTimeConvertforDb(this.tsService.timesheetDetailsByIdData.timeSheetDailyActivityDto.hours)
+                                                *
+                                                this.tsService.timesheetDetailsByIdData.timeSheetDailyActivityDto.salaryRate).toFixed(2)}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/timesheet/daily-activity" class=" d-grid-daily">
+                                            <i class="feather icon-dollar-sign medium-icon"></i>
+                                            <p class="icon-alginment-daily">Expense</p>
+                                            <p class="show-number-daily">
+                                                {{this.tsService.timesheetDetailsByIdData.timeSheetDailyActivityDto.expense}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="d-grid-daily" (click)="modalOpenLeave(modalContentTG, '')"
+                                            [ngbTooltip]="'Use Leave'">
+                                            <i class="feather icon-log-out  medium-icon"></i>
+                                            <p class="icon-alginment-daily">Leave</p>
+                                            <p class="show-number-daily">
+                                                {{tsService.leaveLabel}}
+                                                {{this.tsService.timesheetDetailsByIdData.timeSheetDailyActivityDto.totalLeave}}
+                                            </p>
+        
+        
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="d-grid-daily">
+                                            <i class="feather icon-clock medium-icon"></i>
+                                            <p class="icon-alginment-daily">Over Time</p>
+                                            <p class="show-number-daily">0:0</p>
+                                            <!--                                &nbsp;-->
+                                            <span placement="bottom" ngbTooltip="Allowed Overtime Duration (hh:mm)"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="d-grid-daily" (click)="showComments = !showComments">
+                                            <i class="feather icon-message-circle medium-icon"></i>
+                                            <p class="icon-alginment-daily">Comment</p>
+                                            <p class="show-number-daily">0</p>
+                                        </a>
+                                    </li>
+        
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+              
+            </div>
+            <div class="card-body">
+                <app-timesheet-daily-activity-add-edit></app-timesheet-daily-activity-add-edit>
+
+
+                <div class="row" [ngbCollapse]="!showComments">
+                    <h4 class="card-title flex-grow-0">Comments: </h4>
+                    <div class="col-12 p-2">
+                        <div class="media">
+                            <img src="assets/images/portrait/small/avatar-s-12.jpg" class="mr-1" alt="img placeholder"
+                                height="64" width="64" />
+                            <div class="media-body">
+                                <h5 class="mt-0">Media heading</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                                sollicitudin. Cras purus
+                                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                                vulputate
+                                fringilla. Donec lacinia congue felis in faucibus.
+
+                                <div class="media mt-3">
+                                    <a class="mr-1" href="javascript:void(0)">
+                                        <img src="assets/images/portrait/small/avatar-s-13.jpg" alt="img placeholder"
+                                            height="64" width="64" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Media heading</h5>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                                        sollicitudin. Cras
+                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum
+                                        nunc ac nisi
+                                        vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <form class="chat-app-form d-flex" action="javascript:void(0);">
+                            <div class="input-group input-group-merge mr-1 form-send-message">
+                                <!--                                <div class="input-group-prepend">-->
+                                <!--                                    <span class="speech-to-text input-group-text">-->
+                                <!--                                        <i data-feather="mic"-->
+                                <!--                                           class="cursor-pointer"></i>-->
+                                <!--                                    </span>-->
+                                <!--                                </div>-->
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <label for="attach-doc" class="attachment-icon mb-0">
+                                            <i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
+                                            <input type="file" id="attach-doc" hidden /> </label></span>
+                                </div>
+                                <input type="text" class="form-control message"
+                                    placeholder="Type your message or use speech to text" [(ngModel)]="commentMessage"
+                                    name="chat-message" (keydown.enter)="sendComment()" />
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <label class="attachment-icon mb-0">
+                                            <button type="button" ngbTooltip="Send Comment"
+                                                class="btn btn-sm btn-icon btn-flat-primary send"
+                                                (click)="sendComment()" rippleEffect>
+                                                <i data-feather="send"></i>
+                                            </button>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button (click)="btnSaveDailyActivity()" type="button" class="btn btn-primary pull-right"
+                    style="margin-bottom: 1rem" rippleEffect>Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-footer" *ngIf="false">
+    <button type="button" class="btn btn-success pull-right" style="margin-bottom: 1rem" rippleEffect>
+    </button>
+    <div class="card-footer">
+        <button type="button" class="btn btn-success pull-right" style="margin-bottom: 1rem" rippleEffect>
+        </button>
+    </div>
+</div>
+
+<!-- modal -->
+<ng-template #modalContentTG let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel10">Select Leave </h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus style="padding:0px">
+        <div class="col-12 mt-1" *ngIf="this.tsService.jobLeavedetailList.length>0">
+            <table class="table  table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 80%">Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="width: 5%">Hours</th>
+                        <th style="width: 5%">Consumed</th>
+                        <th style="width: 5%">Remaining</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tsService.jobLeavedetailList ;let idx=index;
+                        let even=even"
+                        [style.background-color]="tsService.selectRowClicked == idx ? '#7367f0' : (even ? '' : '')"
+                        (click)="!tsService.isLocalLeave && changeTableRowColor(idx,item)">
+                        <td>{{item.description}}</td>
+                        <td>{{item.totalHours}}</td>
+                        <td>{{item.totalConsummedHours}}</td>
+                        <td>{{item.totalHours - item.totalConsummedHours}}</td>
+
+
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="error-txt" *ngIf="this.tsService.jobLeavedetailList.length==0">
+            <h3 class="error-txt">There is no recoed found </h3>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <div class="row" style="margin:9px 175px 6px 7px !important;">
+
+
+            <button type="button" class=" mr-2 btn btn-secondary" #btnSub (click)="[modal.dismiss('Cancel')]"
+                rippleEffect>
+                Cancel
+            </button>
+            <button *ngIf="this.tsService.jobLeavedetailList.length!=0" type="button" class="btn btn-primary" #btnSub
+                (click)="[modal.dismiss('Cancel'),selectLeave()]" rippleEffect>
+                OK
+            </button>
+
+
+        </div>
+    </div>
+</ng-template>

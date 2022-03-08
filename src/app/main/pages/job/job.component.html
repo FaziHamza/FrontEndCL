@@ -1,0 +1,581 @@
+<block-ui></block-ui>
+<div class="row" *ngIf="jobService.IsShowJobError">
+    <div class="col-12">
+        <div class="card" style="margin-bottom:4px ;">
+            <div class="card-body align-items-center" style="padding: 6px 0px 1px 10px !important;;">
+                <div class="row" style="font-size: 20px;">
+                    <div class="col-md-10 ml-1">
+                        <ul>
+                            <li style="color: red;" *ngFor="let item of jobService.jobErrorList">
+                                {{item.name}}
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-2 text-right" style="font-size:12px;">
+
+                    </div>
+                    <!-- <div class="col-md-2">
+                    
+                  </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="vertical-wizard">
+    <div id="stepper2" class="bs-stepper vertical vertical-wizard-example">
+
+
+        <div class="bs-stepper-header">
+            <!--<div class="step" data-target="#account-details-vertical">
+                <button type="button" class="step-trigger">
+                    <span class="bs-stepper-box">1</span>
+                    <span class="bs-stepper-label">
+                <span class="bs-stepper-title">Select Job</span>
+                <span class="bs-stepper-subtitle">Select an Existing Job</span>
+              </span>
+                </button>
+            </div>-->
+            <div class="step" data-target="#job-details">
+                <button type="button" class="step-trigger" (click)="jobDetailPage()">
+                    <span class="bs-stepper-box">1</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Job Details</span>
+                        <span class="bs-stepper-subtitle">Add/Modify Job Details</span>
+                    </span>
+                </button>
+            </div>
+            <div class="step" data-target="#job-salary">
+                <button type="button" class="step-trigger " (click)="jobSalaryPage()">
+                    <span class="bs-stepper-box">2</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Job Salary</span>
+                        <span class="bs-stepper-subtitle">Add Details Related to Salary</span>
+                    </span>
+                </button>
+            </div>
+            <div class="step " data-target="#job-days">
+                <button type="button" class="step-trigger" (click)="jobDayPage()">
+                    <span class="bs-stepper-box">3</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Job Days</span>
+                        <span class="bs-stepper-subtitle">Add Job Days</span>
+                    </span>
+                </button>
+            </div>
+            <div class="step" data-target="#job-leaves">
+                <button type="button" class="step-trigger"  (click)="jobLeavePage()">
+                    <span class="bs-stepper-box">4</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Job Leaves</span>
+                        <span class="bs-stepper-subtitle">Specify Allowed Job Leaves</span>
+                    </span>
+                </button>
+            </div>
+            <div class="step" data-target="#job-overtime">
+                <button type="button" class="step-trigger" (click)="jobOverTimePage()">
+                    <span class="bs-stepper-box">5</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Job Overtime</span>
+                        <span class="bs-stepper-subtitle">Job Overtime Details</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="bs-stepper-content">
+            <div id="job-details" class="content">
+                <div class="content-header">
+                    <h5 class="mb-0">Job Details</h5>
+                    <small>Add/Modify Job Details</small>
+                </div>
+                <app-add-edit-job showAllFields="true"></app-add-edit-job>
+                <div class="justify-content-between text-right">
+                    <!-- <button class="btn btn-primary btn-prev" (click)="verticalWizardPrevious()" rippleEffect>
+                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button> -->
+                    <div>
+                        <button class="btn btn-primary btn-next mr-1" (click)="verticalWizardNext('JobDetails')"
+                            rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none" >Save</span>
+                            <i data-feather="" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                        <button class="btn btn-primary btn-next mr-1" rippleEffect (click)="verticalWizardNext('Skip')">
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="job-salary" class="content">
+                <div class="content-header">
+                    <h5 class="mb-0">Job Salary</h5>
+                    <small>Add Details Related to Salary</small>
+                </div>
+
+                <app-add-edit-salary showAllFields="true"></app-add-edit-salary>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev" (click)="[verticalWizardPrevious(),jobDetailPage()]" rippleEffect>
+                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <div>
+                        <button class="btn btn-primary btn-next mr-1" (click)="verticalWizardNext('JobSalary')" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Save</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                        <button class="btn btn-primary btn-next mr-1" rippleEffect (click)="verticalWizardNext('Skip')">
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+
+                       
+                    </div>
+                </div>
+            </div>
+            <div id="job-days" class="content ">
+                <div class="content-header">
+                    <h5 class="mb-0">Job Days</h5>
+                    <small>Add Job Days</small>
+                </div>
+
+
+                <!-- add day compent -->
+                <app-add-edit-job-day></app-add-edit-job-day>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev" (click)="[verticalWizardPrevious(),jobSalaryPage()]" rippleEffect>
+                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <div>
+                        <button class="btn btn-primary btn-next mr-1" (click)="verticalWizardNext('JobDays')" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Save</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                        <button class="btn btn-primary btn-next mr-1" rippleEffect (click)="verticalWizardNext('Skip')">
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="job-leaves" class="content">
+                <div class="content-header">
+                    <h5 class="mb-0">Job Leaves</h5>
+                    <small>Specify Job Leaves</small>
+                </div>
+                <!-- Add job leave -->
+                <form #leaveForm="ngForm">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group" *ngFor="let jobL of getJobLeaves(); let i = index">
+                                <div class="row" [formGroup]="jobL">
+                                    <div class="col-sm-1" style="display: none;">
+                                        <input type="text" placeholder="Enter Description" id="id{{i}}"
+                                            formControlName="id">
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <input type="text" placeholder="Enter Description" id="description{{i}}"
+                                            formControlName="description"
+                                            [ngClass]="{ 'is-invalid': jobL.controls.description.touched && jobL.controls.description.errors,
+                                                                          'is-valid': jobL.controls.description.touched && jobL.controls.description.valid }"
+                                            required class="form-control" name="leaveDescription{{i}}" />
+                                        <small class="form-text text-danger"
+                                            *ngIf="!jobL.controls.description.valid && nextClicked">
+                                            <span>
+                                                Description is required
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="number" placeholder=" Hours" id="hours{{i}}"
+                                            formControlName="hours"
+                                            (click)="jobL.controls.hours.value == 0 ? resetDeafult('hours') : setDefault('hours')"
+                                            [ngClass]="{ 'is-invalid': jobL.controls.hours.touched && jobL.controls.hours.errors,
+                                                                          'is-valid': jobL.controls.hours.touched && jobL.controls.hours.valid }"
+                                            required class="form-control" name="leaveHours{{i}}" />
+                                        <small class="form-text text-danger"
+                                            *ngIf="!jobL.controls.hours.valid && nextClicked">
+                                            <span>
+                                                Hours are required
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="number" placeholder="Consumed" readonly id="consumed{{i}}"
+                                            formControlName="consumed"
+                                            [ngClass]="{ 'is-invalid': jobL.controls.consumed.touched && jobL.controls.consumed.errors,
+                                                                          'is-valid': jobL.controls.consumed.touched && jobL.controls.consumed.valid }"
+                                            class="form-control" name="consumed{{i}}" />
+                                        <small class="form-text text-danger"
+                                            *ngIf="!jobL.controls.consumed.valid && nextClicked">
+                                            <span>
+                                                required
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="number" placeholder="Remaining" readonly id="remaining{{i}}"
+                                            formControlName="remaining"
+                                            [ngClass]="{ 'is-invalid': jobL.controls.remaining.touched && jobL.controls.remaining.errors,
+                                                                          'is-valid': jobL.controls.remaining.touched && jobL.controls.remaining.valid }"
+                                            class="form-control" name="remaining{{i}}" />
+                                        <small class="form-text text-danger"
+                                            *ngIf="!jobL.controls.remaining.valid && nextClicked">
+                                            <span>
+                                                required
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" placeholder="comment" id="comment{{i}}"
+                                            formControlName="comment"
+                                            [ngClass]="{ 'is-invalid': jobL.controls.comment.touched && jobL.controls.comment.errors,
+                                                                          'is-valid': jobL.controls.comment.touched && jobL.controls.comment.valid }"
+                                            class="form-control" name="comment{{i}}" />
+                                        <small class="form-text text-danger"
+                                            *ngIf="!jobL.controls.comment.valid && nextClicked">
+                                            <span>
+                                                required
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-danger btn-sm fa fa-minus"
+                                            (click)="removeJobLeave(i)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="col-sm-2 mb-2">
+                    <button class="btn btn-primary btn-sm fa fa-plus" (click)="addJobLeave()"></button>
+                </div>
+                <!-- // show lis -->
+                <!-- {{jobLeavedetailList | json}} -->
+                <div class="row mb-1">
+                    <div class="col-md-3">
+                        <ng-select [items]="yearList"
+                        bindLabel="name"
+                        bindValue="name"
+                        placeholder="Select year"
+                        [(ngModel)]="selectedYear">
+                
+             </ng-select>
+                    </div>
+                    <div class="col-md-2">
+                        <button  type="button" class="btn btn-primary" (click)="loadLeaveDetailByYear()" >Filter</button>
+
+                    </div>
+                </div>
+                <div class="col-12 mt-1" *ngIf="this.jobLeavedetailList.length>0">
+                
+                
+
+                    <table class="table timesheet-table table-striped">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Date</td>
+                                <td>Type </td>
+                                <td>Hours</td>
+                                <td>Comments</td>
+                                <!-- <td>Year</td> -->
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let item of jobLeavedetailList ;index as i">
+                            <td> {{i+1}} </td>
+                            <td> {{item.date | date:'shortDate'}} </td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.totalHours}}</td>
+                            <td>{{item.comments}}</td>
+                            <!-- <td>{{item.year}}</td> -->
+
+                        </tr>
+
+
+                    </table>
+                </div>
+                <div    *ngIf="this.jobLeavedetailNoData" > <h3 class="error-txt" > There is no recoed found </h3></div>
+
+                <!-- /end  -->
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev" (click)="[verticalWizardPrevious(),jobDayPage()]" rippleEffect>
+                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <div>
+                        <button class="btn btn-primary btn-next mr-1" (click)="verticalWizardNext('JobLeaves')" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Save</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                        <button class="btn btn-primary btn-next mr-1" rippleEffect (click)="verticalWizardNext('Skip')">
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="job-overtime" class="content">
+                <div class="content-header">
+                    <h5 class="mb-0">Job Overtime</h5>
+                    <small>Job Overtime Details</small>
+                </div>
+                <!-- job overTime -->
+                <form #OvertimeForm="ngForm">
+                    <div class="row my-1">
+                        <div class="form-group col-md-3">
+                            <label class="form-label" for="salaryType">Overtime Type</label>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <ng-select [(ngModel)]="overtimeType" [items]="overtimeTypes" required
+                                #overtimeTypeVar='ngModel' bindLabel="description" id="overtimeType"
+                                name="overtimeType"></ng-select>
+                            <small class="form-text text-danger" *ngIf="!overtimeTypeVar.valid && nextClicked">
+                                <span>
+                                    Overtime Type is required
+                                </span>
+                            </small>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-label" for="salary">Hours</label>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <input 
+                            (click)="hours == 0 ? resetHour() : ''"
+                            [(ngModel)]="hours" required class="form-control" type="number" digits id="hours"
+                                name="hours" #hoursVar="ngModel" />
+                            <small class="form-text text-danger" *ngIf="!hoursVar.valid && nextClicked">
+                                <span>
+                                    Hours are required
+                                </span>
+                            </small>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-label" for="salary">Over Time Rate</label>
+                        </div>
+                        <div class="form-group col-md-9">
+                              
+                            <input [(ngModel)]="overtimeRate"
+                            (click)="overtimeRate == 0 ? resetOvertimeRate() : ''"
+                            required class="form-control" type="number" digits
+                                id="overtimeRate" name="overtimeRate" #overtimeRateVar="ngModel" />
+
+                            <small class="form-text text-danger" *ngIf="!overtimeRateVar.valid && nextClicked">
+                                <span>
+                                    Overtime Rate is required
+                                </span>
+                            </small>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-label" for="salary">Per Day Hours Limit</label>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <input [(ngModel)]="perDayHoursLimit" 
+                            (click)="perDayHoursLimit == 0 ? resetPerDayHoursLimit() : ''"
+                            class="form-control" type="number" digits
+                                id="perDayHoursLimit" name="perDayHoursLimit" required #perDayHoursLimitVar="ngModel" />
+                            <small class="form-text text-danger" *ngIf="!perDayHoursLimitVar.valid && nextClicked">
+                                <span>
+                                    Per Day Hours Limit is required
+                                </span>
+                            </small>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="col-form-label">
+                                Is Approval Required
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="isApprovalRequired"
+                                    name="isApprovalRequired" [(ngModel)]="isApprovalRequired" />
+                                <label class="custom-control-label" for="isApprovalRequired">
+                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary btn-prev" (click)="[verticalWizardPrevious(),jobLeavePage()]" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <div>
+                            <button class="btn btn-primary btn-submit mr-1" rippleEffect
+                            (click)="OvertimeForm.valid ? verticalWizardNext('JobOvertime') : invalid()">
+                             Save
+                            </button>
+                        <button  type="button" class="btn btn-primary btn-submit " rippleEffect
+                            (click)="goTo()">
+                            Finish
+                        </button>
+                   
+
+                       
+                            <!-- <button class="btn btn-primary btn-next mr-1" (click)="verticalWizardNext('JobDetails')"
+                                rippleEffect>
+                                <span class="align-middle d-sm-inline-block d-none">Save</span>
+                                <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                            </button>
+                            <button class="btn btn-primary btn-next mr-1" rippleEffect (click)="verticalWizardNext('Skip')">
+                                <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                            </button> -->
+    
+                            
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">JOB </h4>
+    </div>
+    <div class="card-body">
+        <form class="form form-horizontal" (ngSubmit)="(UserForm.form.valid)" #UserForm="ngForm">
+            <div class="row">
+                <div class="offset-2 col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="middle-name">Organization </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input list="browsers" class="form-control" autocomplete="off">
+                                    <datalist id="browsers">
+                                        <option *ngFor="let ph of languages" value="{{ph.name}}"></option>
+                                    </datalist>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="last-name">Job Title</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="Job Title" class="form-control" name="Job Title"
+                                           placeholder="Job Title"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="dateOfBirth">Start Date</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input
+                                                class="form-control"
+                                                placeholder="mm-dd-yyyy"
+                                                name="dateOfBirth"
+                                                id="dateOfBirth"
+                                                [(ngModel)]="dateOfBirth"
+                                                ngbDatepicker
+                                                #basicDP="ngbDatepicker"
+                                        />
+                                        <div class="input-group-append">
+                                            <button
+                                                    class="btn btn-outline-secondary feather icon-calendar"
+                                                    (click)="basicDP.toggle()"
+                                                    type="button"
+                                                    rippleEffect
+                                            ></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="dateOfBirth">End Date</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input
+                                                class="form-control"
+                                                placeholder="mm-dd-yyyy"
+                                                name="dateOfBirth"
+                                                id="dateOfBirth"
+                                                [(ngModel)]="dateOfBirth"
+                                                ngbDatepicker
+                                                #basicDP="ngbDatepicker"
+                                        />
+                                        <div class="input-group-append">
+                                            <button
+                                                    class="btn btn-outline-secondary feather icon-calendar"
+                                                    (click)="basicDP.toggle()"
+                                                    type="button"
+                                                    rippleEffect
+                                            ></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="last-name">Skill</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="skill" class="form-control" name="skill"
+                                           placeholder="Skill"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        &lt;!&ndash;        <div class="row mt-5">&ndash;&gt;
+        &lt;!&ndash;            <div class="col-md-2"></div>&ndash;&gt;
+        &lt;!&ndash;            <div class="col-md-8">&ndash;&gt;
+        &lt;!&ndash;                <form class="form form-vertical">&ndash;&gt;
+        &lt;!&ndash;                    <div class="row mt-5">&ndash;&gt;
+
+
+        &lt;!&ndash;                        <div class="col-12">&ndash;&gt;
+        &lt;!&ndash;                            <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>&ndash;&gt;
+        &lt;!&ndash;                            <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset</button>&ndash;&gt;
+        &lt;!&ndash;                        </div>&ndash;&gt;
+        &lt;!&ndash;                    </div>&ndash;&gt;
+        &lt;!&ndash;                </form>&ndash;&gt;
+        &lt;!&ndash;            </div>&ndash;&gt;
+        &lt;!&ndash;            <div class="col-md-2"></div>&ndash;&gt;
+
+        &lt;!&ndash;        </div>&ndash;&gt;
+    </div>
+    <div class="card-footer text-right">
+        <button type="reset" rippleEffect class="btn btn-outline-secondary mr-1">Reset</button>
+        <button type="submit" (click)="(UserForm.onSubmit($event))" rippleEffect class="btn btn-primary">Submit</button>
+    </div>
+</div>-->

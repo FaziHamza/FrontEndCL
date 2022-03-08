@@ -1,0 +1,257 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+
+        <!-- <ng-template #selectOrganization let-modal>
+            <div class="modal-header organizationHeader ">
+                <h5 class="modal-title organizationHeaderTxt">Select Organization</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" tabindex="0" ngbAutofocus>
+                <ul class="organizations-list">
+                    <li *ngFor="let org of organizations">
+                        <div class="custom-control custom-radio ">
+                            <input type="radio" class="custom-control-input"
+                                (change)="onChangeOrganization(org.id, inputElement)" #inputElement [value]="org.id"
+                                id="org{{org.id}}" [checked]="tempOrgId === org.id" />
+                            <label class="custom-control-label" for="org{{org.id}}" style="font-size: 20px;font-style: inherit;">{{org.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer " >
+                <button type="button" style="margin: 0px 209px 0px 0px;" class="btn btn-primary text-center" #btnSub (click)="onSubmitSearchCreateOrganization()"
+                    rippleEffect>
+                    Ok
+                </button>
+            </div>
+        </ng-template> -->
+
+        <!-- content-header component -->
+        <!--        <app-content-header [contentHeader]="contentHeader"></app-content-header>-->
+
+        <!-- Basic Alerts start -->
+        <section id="home-actions">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom: 0.5rem;">
+                        <div class="card-body d-inline-flex align-items-center">
+                            <h2 class="content-header-title float-left mb-0">
+                                {{ 'Org Configuration' }} | {{organization.name}}
+                                <!-- <ul class="organizations-list">
+                                    <li *ngFor="let org of organizations">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   (change)="onChangeOrganization(org.id, inputElement)"
+                                                   #inputElement
+                                                   [value]="org.id" id="org{{org.id}}"
+                                                   [checked]="tempOrgId === org.id"/>
+                                            <label class="custom-control-label" for="org{{org.id}}">{{org.name}}</label>
+                                        </div>
+                                    </li>
+                                </ul> -->
+                            </h2>
+                            <!--                            <div class="h3 ml-1 mb-0">Selected Organization:</div>-->
+                            <div class="content-header-title h4 ml-1 mb-0 cursor-pointer"
+                                (click)="onClickOrganization()">
+                                <!-- {{organization?.name || 'No Organization Selected!'}} -->
+                            </div>
+                            <!-- <button ngbTooltip="Select Organization" *ngIf="organizations.length>1"
+                                class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                (click)="onSelectOrganization(selectOrganization)">
+                                <i class="feather icon-edit"></i>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsShowAlert" >
+                <div class="col-12">
+                    <div class="card" style="margin-bottom:4px ;">
+                        <div class="card-body align-items-center" style="padding: 6px 0px 1px 10px !important;;">
+                          <div class="row" style="font-size: 20px;">
+                              <div class="col-md-11">
+                                 <ul>
+                                     <li style="color: #7367f0;" *ngFor="let item of alertList">
+                                         
+                                         <div class="alert " [ngClass]="item.class" role="alert">
+                                            <div class="alert-body"><strong>Hi!</strong> {{item.name}} </div>
+                                          </div>
+                                     </li>
+                                 </ul>
+                                
+                              </div>
+                              
+                              <div class="col-md-2 text-right" style="font-size:12px;">
+            
+                              </div>
+                              <!-- <div class="col-md-2">
+                                
+                              </div> -->
+            
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- form Config  -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form class="form form-horizontal">
+                            <div class="row" [formGroup]="orgCnfgCreateForm">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <!-- Shift -->
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="shift">Shift</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <ng-select [items]="shiftTypes" id="shift"
+                                                        formControlName="shiftType" bindLabel="description">
+                                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                            {{ item.description }}
+                                                        </ng-template>
+                                                    </ng-select>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- week -->
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="weekDay">Week Start Day</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <ng-select [items]="weekStartDays" id="weekDay"
+                                                        formControlName="weekDay" bindLabel="description">
+                                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                            {{ item.description }}
+                                                        </ng-template>
+                                                    </ng-select>
+                                                    <!-- <small class="form-text text-danger"
+                                            *ngIf="orgCnfgCreateForm.controls.weekStartDay.invalid && orgCnfgCreateForm.controls.weekStartDay.touched">
+                                            This field is required!</small> -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="fiscalYearEnd">Fiscal Year End</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <ng-select [items]="yearStart" id="fiscalYearEnd"
+                                                        formControlName="fiscalYearEnd" bindLabel="description">
+                                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                            {{ item.description }}
+                                                        </ng-template>
+                                                    </ng-select>
+                                                    <!-- <small class="form-text text-danger"
+                                            *ngIf="orgCnfgCreateForm.controls.weekStartDay.invalid && orgCnfgCreateForm.controls.weekStartDay.touched">
+                                            This field is required!</small> -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="startTime">Start Time</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input ngbTooltip="Start Time" type="time" class="form-control" formControlName="startTime"
+                                                        required
+                                                        [ngClass]="{ 'is-invalid': orgCnfgCreateForm.controls.startTime.touched && orgCnfgCreateForm.controls.startTime.errors,
+                                'is-valid': orgCnfgCreateForm.controls.startTime.touched && orgCnfgCreateForm.controls.startTime.valid }">
+                                                    <error-messages [controlName]="orgCnfgCreateForm.controls.startTime"
+                                                        [errors]="orgCnfgCreateForm.controls.startTime.errors">
+                                                    </error-messages>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- End time -->
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="endTime">End Time</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input  type="time" ngbTooltip="End Time" class="form-control" formControlName="endTime"
+                                                        required
+                                                        [ngClass]="{ 'is-invalid': orgCnfgCreateForm.controls.endTime.touched && orgCnfgCreateForm.controls.endTime.errors,
+                                'is-valid': orgCnfgCreateForm.controls.endTime.touched && orgCnfgCreateForm.controls.endTime.valid }">
+                                                    <error-messages [controlName]="orgCnfgCreateForm.controls.endTime"
+                                                        [errors]="orgCnfgCreateForm.controls.endTime.errors">
+                                                    </error-messages>
+
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        <!-- Is hourlylog -->
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="isHourlyLog">Time Sheet Style</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="custom-control custom-switch">
+                                                    <input type="checkbox" formControlName="isHourlyLog"
+                                                        class="custom-control-input" id="isHourlyLog" checked />
+                                                    <label class="custom-control-label" for="isHourlyLog">
+                                                        <span class="switch-icon-left"><i
+                                                                data-feather="check"></i></span>
+                                                        <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                                    </label>
+                                                </div> -->
+                                                    <button (click)="changeTimeSheetStyle()" class="btn btn-primary btn-md mr-1" [ngClass]="{'disabled': isHourlyLog == false}" type="button">Daily
+                                                         </button>
+                                                    <button (click)="changeTimeSheetStyle()" class="btn btn-primary btn-md" [ngClass]="{'disabled': isHourlyLog == true}" type="button">Hourly
+                                                        </button>
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button   class="btn btn-primary btn-md btn-block btn-submit" rippleEffect
+                                                        (click)="orgConfigSave()">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

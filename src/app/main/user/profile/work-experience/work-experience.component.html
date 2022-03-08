@@ -1,0 +1,183 @@
+<form class="form" autocomplete="off" (ngSubmit)="onFormSubmit()" [formGroup]="mainForm">
+    <div class="row">
+        <div class=" col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="offset-3 col-sm-6 text-wa-center">
+                            <app-profile-pic-picker formControlName="logo"></app-profile-pic-picker>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.logo.invalid && mainForm.controls.logo.touched">
+                                This field is Required</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="organizationId">Organization </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <ng-select [items]="organizations"
+                                       id="organizationId"
+                                       [ngClass]=" validateControl(mainForm.controls.organizationId)"
+                                       formControlName="organizationId"
+                                       required
+                                       bindLabel="name" bindValue="id" [loading]="areOrganizationsLoading">
+                                <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                    {{ item.name }}
+                                </ng-template>
+                            </ng-select>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.organizationId.invalid && mainForm.controls.organizationId.touched">
+                                This Field is Required!
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12"
+                     *ngIf="mainForm.controls.organizationId.valid && mainForm.controls.organizationId.value == '-1'">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="organizationName">Organization Name </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]=" validateControl(mainForm.controls.organizationName)"
+                                   id="organizationName" class="form-control"
+                                   formControlName="organizationName"
+                                   required
+                                   placeholder="Organization Name"/>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.organizationName.invalid && mainForm.controls.organizationName.touched">
+                                This Field is Required!
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="jobTitle">Job Title </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+
+                                   [ngClass]=" validateControl(mainForm.controls.title)"
+                                   id="jobTitle" class="form-control"
+                                   required formControlName="title"
+                                   [maxlength]="30"
+                                   placeholder="Title"/>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.title"
+                                                                  class="char-count">{{ mainForm.controls.title.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.title" class="char-count">0 </span> / {{30}}
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.title.invalid && mainForm.controls.title.touched">
+                                Title of Work Experience is Required!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="skills">Skill</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <ng-select [items]="skills"
+                                       id="skills"
+                                       [ngClass]=" validateControl(mainForm.controls.skills)"
+
+                                       formControlName="skills"
+                                       [multiple]="true"
+                                       required
+                                       bindLabel="name" bindValue="id" [loading]="areOrganizationsLoading">
+                            </ng-select>
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.skills.invalid && mainForm.controls.skills.touched">
+                                Selecting Skills is Required!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="startDate">Start Date</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="yyyy-mm-dd-"
+                                        formControlName="startDate"
+                                        id="startDate"
+                                        ngbDatepicker
+                                        #basicSD="ngbDatepicker"
+                                        [ngClass]=" validateControl(mainForm.controls.startDate)"
+                                />
+                                <div class="input-group-append">
+                                    <button
+                                            class="btn btn-outline-secondary feather icon-calendar"
+                                            (click)="basicSD.toggle()"
+                                            type="button"
+                                            rippleEffect
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="endDate">End Date</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="yyyy-mm-dd"
+                                        formControlName="endDate"
+                                        id="endDate"
+                                        ngbDatepicker
+                                        #basicED="ngbDatepicker"
+                                        [ngClass]=" validateControl(mainForm.controls.endDate)"
+                                />
+                                <div class="input-group-append">
+                                    <button
+                                            class="btn btn-outline-secondary feather icon-calendar"
+                                            (click)="basicED.toggle()"
+                                            type="button"
+                                            rippleEffect
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="isPublic">Is Public</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" formControlName="isPublic"
+                                       id="isPublic"/>
+                                <label class="custom-control-label" for="isPublic">
+                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

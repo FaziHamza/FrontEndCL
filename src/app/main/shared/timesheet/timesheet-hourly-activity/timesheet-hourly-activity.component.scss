@@ -1,0 +1,78 @@
+
+@import '~@core/scss/angular/libs/form-wizard.component.scss';
+
+.d-grid-hourly {
+    display: grid;
+    justify-items: center;
+    width: 90px;
+    //background: rgba(0, 0, 0, 0.10);
+    // padding: 0.5rem;
+    border-radius: 10px;
+  }
+  
+  .large-icon {
+    height: 2rem !important;
+    width: 2rem !important;
+    font-size: 2rem !important;
+  
+  }
+  
+  .card-title {
+    padding-left: 1.5rem;
+  }
+  
+  .card-body {
+    padding-top: 1.5rem !important;
+  }
+  
+  .message {
+    height: auto;
+  }
+  
+  .head-tools {
+    li {
+      a:not([href]) {
+        color: white;
+      }
+    }
+  }
+
+  
+  .dark-layout .lbl_leave{
+    color: white;
+  }
+  .heiglight-border-text {
+    background-color :lightgray;
+  }
+  
+.modal-dialog {
+   
+    margin: 1.75rem auto;
+  }
+  #modalLeave {
+    max-width: 800px !important;
+  }
+
+  .modal-lg {
+    max-width: 800px !important;
+    width: 800px !important;
+  }
+  timesheet-hourly-activity .modal-dialog {
+    max-width: 866px !important;}
+  .leave-add{
+    background: #7367f0 !important;
+     color:white  !important;
+  }
+  .show-number{
+    margin: -26px 0px 0px 0px;
+  }
+  .icon-alginment{
+  line-height: 3.0rem !important;
+  }
+  .group-screen li{
+    margin: 0px -10px 0 0px;
+  }
+
+  .disabled-li{
+     opacity: 0.3; 
+  }

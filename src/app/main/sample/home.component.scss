@@ -1,0 +1,58 @@
+.card-subtitles {
+  display: inline-flex;
+}
+app-home .modal-dialog {
+  max-width: 670px !important;
+}
+.timesheet-table {
+  td, th {
+    padding: 0.72rem;
+    vertical-align: middle;
+  }
+}
+
+.day-of-week {
+  max-width: 50px;
+  padding: 0.5rem;
+  text-align: center;
+
+  // &.caption {
+
+  // }
+
+  // &.value {
+
+  // }
+}
+
+.organizations-list {
+  li {
+    list-style: none;
+  }
+}
+.organizationHeader{
+  background-color: #5f57c0;
+}
+.organizationHeaderTxt{
+  color: #f8f8f8;
+}
+.cursor-show{
+  cursor :pointer;
+}
+.card .card-header {
+  padding: 1rem;
+}
+
+
+// .weekDiv{
+//   background-color: #eeeeef ;
+// }
+// .invoiceDiv{
+//   background-color: #e5e5e5;
+// }
+// .table:not(.table-dark):not(.table-light) thead:not(.thead-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.thead-dark) th 
+// {
+//   background-color: #eeeeef ;
+// }
+
+

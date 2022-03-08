@@ -1,0 +1,25 @@
+@import '~@core/scss/angular/libs/datatables.component.scss';
+
+.datatable-scroll {
+  width: auto !important;
+}
+
+.ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+.ngx-datatable.bootstrap .datatable-body .empty-row {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  font-size: 30px;
+  text-align: center;
+}
+// .dark-layout .content-header-left .breadcrumbs-top .content-header-title {
+//   color: red;
+//   border-color: #3b4253;
+// }
+// .content-header-title {
+//   color: red;
+// }

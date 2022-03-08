@@ -1,0 +1,344 @@
+
+<form class="form form-horizontal" (ngSubmit)="onJobSubmit()" #userForm="ngForm">
+    <div class="row" [formGroup]="jobForm">
+        <!-- <div class="col-12" *ngIf="jobModel?.organization === null || jobModel?.organization === undefined">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="organizationId">Select Organization</label>
+                </div>
+                <div class="col-sm-9">
+                    <ng-select [items]="organizations"
+                               id="organizationId"
+                               formControlName="organization"
+                               bindLabel="name" [loading]="selectBasicLoading">
+                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                            {{ item.name }}
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="job-title">Job Title</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="title"
+                           [ngClass]="{ 'is-invalid': jobForm.controls.title.touched && jobForm.controls.title.errors,
+                           'is-valid': jobForm.controls.title.touched && jobForm.controls.title.valid }"
+                           required id="job-title" class="form-control"
+                           [maxlength]="30"
+                           placeholder="Job Title"/>
+                    <small class="textarea-counter-value float-right">
+                                                    <span *ngIf="jobForm.controls.title"
+                                                          class="char-count">{{ jobForm.controls.title.value.length }}</span>
+                        <span *ngIf="!jobForm.controls.title" class="char-count">0 </span> / {{30}}
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="jobForm.controls.title.invalid && jobForm.controls.title.touched">
+                        This field is required!</small>
+                </div>
+            </div>
+        </div>
+       
+
+        <ng-template [ngIf]="showAllFields">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="job-title">Jod Details</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input theme="bubble" class="form-control" formControlName="detail" [maxlength]="50" />
+                   
+                        
+                        <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="jobForm.controls.details"
+                                                              class="char-count">{{ jobForm.controls.details.value.length }}</span>
+                            <span *ngIf="!jobForm.controls.details" class="char-count">0 </span> / {{50}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="startDate">Start Date</label>
+                    </div>
+                    <div class="col-sm-9">
+                       <!-- <div class="input-group">-->
+
+<!--                            <div class="input-group-append">-->
+<!--                                <button-->
+<!--                                        class="btn btn-outline-secondary feather icon-calendar"-->
+<!--                                        -->
+<!--                                        type="button"-->
+<!--                                        rippleEffect-->
+<!--                                ></button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <input
+                        type="text"
+                                class="form-control"
+                                placeholder="mm-dd-yyyy"
+                                formControlName="startDate"
+                                id="startDate"
+                                bsDatepicker
+                                required
+                                #basicSD="bsDatepicker" [(bsValue)]="jobModel.startDate"
+                        />
+                        <!-- <input type="text"
+                        placeholder="Daterangepicker"
+                        class="form-control"
+                        bsDatepicker> -->
+                        <small class="form-text text-danger"
+                        *ngIf="jobForm.controls.startDate.invalid">
+                      This field is required!</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="endDate">End Date</label>
+                    </div>
+                    <div class="col-sm-9">
+
+                        <input
+                            
+                        class="form-control"
+                                placeholder="mm-dd-yyyy"
+                                formControlName="endDate"
+                                id="endDate"
+                                bsDatepicker
+                                #basicSD="bsDatepicker" [(bsValue)]="jobModel.endDate"
+
+                        />
+                    
+                        <!-- <small class="form-text text-danger"
+                        *ngIf="jobForm.controls.startDate.value > jobForm.controls.endDate.value">
+                        Date Start should be less than Date end!</small> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12" *ngIf="false">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="skills-required">Skill</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <ng-select
+                                [items]="skills"
+                                [multiple]="true"
+                                [closeOnSelect]="false"
+                                [searchable]="true"
+                                id="skills-required"
+                                placeholder="Select Skills"
+                                formControlName="skills"
+                        >
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="email"
+                           [ngClass]="{ 'is-invalid': jobForm.controls.email.touched && jobForm.controls.email.errors,
+                           'is-valid': jobForm.controls.email.touched && jobForm.controls.email.valid }"
+                           formControlName="email" ngvemail required id="email" class="form-control"
+                           [maxlength]="35"
+                           placeholder="Email"/>
+                    <small class="textarea-counter-value float-right">
+                                                    <span *ngIf="jobForm.controls.email"
+                                                          class="char-count">{{ jobForm.controls.email.value.length }}</span>
+                        <span *ngIf="!jobForm.controls.email" class="char-count">0 </span> / {{35}}
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="jobForm.controls.email.invalid && jobForm.controls.email.touched">
+                        Please enter Email in Correct format</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="email">Contact No</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" digits
+                           [ngClass]="{ 'is-invalid': jobForm.controls.phoneNo.touched && jobForm.controls.phoneNo.errors,
+                           'is-valid': jobForm.controls.phoneNo.touched && jobForm.controls.phoneNo.valid }"
+                           formControlName="phoneNo" required id="phoneNo" class="form-control"
+                           minlength="8"
+                           [maxlength]="16"
+                           placeholder="Contact No"/>
+                    <small class="textarea-counter-value float-right">
+                                                    <span *ngIf="jobForm.controls.phoneNo"
+                                                          class="char-count">{{ jobForm?.controls?.phoneNo?.value?.length }}</span>
+                        <span *ngIf="!jobForm.controls.phoneNo" class="char-count">0 </span> / {{16}}
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="jobForm.controls.phoneNo.invalid && jobForm.controls.phoneNo.touched">
+                        Please enter Correct Contact Number. No Special Characters Allowed.</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="showAllFields">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="shift">Shift </label>
+                </div>
+                <div class="col-sm-9">
+                    <ng-select [items]="shiftTypes" id="shift" formControlName ="shiftType"
+                    bindLabel="description">
+                    <!-- <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                        {{ item.description }}
+                    </ng-template> -->
+                    <ng-option
+                    *ngFor="let ct of shiftTypes"
+                    
+                    [value]="ct.lookupValue">{{ct.description}} </ng-option>
+        
+                </ng-select>
+                </div>
+            </div>
+        </div>
+        
+        <ng-template [ngIf]="showAllFields">
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-sm-6 col-form-label">
+                        <label for="hours-per-week">Hours Per Week</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="number" (click)="jobForm.controls.hoursPerWeek.value == 0 ? resetDeafult('hoursPerWeek') : setDefault('hoursPerWeek')"
+                               [ngClass]="{ 'is-invalid':  jobForm.controls.hoursPerWeek.errors && jobForm.controls.hoursPerWeek.touched,
+                                      'is-valid': jobForm.controls.hoursPerWeek.valid && jobForm.controls.hoursPerWeek.touched }"
+                               id="hours-per-week" class="form-control"
+                               placeholder="Hours Per Week"
+                               max="60"
+                               min="1"
+                               required
+                               formControlName="hoursPerWeek">
+                        <small class="form-text text-danger text-align-right"
+                               *ngIf="jobForm.controls.hoursPerWeek.invalid ">
+                            Hours per Week need to be between 1 - 60.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-sm-2 col-form-label">
+                    </div>
+                    <div class="col-sm-4 col-form-label">
+                        <label for="hoursPerDay">Hours Per Day</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="number"
+                        (click)="jobForm.controls.hoursPerDay.value == 0 ? resetDeafult('hoursPerDay') : setDefault(hoursPerDay)"
+                               [ngClass]="{ 'is-invalid':  jobForm.controls.hoursPerDay.errors,
+                                      'is-valid':  jobForm.controls.hoursPerDay.valid }"
+                               id="hoursPerDay" class="form-control"
+                               placeholder="Hours Per Day"
+                               max="24"
+                               min="1"
+                               required
+                               formControlName="hoursPerDay">
+                        <small class="form-text text-danger text-align-right"
+                               *ngIf="jobForm.controls.hoursPerDay.invalid && jobForm.controls.hoursPerDay.touched">
+                            Hours per Week need to be between 1 - 24.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    
+                    <div class="col-sm-6 col-form-label">
+                        <label for="isHolidayPaid">Is Holiday Paid</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" formControlName="isHolidayPaid" class="custom-control-input"
+                                   id="isHoliPaid" [checked]=true/>
+                            <label class="custom-control-label" for="isHoliPaid">
+                                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                <span class="switch-icon-right"><i data-feather="x"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-sm-2 col-form-label">
+                    </div>
+                    <div class="col-sm-4 col-form-label">
+                        <label for="isDailyHoursRest">Is Daily Hours Restriction</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" formControlName="isDailyHoursRestriction"
+                                   class="custom-control-input"
+                                   id="isDailyHoursRest" checked/>
+                            <label class="custom-control-label" for="isDailyHoursRest">
+                                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                <span class="switch-icon-right"><i data-feather="x"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 2nd tab -->
+            <div class="col-6">
+                <div class="form-group row">
+                    
+                    <div class="col-sm-6 col-form-label">
+                        <label for="allowAutoCompleteTimeSheet">Allow Auto Complete  TimeSheet </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" formControlName="allowAutoCompleteTimeSheet" class="custom-control-input"
+                                   id="allowAutoCompleteTimeSheet" [checked]=true/>
+                            <label class="custom-control-label" for="allowAutoCompleteTimeSheet">
+                                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                <span class="switch-icon-right"><i data-feather="x"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-sm-2 col-form-label">
+                    </div>
+                    <div class="col-sm-4 col-form-label">
+                        <label for="isDailyHoursRest">Allow Auto Send For Approval  </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" formControlName="allowAutoSendApproval"
+                                   class="custom-control-input"
+                                   id="allowAutoSendApproval" checked/>
+                            <label class="custom-control-label" for="allowAutoSendApproval">
+                                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                <span class="switch-icon-right"><i data-feather="x"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</form>
+

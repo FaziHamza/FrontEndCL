@@ -1,0 +1,144 @@
+<div class="row" id="table-hover-row">
+    <div class="col-12">
+        <div class="card">
+            <!--            <div class="card-header"><h4 class="card-title">Hoverable rows</h4></div>-->
+            <!--            <div class="card-body">-->
+            <!--                <p class="card-text">-->
+            <!--                    Add <code class="highlighter-rouge">.table-hover</code> to enable a hover state on table rows within a-->
+            <!--                    <code class="highlighter-rouge">&lt;tbody&gt;</code>.-->
+            <!--                </p>-->
+            <!--            </div>-->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Package</th>
+                        <th>Details</th>
+                        <th>Amount</th>
+                        <th>Dated</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>
+                            <span class="font-weight-bold">Angular Project</span>
+                        </td>
+                        <td>Peter Charls</td>
+                        <td>{{amount | currency:'USD'}}</td>
+                        <td>
+                            {{currentDate | date:'MM-dd-YYYY hh:mm a'}}
+                        </td>
+                        <td><span class="badge badge-pill badge-light-primary mr-1">Active</span></td>
+                        <td class="overflow-hidden">
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                        data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <a ngbDropdownItem href="javascript:void(0);"
+                                    ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                    ><a ngbDropdownItem href="javascript:void(0);"
+                                ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                >
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>
+                            <span
+                                    class="font-weight-bold"
+                            >React Project</span
+                            >
+                        </td>
+                        <td>Package Item 1:</td>
+                        <td>{{amount | currency:'USD'}}</td>
+                        <td>
+                            {{currentDate | date:'MM-dd-YYYY hh:mm a'}}
+                        </td>
+                        <td><span class="badge badge-pill badge-light-success mr-1">Completed</span></td>
+                        <td class="overflow-hidden">
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                        data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <a ngbDropdownItem href="javascript:void(0);"
+                                    ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                    ><a ngbDropdownItem href="javascript:void(0);"
+                                ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                >
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>
+                            <span
+                                    class="font-weight-bold"
+                            >Vuejs Project</span
+                            >
+                        </td>
+                        <td>Jack Obes</td>
+                        <td>{{amount | currency:'USD'}}</td>
+                        <td>
+                            {{currentDate | date:'MM-dd-YYYY hh:mm a'}}
+                        </td>
+                        <td><span class="badge badge-pill badge-light-danger mr-1">Rejected</span></td>
+                        <td class="overflow-hidden">
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                        data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <a ngbDropdownItem href="javascript:void(0);"
+                                    ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                    ><a ngbDropdownItem href="javascript:void(0);"
+                                ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                >
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>
+                            <span class="font-weight-bold">Bootstrap Project</span>
+                        </td>
+                        <td>Jerry Milton</td>
+                        <td>{{amount | currency:'USD'}}</td>
+                        <td>
+                            {{currentDate | date:'MM-dd-YYYY hh:mm a'}}
+                        </td>
+                        <td><span class="badge badge-pill badge-light-warning mr-1">Pending</span></td>
+                        <td class="overflow-hidden">
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                        data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <a ngbDropdownItem href="javascript:void(0);"
+                                    ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                    ><a ngbDropdownItem href="javascript:void(0);"
+                                ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                >
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

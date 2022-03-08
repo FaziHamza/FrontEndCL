@@ -1,0 +1,412 @@
+<!-- Inline Editing Datatables -->
+<style>
+    .red {
+            border: solid 1px red;
+            border-color: solid 2px red;
+        }
+  </style>
+<app-content-header [contentHeader]="contentHeader" [elementRef]="buttons"></app-content-header>
+
+<ng-template #buttons>
+    <div class="d-inline-flex">
+        <!-- <button
+                type="button"
+                class="btn"
+                [class.btn-outline-primary]="isAddLookupCollapsed"
+                [class.btn-primary]="!isAddLookupCollapsed"
+                (click)="isAddLookupCollapsed = !isAddLookupCollapsed"
+                [attr.aria-expanded]="!isAddLookupCollapsed"
+                aria-controls="collapse"
+                rippleEffect>
+            Add Lookup
+        </button> -->
+    </div>
+</ng-template>
+
+<!-- <div [ngbCollapse]="isAddLookupCollapsed"> -->
+    <div class="card mb-1">
+        <div class="card-body">
+            <form class="form form-vertical" [formGroup]="mainForm">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input type="text" id="category" class="form-control" formControlName="category"
+                                   required 
+                                   ng-class="{red: mainForm.controls.category.invalid}"
+                                   (keyup.enter)="onSearchLookup()"
+                                   
+                                   (keyup)="onKeyUp_isCategorySearchValid(mainForm.controls.category)"
+                                   [maxLength]="10"
+                                   [minLength]="4"
+                                   placeholder="Category"
+                                   pattern="[A-Za-z]+" CharactersOnly />
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.category"
+                                                                  class="char-count">{{ mainForm.controls.category.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.category" class="char-count">0 </span> / 10
+                            </small>
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.category.invalid && mainForm.controls.category.touched">
+                                Category is Required!
+                            </small> -->
+                            <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.category.invalid && mainForm.controls.category.touched && mainForm.controls.category.errors.minLength">
+                                Category needs to be at-least 4 characters
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="subCategory">Sub Category</label>
+                            <input type="text" id="subCategory" class="form-control" formControlName="subCategory"
+                                   required 
+                                   ng-class="{red: mainForm.controls.subCategory.invalid}"
+                                   (keyup.enter)="onSearchLookup()"
+                                   (keyup)="onKeyUp_isSubCategorySearchValid(mainForm.controls.subCategory)"
+                                   [maxLength]="20"
+                                   [minLength]="4"
+                                   placeholder="Sub Category"
+                                   pattern="[A-Za-z]+" CharactersOnly />
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.subCategory"
+                                                                  class="char-count">{{ mainForm.controls.subCategory.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.subCategory" class="char-count">0 </span> / 10
+                            </small>
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.subCategory.invalid && mainForm.controls.subCategory.touched">
+                                Sub Category is Required!
+                            </small> -->
+
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input type="text" id="Description"
+                                   required 
+                                   ng-class="{red: mainForm.controls.description.invalid}"
+                                   (keyup.enter)="onSearchLookup()"
+                                   (keyup)="onKeyUp_isDescriptionSearchValid(mainForm.controls.description)"
+                                   class="form-control" formControlName="description"                                   
+                                   [maxlength]="50"
+                                   placeholder="Description"
+                                   pattern="[A-Za-z]+" CharactersOnly />
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.description"
+                                                                  class="char-count">{{ mainForm.controls.description.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.description" class="char-count">0 </span> / 50
+                            </small>
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="mainForm.controls.description.invalid && mainForm.controls.description.touched">
+                                Description is Required!
+                            </small> -->
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-3">
+                        <div class="form-group">
+                            <label for="Comment">Comment</label>
+                            <input type="text" id="comment"
+                                   [ngClass]="{ 'is-invalid': mainForm.controls.comment.touched && mainForm.controls.comment.errors,
+                                                              'is-valid': mainForm.controls.comment.touched && mainForm.controls.comment.valid }"
+                                   class="form-control" formControlName="comment"
+                                   [maxlength]="100"
+                                   placeholder="Description"/>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="mainForm.controls.comment"
+                                                                  class="char-count">{{ mainForm.controls.comment.value.length }}</span>
+                                <span *ngIf="!mainForm.controls.comment" class="char-count">0 </span> / 100
+                            </small>
+                        </div>
+                    </div> -->
+
+                    <div class="col-12 text-right mt-2">
+                        <button type="button" rippleEffect (click)="onCancelLookup()"
+                                class="btn btn-outline-secondary mr-1">Clear
+                        </button>
+                        <button type="submit" rippleEffect (click)="onSearchLookup_SearchAll()" class="btn btn-primary  mr-1">
+                            Search All
+                        </button> 
+                        <button type="submit" rippleEffect (click)="onSearchLookup()" class="btn btn-primary">
+                            Search
+                        </button>                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<!-- </div> -->
+<div class="row">    
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group row"> 
+            <button type="submit" rippleEffect (click)="confirmSave()" [disabled]="SaveAllDisabled" class="btn btn-primary ml-1">
+                            <!-- {{SaveAllDisabled ? "Save All" : "Update"}} -->
+                            Save All
+            </button>
+                        <button type="submit" rippleEffect [disabled]="mainForm.controls.category.value == null || mainForm.controls.subCategory.value == null" (click)="onAddLookupRow()"
+                                class="btn btn-primary ml-1">
+                            Add
+                        </button>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group row"> 
+        <small class="form-text text-danger">
+         
+        </small>
+        </div>
+    </div>
+</div>
+<section id="ngx-datatable-inline-editing">
+    <div class="card mb-1" *blockUI="'tableBlockUI'">
+        <div class="card-body">
+            <!-- [limit]="10" -->            
+            <!-- (activate)="onActivate($event)" -->
+            <ngx-datatable
+                    class="bootstrap core-bootstrap"
+                    [headerHeight]="34"
+                    [rowHeight]="32"                    
+                    [columnMode]="ColumnMode.force"
+                    [footerHeight]="34"
+                    [rows]="rows"
+                    [scrollbarH]="true"
+                    [messages]="{emptyMessage: 'No data found !'}"
+            >
+                <ngx-datatable-column [width]="10" *ngIf="false" name="Id" prop="id">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <div title="click to edit">
+                        <div class="d-flex align-items-center">
+                            <div class="cell-line-height">
+                                <p class="font-medium-1 line-height-1 mb-0">{{ value }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <input
+                            autofocus
+                            class="form-control form-control-sm"
+                            type="text"
+                            [value]="value"
+                    />
+                </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template  let-rowIndex="rowIndex" let-row="row">
+                        <div class="d-flex align-items-center">
+                            <!-- <div ngbDropdown container="body">
+                                <a
+                                        ngbDropdownToggle
+                                        href="javascript:void(0);"
+                                        class="hide-arrow"
+                                        id="dropdownBrowserState"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                >
+                                    <i data-feather="more-vertical" class="text-primary cursor-pointer mr-50"></i>
+                                </a>
+                                <div ngbDropdownMenu class="dropdown-menu-right" aria-labelledby="dropdownBrowserState">
+                                    <a href="javascript:void(0)" ngbDropdownItem class="d-flex align-items-center"
+                                    ><i data-feather="file-text" class="mr-50"></i> Details</a
+                                    >
+                                    <a href="javascript:void(0)" ngbDropdownItem class="d-flex align-items-center"
+                                    ><i data-feather="archive" class="mr-50"></i> Archive</a
+                                    >
+                                    <a href="javascript:void(0)" ngbDropdownItem class="d-flex align-items-center"
+                                    ><i data-feather="trash-2" class="mr-50"></i> Delete</a
+                                    >
+                                </div>
+                            </div> -->
+
+                            <button type="button" class="btn btn-icon rounded-circle btn-flat-primary"
+                                    (click)="onEditClick(row)" rippleEffect>
+                                <span [data-feather]="'edit'"></span>
+                            </button>
+                            <button type="button" class="btn btn-delete rounded-circle btn-flat-danger"
+                                    (click)="confirmDelete(rows[rowIndex].lookupId)" rippleEffect>
+                                <span [data-feather]="'delete'"></span>
+                            </button>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>             
+                <ngx-datatable-column  [width]="80" name="Category" prop="category">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                        <div
+                                title="click to edit"
+                                (click)="editingCategory[rowIndex + '-category'] = true"
+                                *ngIf="!editingCategory[rowIndex + '-category']  && rows[rowIndex].lookupId != currentRowId"
+                        >
+                            <div (click)="onEditClick(row)" class="d-flex align-items-center">
+                                <div class="cell-line-height">
+                                    <p class="font-medium-1 line-height-1 mb-0">{{ value }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"
+                                (blur)="inlineEditingUpdate($event, 'category', rowIndex)"
+                                *ngIf="editingCategory[rowIndex + '-category'] || rows[rowIndex].lookupId == currentRowId"
+                                type="text"
+                                [value]="value" CharactersOnly 
+                                
+                                ng-class="{red: editingCategory[rowIndex + '-category'] == ''}"
+                        />
+                        <span style="color:red" *ngIf="editingCategory[rowIndex + '-category'] == ''">Required</span>
+
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column  [width]="80" name="SubCategory" prop="subCategory">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                        <div
+                                title="click to edit"
+                                (click)="editingSubCategory[rowIndex + '-subCategory'] = true"
+                                *ngIf="!editingSubCategory[rowIndex + '-subCategory']  && rows[rowIndex].lookupId != currentRowId"
+                        >
+                            <div (click)="onEditClick(row)" class="d-flex align-items-center">
+                                <div class="cell-line-height">
+                                    <p class="font-medium-1 line-height-1 mb-0">{{ value }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"
+                                (blur)="inlineEditingUpdate($event, 'subCategory', rowIndex)"
+                                *ngIf="editingSubCategory[rowIndex + '-subCategory']  || rows[rowIndex].lookupId == currentRowId"
+                                type="text"
+                                [value]="value" CharactersOnly 
+                        />
+                        <!-- <span style="color:red" *ngIf="editingCategory[rowIndex + '-subCategory'] == ''">Required</span> -->
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column  [width]="180" name="Description" prop="description">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <div
+                                title="click to edit"
+                                (click)="editingDescription[rowIndex + '-description'] = true"
+                                *ngIf="!editingDescription[rowIndex + '-description']  && rows[rowIndex].lookupId != currentRowId"
+                        >
+                            {{ value }}
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"
+                                (blur)="inlineEditingUpdate($event, 'description', rowIndex)"
+                                *ngIf="editingDescription[rowIndex + '-description']  || rows[rowIndex].lookupId == currentRowId"
+                                type="text"
+                                (keyup)="onKeyUp_isNull($event)"
+                                [value]="value" CharactersOnly 
+                                
+                             
+                                [ngStyle]="{'border-color': 'red'  ? null : ('border-color' ? 'blue' : null) }"
+                        />
+                        <span style="color:red" *ngIf="editingDescription[rowIndex + '-description'] == ''">Required</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="180" name="Comment" prop="comment">
+                    <ng-template ngx-datatable-cell-template let-value="value" (click)="onEditClick(row)" let-rowIndex="rowIndex" let-row="row">
+                        <div
+                                title="click to edit"
+                                (click)="editingComment[rowIndex + '-comment'] = true"
+                                *ngIf="!editingComment[rowIndex + '-comment']  && rows[rowIndex].lookupId != currentRowId"
+                        >
+                            {{ value }}
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"
+                                (blur)="inlineEditingUpdate($event, 'comment', rowIndex)"
+                                *ngIf="editingComment[rowIndex + '-comment']  || rows[rowIndex].lookupId == currentRowId"
+                                type="text"
+                                [value]="value" CharactersOnly 
+                        />
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="50" name="Value" prop="lookupValue">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <div
+                                title="click to edit"
+                                style="min-width: 100px"
+                                (click)="editinglookupValue[rowIndex + '-lookupValue'] = true"
+                                *ngIf="!editinglookupValue[rowIndex + '-lookupValue']  && rows[rowIndex].lookupId != currentRowId"
+                        >
+                            {{ value }}
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"
+                                *ngIf="editinglookupValue[rowIndex + '-lookupValue']  || rows[rowIndex].lookupId == currentRowId"
+                                type="number"
+                                min='0'
+                                [value]="value"
+                                [readonly]='true'
+                        />
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="50" name="IsValid" prop="isValid">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <div
+                        title="click to edit"
+                        style="min-width: 100px"
+                        (click)="editingIsValid[rowIndex + '-isValid'] = true"
+                        *ngIf="!editingIsValid[rowIndex + '-isValid']"
+                >
+                    
+                </div>
+                <input autofocus
+                    class="form-control form-control-sm"
+                    type='checkbox'
+                    [value]='value'                    
+                    (blur)="inlineEditingUpdate($event, 'isValid', rowIndex)"
+                    [checked]='value'
+                    />                
+              </ng-template>                    
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="50" name="IsActive" prop="isActive">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <div
+                                title="click to edit"
+                                style="min-width: 100px"
+                                (click)="editingIsActive[rowIndex + '-isActive'] = true"
+                                *ngIf="!editingIsActive[rowIndex + '-isActive']"
+                        >                           
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"  
+                                (blur)="inlineEditingUpdate($event, 'isActive', rowIndex)"
+                                type='checkbox'
+                                [value]="value"
+                                [checked]='value'
+                        />
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="50" name="Order" prop="order">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <div
+                                title="click to edit"
+                                style="min-width: 100px"
+                                (click)="editingOrder[rowIndex + '-order'] = true"
+                                *ngIf="!editingOrder[rowIndex + '-order'] && rows[rowIndex].lookupId != currentRowId"
+                        >
+                            {{ value }}
+                        </div>
+                        <input
+                                autofocus
+                                class="form-control form-control-sm"
+                                (blur)="inlineEditingUpdate($event, 'order', rowIndex)"
+                                *ngIf="editingOrder[rowIndex + '-order']  || rows[rowIndex].lookupId == currentRowId"
+                                type="number"
+                                min='0'
+                                [value]="value"
+                        />
+                    </ng-template>
+                </ngx-datatable-column>                               
+            </ngx-datatable>
+        </div>
+    </div>
+</section>
+<!--/ Inline Editing Datatables -->

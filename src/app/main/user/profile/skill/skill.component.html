@@ -1,0 +1,24 @@
+<form class="form " (ngSubmit)="onFormSubmit()" [formGroup]="mainForm">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="skills">Select Skills </label>
+                </div>
+                <div class="col-sm-8">
+                    <ng-select
+                            [items]="skills"
+                            bindLabel="name"
+                            bindValue="name"
+                            formControlName="skills"
+                            [multiple]="true"
+                            id="skills"
+                            [ngClass]="validateControl(mainForm.controls.skills)"
+
+                            >
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

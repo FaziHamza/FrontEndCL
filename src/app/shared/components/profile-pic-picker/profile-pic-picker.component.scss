@@ -1,0 +1,31 @@
+@import "~@core/scss/base/bootstrap-extended/variables";
+
+.profile-picker {
+  width: 100px;
+  height: 100px;
+  background: $primary;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  place-content: center;
+
+  img {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+  }
+
+  input {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    border-radius: 50%;
+  }
+
+  i {
+    position: absolute;
+    color: white;
+    font-size: x-large;
+  }
+}

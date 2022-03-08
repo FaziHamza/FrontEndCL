@@ -1,0 +1,109 @@
+@import '@core/scss/core.scss';
+@import './assets/scss/styles';
+
+.bg-gray{
+    background-color: #f2f3f3;
+  }
+  input[type=number] {
+    text-align: right;
+  }
+  // .dark-layout
+  input.form-control:not(.is-valid):not(.is-invalid):not(:focus){
+    border-color: #7367f0;
+  }
+  .dark-layout .ng-select, .dark-layout .ng-select div, .dark-layout .ng-select input, .dark-layout .ng-select span {
+    border-color: #7367f0 ;
+  }
+  input.form-control:not(.is-valid):not(.is-invalid):not(:focus){
+    border-color: #7367f0 !important;
+  }
+  .dark-layout .ng-select, .dark-layout .ng-select div, .dark-layout .ng-select input, .dark-layout .ng-select span {
+    border-color: #7367f0 !important;
+  }
+  .dark-layout a {
+    color: white;
+  }
+  a {
+    color: #6e6b7b;
+  }
+.dark-layout .invoiceDiv
+{
+  background-color: #4b587a !important;
+}
+ .invoiceDiv
+{
+  background-color: #dfdfdf !important;
+}
+.dark-layout .weekDiv
+{
+  background-color: #4b587a !important;
+}
+ .weekDiv
+{
+  background-color: #dbdbdb !important;
+}
+.managerContarct{
+  background: #7367f0 !important;
+  color: whitesmoke !important;
+}
+.large-icon{
+  font-size: 28px !important;
+}
+.medium-icon{
+  font-size: 25px !important;
+}
+.small-icon{
+  font-size: 20px !important;
+}
+.avatar-content-border{
+  border: 2px solid !important;
+}
+// input{
+//   width: 120px !important;
+// }
+// make caption calss
+.error-txt{
+  color: #ea5455 !important;
+
+}
+.dark-layout .time-sheet-status-white {
+  color: white !important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.theme-green .bs-datepicker-head {
+  background-color: #7367f0 !important;
+}
+
+.theme-green .bs-datepicker-body table td span.selected, .theme-green .bs-datepicker-body table td.selected span, .theme-green .bs-datepicker-body table td span[class*="select-"]:after, .theme-green .bs-datepicker-body table td[class*="select-"] span:after {
+  background-color: #7367f0 !important;
+}
+.theme-green .bs-datepicker-body table td.week span {
+  color: #7367f0 !important;
+}
+.dark-layout .bs-datepicker {
+  background: #283046 !important;
+}
+.dark-layout .bs-datepicker-body table td span.is-other-month, .bs-datepicker-body table td.is-other-month span {
+  color: rgb(197 197 197 / 25%) !important;
+}
+
+
+.dark-layout .bs-datepicker {
+  box-shadow: 0 0 10px 0 #161d31;
+}
+.dark-layout .bs-datepicker-body table td {
+    color: #f7f7f7 !important;
+}
+
+.modal-dialog {
+  max-width: 565px !important;
+}

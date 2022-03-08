@@ -1,0 +1,91 @@
+<app-content-header [contentHeader]="contentHeader" [elementRef]="button"></app-content-header>
+<ng-template #button>
+    <div>
+        <button type="button" class="btn btn-primary" rippleEffect
+                (click)="onGenerateInvoice()">
+            <span [data-feather]="'plus'" [class]="'mr-25'"></span>Generate Invoice
+        </button>
+    </div>
+</ng-template>
+
+<div class="row">
+    <div class="col-6" #startDateContainer>
+        <h3 class="text-right">Start Date</h3>
+        <ng2-flatpickr class="pull-right" [config]="startDateOptions" addClass="hidden"
+                       (change)="configEndDate(endDateComp)"
+                       [(ngModel)]="startDate">
+        </ng2-flatpickr>
+    </div>
+    <div class="col-6">
+        <h3>End Date</h3>
+        <ng2-flatpickr [config]="endDateOptions" #endDateComp addClass="hidden" [(ngModel)]="endDate">
+        </ng2-flatpickr>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3" *ngFor="let inv of availableInvoices">
+        <div class="card mb-3 border-card">
+            <div class="card-header bg-primary text-white text-center justify-content-center">
+                <Div class="row ">
+                    <div class="col-12 text-wa-center">
+                        <h1 class="invoice-card-icon text-center rounded bg-white text-primary feather icon-briefcase font-large-3 text-center"></h1>
+                        <h3 class="invoice-card-no text-white"> {{inv.number}}</h3>
+                        <p class="invoice-card-date mt-1"> {{inv.dated | date :'MM-dd-YYYY'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span> {{inv.dated | date :'hh:mm a'}}</span></p>
+
+                    </div>
+                </Div>
+            </div>
+            <div class="card-body">
+                <div class="row mt-2">
+                    <div class="col-md-6" [ngbTooltip]="'Start Date'">
+                        <span class="feather icon-calendar large-icon"></span>
+                        <span>{{inv.startDated | date:'MM-dd-YYYY'}} </span>
+                    </div>
+                    <div class="col-md-6" [ngbTooltip]="'End Date'">
+                        <span class="feather icon-calendar large-icon"></span>
+                        <span>{{inv.endDated | date:'MM-dd-YYYY'}} </span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-md-6">
+                        <span class="feather icon-clock large-icon"></span>
+                        <span>10:30 </span></div>
+                    <div class="col-md-6">
+                        <span class="feather icon-briefcase large-icon"></span>
+                        <span> $1,000 </span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-12">
+                        <button class="btn btn-primary btn-block bg-card-info btn-icon text-center"><span
+                                [data-feather]="'mail'" class="mr-1"></span>Email Send To
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <span [data-feather]="'users'" class="font-medium-5"> </span>
+                        <h5 class="d-inline">Group Emails</h5>
+                    </div>
+                    <hr>
+                    <div class="col-12 mt-1" *ngFor="let av of inv.emails">
+                        <a href="" [ngbTooltip]="'Name of User'" class="email-avatar">
+                            <div class="avatar">
+                                <span class="avatar-content">
+                                  <img src="assets/images/portrait/small/avatar-s-20.jpg" alt="avatar" width="32"
+                                       height="32"/>
+                                </span>
+                            </div>
+                            <span class="ml-1">{{av}}</span></a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

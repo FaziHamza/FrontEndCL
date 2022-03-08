@@ -1,0 +1,470 @@
+<form class="form" autocomplete="off" (ngSubmit)="onFormSubmit()" [formGroup]="mainForm">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="offset-3 col-sm-6 text-wa-center">
+                    <app-profile-pic-picker formControlName="logo"></app-profile-pic-picker>
+                    <small class="form-text text-danger"
+                           *ngIf="mainForm.controls.logo.invalid && mainForm.controls.logo.touched">
+                        This field is Required</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="title">Title </label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" id="title"
+                           class="form-control" formControlName="title"
+                           [maxlength]="textFieldMaxLength"
+                           [ngClass]="validateControl(mainForm.controls.title)"
+                           placeholder="Title (e.g. Bachelors in Computer Science)" required/>
+
+
+                    <small class="textarea-counter-value float-right">
+                                                    <span *ngIf="mainForm.controls.title"
+                                                          class="char-count">{{ mainForm.controls.title.value.length }}</span>
+                        <span *ngIf="!mainForm.controls.title" class="char-count">0 </span> / {{textFieldMaxLength}}
+                    </small>
+                    <error-messages *ngIf="mainForm.controls.title.invalid && mainForm.controls.title.touched"
+                                    [controlName]="mainForm.controls.title">
+                    </error-messages>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="degreeTypeId">Degree Type</label>
+                </div>
+                <div class="col-sm-8">
+                    <ng-select
+                            [items]="degreeTypes"
+                            bindLabel="name"
+                            placeholder="Select Degree Type"
+                            bindValue="id"
+                            [addTag]="true"
+                            formControlName="degreeTypeId"
+                            id="degreeTypeId"
+                            [ngClass]="validateControl(mainForm.controls.degreeTypeId)"
+                    >
+                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                            {{ item.name }}
+                        </ng-template>
+                    </ng-select>
+                    <error-messages *ngIf="mainForm.controls.degreeTypeId && mainForm.controls.degreeTypeId.touched"
+                                    [controlName]="mainForm.controls.degreeTypeId">
+                    </error-messages>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="instituteName">Institute Name</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text"
+                           [ngClass]="validateControl(mainForm.controls.instituteName)"
+                           id="instituteName" class="form-control" formControlName="instituteName"
+                           required
+                           placeholder="Institute Name"/>
+
+
+                    <small class="textarea-counter-value float-right">
+                                                    <span *ngIf="mainForm.controls.instituteName"
+                                                          class="char-count">{{ mainForm.controls.instituteName.value.length }}</span>
+                        <span *ngIf="!mainForm.controls.instituteName" class="char-count">0 </span> / {{35}}
+                    </small>
+
+                    <error-messages
+                            *ngIf="mainForm.controls.instituteName.invalid && mainForm.controls.instituteName.touched"
+                            [controlName]="mainForm.controls.instituteName">
+                    </error-messages>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="maxGPA">Total Marks / GPA</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="number" id="maxGPA"
+                           [ngClass]="validateControl(mainForm.controls.maxGPA)"
+                           class="form-control" formControlName="maxGPA" required
+                           max="2000"
+                           min="0"
+                           placeholder="GPA"/>
+
+                    <error-messages *ngIf="mainForm.controls.maxGPA.invalid && mainForm.controls.maxGPA.touched"
+                                    [controlName]="mainForm.controls.maxGPA">
+                    </error-messages>
+                    <!--
+                                        <small class="form-text text-danger"
+                                               *ngIf="mainForm.controls.maxGPA.invalid && mainForm.controls.maxGPA.touched">
+                                            Max Marks/GPA field is Required! Max 2000 & Min 0</small> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="gpa">Marks / GPA</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="number"
+                           [ngClass]="validateControl(mainForm.controls.gpa)"
+                           id="gpa" class="form-control" formControlName="gpa" required
+                           [max]="mainForm.controls.maxGPA.value"
+                           [min]="0"
+                           placeholder="GPA"/>
+
+                    <error-messages *ngIf="mainForm.controls.gpa.invalid && mainForm.controls.gpa.touched"
+                                    [controlName]="mainForm.controls.gpa">
+                    </error-messages>
+
+
+                    <!-- <small class="form-text text-danger"
+                           *ngIf="mainForm.controls.gpa.invalid && mainForm.controls.gpa.touched">
+                        GPA/Marks field is Required! Max {{mainForm.controls.maxGPA.value}} & Min 0</small> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="startDate">Start Date</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control"
+                               [ngClass]="validateControl(mainForm.controls.startDate)"
+                               placeholder="yyyy-mm-dd-"
+                               formControlName="startDate"
+                               id="startDate"
+                               ngbDatepicker
+                               #basicSD="ngbDatepicker"
+                        />
+                        <div class="input-group-append">
+                            <button
+                                    class="btn btn-outline-secondary feather icon-calendar"
+                                    (click)="basicSD.toggle()"
+                                    type="button"
+                                    rippleEffect
+                            ></button>
+                        </div>
+                    </div>
+
+                    <error-messages *ngIf="mainForm.controls.startDate.invalid && mainForm.controls.startDate.touched"
+                                    [controlName]="mainForm.controls.startDate">
+                    </error-messages>
+
+                    <!-- <small class="form-text text-danger"
+                           *ngIf="mainForm.controls.startDate.invalid && mainForm.controls.startDate.touched">
+                        Start Date field is Required</small> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="isCurrent">Currently Attending</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" (ngModelChange)="onCAChange()"
+                               formControlName="isCurrent"
+                               id="isCurrent"/>
+                        <label class="custom-control-label" for="isCurrent">
+                            <span class="switch-icon-left"><i data-feather="check"></i></span>
+                            <span class="switch-icon-right"><i data-feather="x"></i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" *ngIf="mainForm.controls.isCurrent.value !== true">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="endDate">End Date</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input
+                                class="form-control"
+                                [ngClass]="validateControl(mainForm.controls.endDate)"
+                                placeholder="yyyy-mm-dd"
+                                formControlName="endDate"
+                                id="endDate"
+                                ngbDatepicker
+                                #basicED="ngbDatepicker"
+                                required
+                        />
+                        <div class="input-group-append">
+                            <button
+                                    class="btn btn-outline-secondary feather icon-calendar"
+                                    (click)="basicED.toggle()"
+                                    type="button"
+                                    rippleEffect
+                            ></button>
+                        </div>
+                    </div>
+
+                    <error-messages *ngIf="mainForm.controls.endDate.invalid && mainForm.controls.endDate.touched"
+                                    [controlName]="mainForm.controls.endDate">
+                    </error-messages>
+                    <!--
+                                        <small class="form-text text-danger"
+                                               *ngIf="mainForm.controls.endDate.invalid && mainForm.controls.endDate.touched">
+                                            End Date is Required!</small> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="specifyAddress">Specify Address?</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input"
+                               [(ngModel)]="specifyAddress" [ngModelOptions]="{standalone: true}"
+                               (ngModelChange)="onSpecifyAddressChange()"
+                               id="specifyAddress"/>
+                        <label class="custom-control-label" for="specifyAddress">
+                            <span class="switch-icon-left"><i data-feather="check"></i></span>
+                            <span class="switch-icon-right"><i data-feather="x"></i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 " formGroupName="address" *ngIf="specifyAddress">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="address1">Address Line 1</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]="validateControl(getFromGroup('address').address1)"
+                                   class="form-control" formControlName="address1" id="address1"
+                                   required
+                                   [maxlength]="50"
+                                   placeholder="Address Line 1">
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="getFromGroup('address').address1"
+                                                                  class="char-count">{{ getFromGroup('address').address1.value.length }}</span>
+                                <span *ngIf="!getFromGroup('address').address1" class="char-count">0 </span> /
+                                {{50}}
+                            </small>
+                            <error-messages
+                                    *ngIf="getFromGroup('address').address1.invalid && getFromGroup('address').address1.touched"
+                                    [controlName]="getFromGroup('address').address1">
+                            </error-messages>
+
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="getFromGroup('address').address1.invalid && getFromGroup('address').address1.touched">
+                                Address 1 Field is Required!</small> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="address2">Address 2</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]="validateControl(getFromGroup('address').address2)"
+                                   class="form-control" formControlName="address2" id="address2"
+                                   [maxlength]="50"
+                                   placeholder="Address Line 2">
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="getFromGroup('address').address2"
+                                                                  class="char-count">{{ getFromGroup('address').address2.value.length }}</span>
+                                <span *ngIf="!getFromGroup('address').address2" class="char-count">0 </span> / {{50}}
+
+                            </small>
+                            <error-messages
+                                    *ngIf="getFromGroup('address').address2.invalid && getFromGroup('address').address2.touched"
+                                    [controlName]="getFromGroup('address').address2">
+                            </error-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="city">City</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]="validateControl(getFromGroup('address').city)"
+                                   class="form-control" formControlName="city" id="city"
+                                   [maxlength]="textFieldMaxLength"
+                                   placeholder="City" required>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="getFromGroup('address').city"
+                                                                  class="char-count">{{ getFromGroup('address').city.value.length }}</span>
+                                <span *ngIf="!getFromGroup('address').city" class="char-count">0 </span>
+                                / {{textFieldMaxLength}}
+                            </small>
+                            <error-messages
+                                    *ngIf="getFromGroup('address').city.invalid && getFromGroup('address').city.touched"
+                                    [controlName]="getFromGroup('address').city">
+                            </error-messages>
+
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="getFromGroup('address').city.invalid && getFromGroup('address').city.touched">
+                                City Field is required!</small> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="state">State</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]="validateControl(getFromGroup('address').state)"
+                                   class="form-control" formControlName="state" required id="state"
+                                   [maxlength]="textFieldMaxLength" placeholder="State">
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="getFromGroup('address').state"
+                                                                  class="char-count">{{ getFromGroup('address').state.value.length }}</span>
+                                <span *ngIf="!getFromGroup('address').state" class="char-count">0 </span>
+                                / {{textFieldMaxLength}}
+                            </small>
+
+                            <error-messages
+                                    *ngIf="getFromGroup('address').state.invalid && getFromGroup('address').state.touched"
+                                    [controlName]="getFromGroup('address').state">
+                            </error-messages>
+
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="getFromGroup('address').state.invalid && getFromGroup('address').state.touched">
+                                State field is Required!</small> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="state">Country</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]="validateControl(getFromGroup('address').country)"
+                                   class="form-control" formControlName="country" id="Country"
+                                   [maxlength]="textFieldMaxLength"
+                                   placeholder="Country" required>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="getFromGroup('address').country"
+                                                                  class="char-count">{{ getFromGroup('address').country.value.length }}</span>
+                                <span *ngIf="!getFromGroup('address').country" class="char-count">0 </span>
+                                / {{textFieldMaxLength}}
+                            </small>
+
+                            <error-messages
+                                    *ngIf="getFromGroup('address').country.invalid && getFromGroup('address').country.touched"
+                                    [controlName]="getFromGroup('address').country">
+                            </error-messages>
+
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="getFromGroup('address').country.invalid && getFromGroup('address').country.touched">
+                                Country Field is Required!</small> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-form-label">
+                            <label for="zip">Zip</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text"
+                                   [ngClass]="validateControl(getFromGroup('address').zip)"
+                                   class="form-control" formControlName="zip" id="zip" placeholder="Zip"
+                                   [maxlength]="textFieldMaxLength" required>
+                            <small class="textarea-counter-value float-right">
+                                                            <span *ngIf="getFromGroup('address').zip"
+                                                                  class="char-count">{{ getFromGroup('address').zip.value.length }}</span>
+                                <span *ngIf="!getFromGroup('address').zip" class="char-count">0 </span>
+                                / {{textFieldMaxLength}}
+                            </small>
+                            <error-messages
+                                    *ngIf="getFromGroup('address').zip.invalid && getFromGroup('address').zip.touched"
+                                    [controlName]="getFromGroup('address').zip">
+                            </error-messages>
+
+                            <!-- <small class="form-text text-danger"
+                                   *ngIf="getFromGroup('address').zip.invalid && getFromGroup('address').zip.touched">
+                                Zip field is Required!</small> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="detail">Detail </label>
+                </div>
+                <div class="col-sm-8">
+                    <textarea id="detail"
+                              [ngClass]="validateControl(mainForm.controls.detail)"
+                              class="form-control" formControlName="detail"
+                              [maxlength]="250"
+                              placeholder="Detail" required> </textarea>
+                    <small class="textarea-counter-value float-right">
+                                                        <span *ngIf="mainForm.controls.detail"
+                                                              class="char-count">{{ mainForm.controls.detail.value.length }}</span>
+                        <span *ngIf="!mainForm.controls.detail" class="char-count">0 </span> / {{250}}
+                    </small>
+
+                    <error-messages *ngIf="mainForm.controls.detail.invalid && mainForm.controls.detail.touched"
+                                    [controlName]="mainForm.controls.detail">
+                    </error-messages>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-4 col-form-label">
+                    <label for="isPublic">Is Public</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" formControlName="isPublic"
+                               id="isPublic"/>
+                        <label class="custom-control-label" for="isPublic">
+                            <span class="switch-icon-left"><i data-feather="check"></i></span>
+                            <span class="switch-icon-right"><i data-feather="x"></i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</form>

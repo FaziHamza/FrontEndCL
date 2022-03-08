@@ -1,0 +1,548 @@
+<div class="row  ">
+    <div class="offset-2 col-8">
+        <section class="vertical-wizard">
+            <div id="stepper2" class="bs-stepper vertical vertical-wizard-example">
+
+
+                <div class="bs-stepper-header" style="display: none;">
+
+                    <div class="step" data-target="#hourly-details">
+                        <button type="button" class="step-trigger">
+                            <span class="bs-stepper-box">1</span>
+                            <span class="bs-stepper-label">
+                                <span class="bs-stepper-title">Job Details</span>
+                                <span class="bs-stepper-subtitle">Add/Modify Job Details</span>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="step" data-target="#leave-details">
+                        <button type="button" class="step-trigger">
+                            <span class="bs-stepper-box">1</span>
+                            <span class="bs-stepper-label">
+                                <span class="bs-stepper-title">Job Details</span>
+                                <span class="bs-stepper-subtitle">Add/Modify Job Details</span>
+                            </span>
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="bs-stepper-content">
+                    <div id="hourly-details" class="content">
+                        <div class="card">
+                            <div class="card-header1">
+                                <!-- <div class="col-12 border-bottom-primary mb-1">
+                                    <div class="row week-counter">
+                                        <div class="col-5 align-self-center">
+                                            <h3 (click)="verticalWizardNext()">Week 1   </h3>
+                                        </div>
+                                        <div class="col-7 text-right">
+                                            <small><strong>Start
+                                                    Date: </strong>
+                                            </small>
+                                            <br>
+                                            <small><strong>End
+                                                    Date: </strong>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <!-- <div class="ml-1 flex-grow-0 custom-control custom-control-primary custom-switch"
+                                        [ngbTooltip]="applyForLeave ? 'Turn Off To go back to regular check-in/check-out' : 'Turn On To Apply for Leave'">
+                                        <input type="checkbox" [(ngModel)]="applyForLeave" class="custom-control-input"
+                                            id="customSwitch3" />
+                                        <label class="custom-control-label" for="customSwitch3"></label>
+                                    </div> -->
+                                <div class="row mb-2 m-1">
+                                    <div class="col-md-3">
+                                        <h3 (click)="verticalWizardNext()"> Week {{this.tsServices.timeSheetDailyActivityDtos.week}} </h3>
+                                        <small ngbTooltip="End Date: {{this.tsServices.timeSheetDailyActivityDtos.startDate | date: 'MM/dd/YYYY'}}"><strong>Start
+                                            Date: </strong>{{this.tsServices.timeSheetDailyActivityDtos.startDate | date:'MM/dd/YYYY'}}
+                                    </small>
+                                    <br>
+                                    <small ngbTooltip="End Date: {{this.tsServices.timeSheetDailyActivityDtos.endDate | date: 'MM/dd/YYYY'}}"><strong>End
+                                            Date: </strong>{{this.tsServices.timeSheetDailyActivityDtos.endDate | date:'MM/dd/YYYY'}}
+                                    </small>
+
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="heading-elements flex-grow-1 text-right group-screen">
+                                            <div class="tools ">
+                                                <!-- *ngIf="isLoad" -->
+                                                <div class="row">
+
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <ul class="list-inline mb-0 head-tools">
+                                                                    <!-- collapse -->
+
+
+                                                                    <li>
+                                                                        <a class="d-grid-hourly" routerLink="">
+                                                                            <i
+                                                                                class="feather icon-clock medium-icon"></i>
+                                                                            <p class="icon-alginment">Hours</p>
+                                                                            <p class="show-number">{{this.tsServices.timeSheetDailyActivityDtos.totalHours}}</p>
+                                                                            <!-- {{this.timesheetDetailsByIdData.hours}}  -->
+                                                                            <!-- {{this.commonFunctionService.hoursToTimeconvert(this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.hours)}} -->
+                                                                        </a>
+                                                                    </li>
+                                                                  
+                                                                    <li>
+                                                                        <a routerLink="/timesheet/expenses"
+                                                                            class="d-grid-hourly">
+                                                                            <i
+                                                                                class="feather icon-briefcase medium-icon"></i>
+                                                                            <p class="icon-alginment">Salary </p>
+                                                                            <p class="show-number">{{this.tsServices.timeSheetDailyActivityDtos.totalSalary}}</p>
+                                                                            <!-- {{(this.commonFunctionService.hoursToTimeConvertforDb(this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.hours) *
+                                                                    this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.salaryRate).toFixed(2)}} -->
+
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a routerLink="/timesheet/daily-activity"
+                                                                            class=" d-grid-hourly">
+                                                                            <i
+                                                                                class="feather icon-dollar-sign medium-icon"></i>
+                                                                            <p class="icon-alginment">Expense</p>
+                                                                            <p class="show-number">0</p>
+                                                                            <!-- {{this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.expense}} -->
+
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <!-- (click)="modalOpenLeave(modalContentTG, '')" -->
+                                                                        <a class="d-grid-hourly  "
+                                                                          
+                                                                            [ngbTooltip]="'Use Leave'">
+                                                                            <i
+                                                                                class="feather icon-log-out  medium-icon"></i>
+                                                                            <p class="icon-alginment">Leave </p>
+                                                                            <p class="show-number">{{this.tsServices.timeSheetDailyActivityDtos.totalLeave}}</p>
+                                                                            <!-- {{tsServices.leaveLabel}}
+                                                                    {{this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.totalLeave}} -->
+                                                                        </a>
+                                                                    </li>
+                                                                    <li >
+                                                                        <!-- *ngIf="ats.allowOvertime" -->
+                                                                        <a class="d-grid-hourly" 
+                                                                      
+                                                                        >
+                                                                            <i
+                                                                                class="feather icon-clock medium-icon"></i>
+                                                                            <p class="icon-alginment">Over Time</p>
+                                                                            <p class="show-number">0:0</p>
+                                                                            <!--                                &nbsp;-->
+                                                                            <span placement="bottom"
+                                                                                ngbTooltip="Allowed Overtime Duration (hh:mm)"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="d-grid-hourly"
+                                                                     
+                                                                            (click)="showComments = !showComments">
+                                                                            <i
+                                                                                class="feather icon-message-circle medium-icon"></i>
+                                                                            <p class="icon-alginment">Comment</p>
+                                                                            <p class="show-number">0</p>
+                                                                        </a>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- // addForm -->
+                            <block-ui></block-ui>
+                            <form action="#" class="invoice-repeater">
+                                <!-- <div class="form-group" *ngFor="let jobL of getJobLeaves(); let i = index"> -->
+                                <div *ngFor="let dAct of tsServices.hourlyActivities(); let i = index" @heightIn>
+
+                                    <div class="row" [formGroup]="dAct">
+
+                                        <div class=" offset-1 col-10">
+                                            <div class="row ">
+                                                <div class=" col-sm-2 col-form-label">
+                                                    <label>{{dAct.controls.name.value}}</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <!-- [ngStyle]="{'background-color': dAct.controls.hours.value > dAct.controls.perDayhours.value? '#545454' : (dAct.controls.hours.value == 4 ? '' : null) }" -->
+                                                    <input type="number" placeholder="Hours" id="hours{{i}}"
+
+                                                    (change)="calculateMainBar()"
+
+                                                    [ngbTooltip]="dAct.controls.hours.value > dAct.controls.perDayhours.value ?'you excited per day limt ':'hours '"
+                                                    
+                                                        formControlName="hours"
+                                                        [ngClass]="{ 
+                                                          
+                                                            'is-invalid':  dAct.controls.hours.touched && dAct.controls.hours.errors,
+                                                             'is-valid': dAct.controls.hours.touched && dAct.controls.hours.valid
+                                                             }"
+                                                        class="form-control" name="hou  rs{{i}}" />
+                                                        <!-- <span class="text-warning"  *ngIf="dAct.controls.hours.value > dAct.controls.perDayhours.value ">Day Limit Increase </span> -->
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group">
+                                                        <input type="number" disabled placeholder="Leave"
+                                                            id="totalLeave{{i}}" formControlName="totalLeave"
+                                                            [ngClass]="{ 'is-invalid':  dAct.controls.totalLeave.touched && dAct.controls.totalLeave.errors,
+                                                                      'is-valid': dAct.controls.totalLeave.touched && dAct.controls.totalLeave.valid }"
+                                                            class="form-control" name="totalLeave{{i}}" />
+                                                        <div class="input-group-append"
+                                                            (click)="selectLeave(modalContentLeave,'',dAct.controls.timeSheetDailyActivityId.value , i ,dAct.controls.name.value )">
+                                                            <span
+                                                                class="input-group-text cursor-pointer leave-add "><span
+                                                                    [data-feather]="'plus'"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- <div class="col-sm-1">
+                                                <button type="button" 
+                                                    class="btn btn-icon btn-primary "><span
+                                                        [data-feather]="'plus'"></span></button>
+                                            </div> -->
+                                                <div class="col-sm-5">
+                                                    <input type="text" placeholder="Enter comment" id="comments{{i}}"
+                                                        formControlName="comments"
+                                                        [ngClass]="{ 'is-invalid':  dAct.controls.comments.touched && dAct.controls.comments.errors,
+                                                                      'is-valid': dAct.controls.comments.touched && dAct.controls.comments.valid }"
+                                                        class="form-control" name="comments{{i}}" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                          <!-- // alert in row -->
+                                <div class="row">
+
+                                    <div class=" offset-1 col-10">
+                                        <div class="row">
+                                            <div class=" col-sm-2 col-form-label">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                
+                                                    <span class="text-warning"  *ngIf="dAct.controls.hours.value > dAct.controls.perDayhours.value "> Day Limit Increase </span>
+
+                                            </div>
+                                            <div class="col-sm-1">
+                               
+
+                                            </div>
+
+                                            <!-- <div class="col-sm-1">
+                                            <button type="button" 
+                                                class="btn btn-icon btn-primary "><span
+                                                    [data-feather]="'plus'"></span></button>
+                                        </div> -->
+                                            <div class="col-sm-5">
+                                              
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- // alert in row end -->
+                                </div>
+
+                          
+                                <!--                            </button>-->
+                            </form>
+
+                            <div class="card-footer">
+                                <button  *ngIf="!this.isLeaveClicked" type="button" (click)="btnSaveData()" class="btn btn-primary pull-right"
+                                    style="margin-bottom: 1rem" rippleEffect>Save
+                                </button>
+                                <button *ngIf="this.isLeaveClicked" type="button" (click)="btnSaveLeaveData()" class="btn btn-primary pull-right"
+                                style="margin-bottom: 1rem" rippleEffect>Save Leave
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- LeaveDetail -->
+                 <div class="row" >
+                    <div class="col">
+                        <div id="leave-details" class="content">
+                            <div class="card">
+                                <div class="card-header1">
+                                    <!-- <div class="col-12 border-bottom-primary mb-1">
+                                        <div class="row week-counter">
+                                            <div class="col-5 align-self-center">
+                                                <h3 (click)="verticalWizardNext()">Week 1   </h3>
+                                            </div>
+                                            <div class="col-7 text-right">
+                                                <small><strong>Start
+                                                        Date: </strong>
+                                                </small>
+                                                <br>
+                                                <small><strong>End
+                                                        Date: </strong>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div> -->
+    
+    
+                                    <!-- <div class="ml-1 flex-grow-0 custom-control custom-control-primary custom-switch"
+                                            [ngbTooltip]="applyForLeave ? 'Turn Off To go back to regular check-in/check-out' : 'Turn On To Apply for Leave'">
+                                            <input type="checkbox" [(ngModel)]="applyForLeave" class="custom-control-input"
+                                                id="customSwitch3" />
+                                            <label class="custom-control-label" for="customSwitch3"></label>
+                                        </div> -->
+                                    <div class="row mb-2 m-1">
+                                        <div class="col-md-3">
+                                            <h3 >Leave Detail </h3>
+                                            <p>
+                                                {{this.dayName}}
+                                            </p>
+    
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div id="" class="heading-elements flex-grow-1 text-right  group-screen" >
+                                                <div class="tools ">
+                                                    <!-- *ngIf="isLoad" -->
+                                                    <div class="row">
+    
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <ul class="list-inline mb-0 head-tools">
+                                                                        <!-- collapse -->
+    
+    
+                                                                        <li class="disabled-li" >
+                                                                            <a class="d-grid-hourly" routerLink="">
+                                                                                <i
+                                                                                    class="feather icon-clock medium-icon"></i>
+                                                                                <p class="icon-alginment">Hours</p>
+                                                                                <p class="show-number">{{this.tsServices.timeSheetDailyActivityDtos.totalHours}}</p>
+                                                                                <!-- {{this.timesheetDetailsByIdData.hours}}  -->
+                                                                                <!-- {{this.commonFunctionService.hoursToTimeconvert(this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.hours)}} -->
+                                                                            </a>
+                                                                        </li>
+                                                                    
+                                                                        <li class="disabled-li">
+                                                                            <a 
+                                                                                class="d-grid-hourly">
+                                                                                <i
+                                                                                    class="feather icon-briefcase medium-icon"></i>
+                                                                                <p class="icon-alginment">Salary </p>
+                                                                                <p class="show-number">{{this.tsServices.timeSheetDailyActivityDtos.totalSalary}}</p>
+                                                                                <!-- {{(this.commonFunctionService.hoursToTimeConvertforDb(this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.hours) *
+                                                                        this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.salaryRate).toFixed(2)}} -->
+    
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="disabled-li">
+                                                                            <a 
+                                                                                class=" d-grid-hourly">
+                                                                                <i
+                                                                                    class="feather icon-dollar-sign medium-icon"></i>
+                                                                                <p class="icon-alginment">Expense</p>
+                                                                                <p class="show-number">0</p>
+                                                                                <!-- {{this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.expense}} -->
+    
+                                                                            </a>
+                                                                        </li>
+                                                                        <li >
+                                                                            <!-- (click)="modalOpenLeave(modalContentTG, '')" -->
+                                                                            <a class="d-grid-hourly  "
+                                                                            (click)="modalOpenLeaveHourly(modalContentTG1, '')"
+                                                                               
+                                                                                [ngbTooltip]="'Use Leave'">
+                                                                                <i
+                                                                                    class="feather icon-log-out  medium-icon"></i>
+                                                                                <p class="icon-alginment">Leave </p>
+                                                                                <p class="show-number">{{this.tsServices.timeSheetDailyActivityDtos.totalLeave}}</p>
+                                                                                <!-- {{tsServices.leaveLabel}}
+                                                                        {{this.tsServices.timesheetDetailsByIdData.timeSheetDailyActivityDto.totalLeave}} -->
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="disabled-li">
+                                                                            <!-- *ngIf="ats.allowOvertime" -->
+                                                                            <!-- [ngbTooltip]="'OverTime'" -->
+                                                                            <a class="d-grid-hourly" >
+                                                                                <i
+                                                                                    class="feather icon-clock medium-icon"></i>
+                                                                                <p class="icon-alginment">Over Time</p>
+                                                                                <p class="show-number">0:0</p>
+                                                                                <!--                                &nbsp;-->
+                                                                                <span placement="bottom"
+                                                                                    ngbTooltip="Allowed Overtime Duration (hh:mm)"></span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="disabled-li">
+                                                                            <a class="d-grid-hourly"
+                                                                               
+                                                                                (click)="showComments = !showComments">
+                                                                                <i
+                                                                                    class="feather icon-message-circle medium-icon"></i>
+                                                                                <p class="icon-alginment">Comment</p>
+                                                                                <p class="show-number">0</p>
+                                                                            </a>
+                                                                        </li>
+    
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- // addForm -->
+                                <app-add-edit-leave [indexId]="indexId" [dayName]="dayName"
+                                [seletecTimeSheetDailyActivityId]="this.seletecTimeSheetDailyActivityId"></app-add-edit-leave>
+                    
+    
+                                <div class="card-footer">
+                                    <button  type="button" (click)="verticalWizardPrevious()" class="btn btn-primary pull-left"
+                                    style="margin-bottom: 1rem" rippleEffect>Previous
+                                 </button>
+                                    <button *ngIf="!this.isLeaveClicked"  type="button" (click)="btnSaveData()" class="btn btn-primary pull-right"
+                                        style="margin-bottom: 1rem" rippleEffect>Save
+                                    </button>
+                                    <button *ngIf="this.isLeaveClicked" type="button" (click)="btnSaveLeaveData()" class="btn btn-primary pull-right"
+                                    style="margin-bottom: 1rem" rippleEffect>Save Leave
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- modal -->
+
+<ng-template #modalContentLeave let-modal id="modalLeave" style="width: 800px !important;">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel10"> Leave Detail {{tsServices.isLocalLeave}} </h5>
+
+
+
+        <!-- <button type="button" (click)="modalOpenLeaveHourly(modalContentTG1, '')"
+                                        class="btn btn-icon btn-primary full-width"><span
+                                            [data-feather]="'plus'"></span></button> -->
+
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus style="padding:0px">
+        <app-add-edit-leave [indexId]="indexId"
+            [seletecTimeSheetDailyActivityId]="this.seletecTimeSheetDailyActivityId"></app-add-edit-leave>
+
+    </div>
+    <div class="modal-footer">
+        <div class="row" style="margin:9px 175px 6px 7px !important;">
+
+
+            <button type="button" class=" mr-2 btn btn-secondary" #btnSub (click)="[modal.dismiss('Cancel')]"
+                rippleEffect>
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" #btnSub
+                (click)="[modal.dismiss('Cancel'), calculateLeaveAndSave()]" rippleEffect>
+                OK 1
+            </button>
+
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalContentTG1 let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel10">Select Leave </h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus style="padding:0px">
+        <div class="col-12 mt-1" *ngIf="this.tsServices.jobLeavedetailList.length>0">
+            <table class="table  table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 80%">Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="width: 5%">Hours</th>
+                        <th style="width: 5%">Consumed</th>
+                        <th style="width: 5%">Remaining</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tsServices.jobLeavedetailList ;let idx=index;
+                        let even=even"
+                        [style.background-color]="tsServices.selectRowClicked == idx ? '#7367f0' : (even ? '' : '')"
+                        (click)="!tsServices.isLocalLeave && changeTableRowColor(idx,item)">
+                        <td>{{item.description}}</td>
+                        <td>{{item.totalHours}}</td>
+                        <td>{{item.totalConsummedHours}}</td>
+                        <td>{{item.totalHours - item.totalConsummedHours}}</td>
+
+
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="error-txt" *ngIf="this.tsServices.jobLeavedetailList.length==0">
+            <h3 class="error-txt">There is no recoed found </h3>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <div class="row" style="margin:9px 175px 6px 7px !important;">
+
+
+            <button type="button" class=" mr-2 btn btn-secondary" #btnSub (click)="[modal.dismiss('Cancel')]"
+                rippleEffect>
+                Cancel
+            </button>
+            <button *ngIf="this.tsServices.jobLeavedetailList.length!=0" type="button" class="btn btn-primary" #btnSub
+                (click)="[modal.dismiss('Cancel'),addLeave() ]" rippleEffect>
+                leave OK
+            </button>
+
+
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,71 @@
+<form class="form form-horizontal">
+    <block-ui></block-ui>
+    <div class="row" [formGroup]="orgSearchCreateForm">
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="organizationId"> Organization</label>
+                </div>
+                <div class="col-sm-9">
+                        <input  type="text" class="form-control" formControlName="organization" required 
+                        [ngClass]="{ 'is-invalid': orgSearchCreateForm.controls.organization.touched && orgSearchCreateForm.controls.organization.errors,
+                        'is-valid': orgSearchCreateForm.controls.organization.touched && orgSearchCreateForm.controls.organization.valid }">
+                        <small class="form-text text-danger text-align-right"
+                        *ngIf="orgSearchCreateForm.controls.organization.errors && orgSearchCreateForm.controls.organization.touched">
+                        This field is required!</small>
+                        
+                   
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- Email -->
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-sm-9">
+                        <input type="email" ngvemail class="form-control" formControlName="email" required 
+                        [ngClass]="{ 'is-invalid': orgSearchCreateForm.controls.email.touched && orgSearchCreateForm.controls.email.errors,
+                        'is-valid': orgSearchCreateForm.controls.email.touched && orgSearchCreateForm.controls.email.valid }">
+                    <error-messages 
+                        [controlName]="orgSearchCreateForm.controls.email"
+                        [errors]="orgSearchCreateForm.controls.email.errors"
+                    ></error-messages>
+                    <small class="form-text text-danger"
+                    *ngIf="orgSearchCreateForm.controls.email.invalid">
+                 This field is required!</small>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Website -->
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                    <label for="website">Website</label>
+                </div>
+                <div class="col-sm-9">
+                        <input type="text" class="form-control" formControlName="website" required 
+                        [ngClass]="{ 'is-invalid': orgSearchCreateForm.controls.website.touched && orgSearchCreateForm.controls.website.errors,
+                        'is-valid': orgSearchCreateForm.controls.website.touched && orgSearchCreateForm.controls.website.valid }">
+                    <error-messages 
+                        [controlName]="orgSearchCreateForm.controls.website"
+                        [errors]="orgSearchCreateForm.controls.website.errors"
+                    ></error-messages>
+                    <small class="form-text text-danger"
+                    *ngIf="orgSearchCreateForm.controls.website.invalid">
+                 This field is required!</small>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+

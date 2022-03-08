@@ -1,0 +1,190 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+
+     
+
+        <!-- Basic Alerts start -->
+        <section id="home-actions">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom: 0.5rem;">
+                        <div class="card-body d-inline-flex align-items-center">
+                            <h2 class="content-header-title float-left mb-0">
+                                {{ 'Task Status' }} | {{organization.name}}
+                                <!-- <ul class="organizations-list">
+                                    <li *ngFor="let org of organizations">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   (change)="onChangeOrganization(org.id, inputElement)"
+                                                   #inputElement
+                                                   [value]="org.id" id="org{{org.id}}"
+                                                   [checked]="tempOrgId === org.id"/>
+                                            <label class="custom-control-label" for="org{{org.id}}">{{org.name}}</label>
+                                        </div>
+                                    </li>
+                                </ul> -->
+                            </h2>
+                            <!--                            <div class="h3 ml-1 mb-0">Selected Organization:</div>-->
+                            <div class="content-header-title h4 ml-1 mb-0 cursor-pointer"
+                                (click)="onClickOrganization()">
+                                <!-- {{organization?.name || 'No Organization Selected!'}} -->
+                            </div>
+                            <!-- <button ngbTooltip="Select Organization" *ngIf="organizations.length>1"
+                                class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                (click)="onSelectOrganization(selectOrganization)">
+                                <i class="feather icon-edit"></i>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsShowAlert">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom:4px ;">
+                        <div class="card-body align-items-center" style="padding: 6px 0px 1px 10px !important;;">
+                            <div class="row" style="font-size: 20px;">
+                                <div class="col-md-11">
+                                    <ul>
+                                        <li style="color: #7367f0;" *ngFor="let item of alertList">
+
+                                            <div class="alert " [ngClass]="item.class" role="alert">
+                                                <div class="alert-body"><strong>Hi!</strong> {{item.name}} </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="col-md-2 text-right" style="font-size:12px;">
+
+                                </div>
+                                <!-- <div class="col-md-2">
+                                
+                              </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- form Config  -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form class="form form-horizontal">
+                            <div class="row" [formGroup]="orgCnfgCreateForm">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="shift">Selet Task </label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <ng-select [items]="shiftTypes" id="shift"
+                                                        formControlName="shiftType" bindLabel="description">
+                                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                            {{ item.description }}
+                                                        </ng-template>
+                                                    </ng-select>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        
+                                     
+                                      
+                                       
+
+
+
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="startTime">Start Date</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input ngbTooltip="Start Time" type="date" class="form-control"
+                                                        formControlName="startTime" required
+                                                        [ngClass]="{ 'is-invalid': orgCnfgCreateForm.controls.startTime.touched && orgCnfgCreateForm.controls.startTime.errors,
+                                                'is-valid': orgCnfgCreateForm.controls.startTime.touched && orgCnfgCreateForm.controls.startTime.valid }">
+                                                    <error-messages [controlName]="orgCnfgCreateForm.controls.startTime"
+                                                        [errors]="orgCnfgCreateForm.controls.startTime.errors">
+                                                    </error-messages>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- End time -->
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="endTime">End Date</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="date" ngbTooltip="End Time" class="form-control"
+                                                        formControlName="endTime" required
+                                                        [ngClass]="{ 'is-invalid': orgCnfgCreateForm.controls.endTime.touched && orgCnfgCreateForm.controls.endTime.errors,
+                                'is-valid': orgCnfgCreateForm.controls.endTime.touched && orgCnfgCreateForm.controls.endTime.valid }">
+                                                    <error-messages [controlName]="orgCnfgCreateForm.controls.endTime"
+                                                        [errors]="orgCnfgCreateForm.controls.endTime.errors">
+                                                    </error-messages>
+
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-form-label">
+                                                    <label for="shift">Task Status </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <ng-select [items]="shiftTypes" id="shift"
+                                                        formControlName="shiftType" bindLabel="description">
+                                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                                            {{ item.description }}
+                                                        </ng-template>
+                                                    </ng-select>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-9"></div>
+                                        <div class="col-sm-3">
+                                            <button class="btn btn-primary btn-md btn-block btn-submit" rippleEffect
+                                                (click)="orgConfigSave()">
+                                                Submit
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

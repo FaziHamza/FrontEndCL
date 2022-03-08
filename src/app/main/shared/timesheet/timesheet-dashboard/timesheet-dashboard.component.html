@@ -1,0 +1,330 @@
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <div class="d-flex">
+            <h2 class="my-1 flex-grow-1 text-center" >Recent TimeSheet
+            </h2>
+            <!-- <div class="flex-shrink-1 align-self-center">
+                <button class="btn btn-icon btn-primary flex-shrink-1" ngbTooltip="Generate New TimeSheet"
+                    (click)="generateNewTimeSheet()"><span data-feather="plus"></span></button>
+            </div> -->
+        </div>
+  
+
+        <ul dragula="multiple-list-group" [(dragulaModel)]="timeSheetDetailPending" class="list-group list-group-flush"
+            id="multiple-list-group-list">
+            <li class="timesheet-list-item list-group-item draggable" *ngFor="let ats of timeSheetDetailPending">
+                <ng-container [ngTemplateOutlet]="tsItem" [ngTemplateOutletContext]="{ats:ats, type:'In-Progress'}">
+                </ng-container>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <h2 class="my-1 text-center"> Sent For Approval</h2>
+        <ul dragula="multiple-list-group" class="list-group list-group-flush" [(dragulaModel)]="sentTimeSheets"
+            id="multiple-list-group-sent">
+            <li class="timesheet-list-item list-group-item draggable" *ngFor="let ats of sentTimeSheets">
+                <ng-container [ngTemplateOutlet]="tsItem" [ngTemplateOutletContext]="{ats:ats, type:'Sent'}">
+                </ng-container>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <h2 class="my-1 text-center">Approved</h2>
+        <ul dragula="multiple-list-group" class="list-group list-group-flush" [(dragulaModel)]="approvedTimeSheets"
+            id="multiple-list-group-approved">
+            <li (change)="drForm()" class="timesheet-list-item list-group-item draggable"
+                *ngFor="let ats of approvedTimeSheets">
+                <ng-container [ngTemplateOutlet]="tsItem" [ngTemplateOutletContext]="{ats:ats, type:'Approved'}">
+                </ng-container>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<ng-template let-ats='ats' let-type='type' #tsItem>
+    <button class="btn btn-icon btn-primary rounded-circle top-right-close-btn"
+        ngbTooltip="Remove Timesheet from Recent" (click)="onClickRemoveApproved(ats)" *ngIf="type === 'Approved'"><span
+            data-feather="x"></span></button>
+    <div class="row" (change)="drForm()">
+        <div class="col-12 border-bottom-primary mb-1">
+            <div class="row week-counter">
+                <div class="col-5 align-self-center">
+                    <h3>Week {{ats.week}} </h3>
+                </div>
+                <div class="col-7 text-right">
+                    <small ngbTooltip="End Date: {{ats.date | date: 'MM/dd/YYYY'}}"><strong>Start
+                            Date: </strong>{{ats.startDate | date:'MM/dd/YYYY'}}
+                    </small>
+                    <br>
+                    <small ngbTooltip="End Date: {{ats.date | date: 'MM/dd/YYYY'}}"><strong>End
+                            Date: </strong>{{ats.endDate | date:'MM/dd/YYYY'}}
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-12 align-self-center text-center">
+                <ul class="list-inline list-first-section mb-0">
+                    <li>
+                        <a class="d-grid" routerLink="/timesheet/daily-activity" [ngbTooltip]="'Hours Worked'">
+                            <i class="feather icon-clock small-icon"></i>
+                            <p class="icon-alginment-dasbord" >Hours</p>
+                            <p>
+                            {{ats.hours.toFixed(2)}}
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-grid" routerLink="/timesheet" [ngbTooltip]="'Salary'">
+                            <i class="feather icon-briefcase small-icon"></i>
+                            <p  class="icon-alginment-dasbord" >Salary</p>
+                            <p>
+                                {{ats.payAmount.toFixed(2)}}
+                            </p>
+                        </a>
+                    </li>
+                    <li routerLink="/timesheet/expenses">
+                        <a class="d-grid" routerLink="/timesheet/expenses" [ngbTooltip]="'Expenses'">
+                            <i class="feather icon-dollar-sign small-icon"></i>
+                            <p class="icon-alginment-dasbord">Expenses</p>
+                           <p>
+                            {{ats.expenseAmount.toFixed(2)}}
+                           </p>
+                        </a>
+                    </li>
+                    <li > 
+                        <!-- *ngIf="ats.allowOvertime" -->
+                        <a class="d-grid" routerLink="/timesheet/daily-activity" [ngbTooltip]="'OverTime'">
+                            <i class="feather icon-clock small-icon"></i>
+                            <p class="icon-alginment-dasbord" >Over&nbsp;Time</p>
+                            <!--                                &nbsp;-->
+                            <span placement="bottom" ngbTooltip="Allowed Overtime Duration (hh:mm)">0</span>
+                        </a>
+                    </li>
+                    <li (click)="modalOpenLeave(modalContentTG, ats)" >
+                        <a class="d-grid"  [ngbTooltip]="'Use Leave'">
+                            <i class="feather icon-log-out small-icon"></i>
+                            <p class="icon-alginment-dasbord"> Leave </p>
+                            <!--                                &nbsp;-->
+                            <span placement="bottom" ngbTooltip="Total number of Leaves available">{{ats.leaves}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+          
+            <div class="row" *ngIf="type === 'In-Progress' || type !== 'In-Progress'">
+                <div class="col-12 align-self-center text-center">
+                    <div *ngIf="this.isHourly; else elseBlock">
+                        <ul class="list-inline list-second-section mb-0">
+                       
+                            <li *ngFor="let itm of ats.timeSheetDailyActivityDtos" routerLink="/timesheet/daily-activity">
+                                <div class="avatar bg-light-default-weekend avatar-lg" *ngIf="itm.dayTypeId=='35'">
+                                    <span  (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                        class="avatar-content">{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                </div>
+                                <div *ngIf="itm.totalHours ==0?dayTemplate:leaveTemplate">
+                                    <div class="avatar  avatar-lg"  
+                                    *ngIf="itm.dayTypeId!='35' && itm.dayTypeId=='34'">
+                                       <span  (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                           class="avatar-content " [ngClass]="{'av': itm.totalHours === null, 'avatar-content-border' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                   <!-- [routerLink]="'/timesheet/daily-activity/'+itm.timeSheetDailyActivityId+'/1'" -->
+                                   <div class="avatar  avatar-lg"  
+                                    *ngIf="itm.dayTypeId=='36' && itm.dayTypeId!='34'">
+                                       <span   (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                      
+                                           class="avatar-content " [ngClass]="{'bg': itm.totalHours === null, 'avatar-conte ' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                  </div>
+                                  <ng-template #dayTemplate>
+                                    <div class="avatar bg-light-default-leave avatar-lg"  
+                                    *ngIf="itm.dayTypeId=='36'">
+                                       <span  (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                           class="avatar-content " [ngClass]="{'av': itm.totalHours === null, 'avatar-conten' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                   
+                                  </ng-template>
+                                  <ng-template #leaveTemplate>
+                                    <div class="avatar bg-light-default-leave avatar-lg"  
+                                    >
+                                       <span (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                           class="avatar-content " [ngClass]="{'av': itm.totalHours === null, 'avatar-conten' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                  </ng-template>
+                                  {{itm.hours}}
+                                  <span *ngIf="itm.hours==null;else show_hours"> - {{itm.hours}}</span>
+                                  <ng-template >{{itm.hours}}</ng-template>
+                                <!-- <span> {{itm.hours}}  </span> -->
+                            </li>
+                        </ul>
+                    </div>
+                    <ng-template #elseBlock>
+                        <ul class="list-inline list-second-section mb-0">
+                       
+                            <li *ngFor="let itm of ats.timeSheetDailyActivityDtos" routerLink="/timesheet/daily-activity">
+                                <div class="avatar bg-light-default-weekend avatar-lg" *ngIf="itm.dayTypeId=='35'">
+                                    <span  (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                        class="avatar-content">{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                </div>
+                                <div *ngIf="itm.totalHours ==0?dayTemplate:leaveTemplate">
+                                    <div class="avatar  avatar-lg"  
+                                    *ngIf="itm.dayTypeId!='35' && itm.dayTypeId=='34'">
+                                       <span  (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                           class="avatar-content " [ngClass]="{'av': itm.totalHours === null, 'avatar-content-border' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                   <!-- [routerLink]="'/timesheet/daily-activity/'+itm.timeSheetDailyActivityId+'/1'" -->
+                                   <div class="avatar  avatar-lg"  
+                                    *ngIf="itm.dayTypeId=='36' && itm.dayTypeId!='34'">
+                                       <span   (click)="goTo(ats.isHourlyLog, ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                      
+                                           class="avatar-content " [ngClass]="{'bg': itm.totalHours === null, 'avatar-conte ' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                  </div>
+                                  <ng-template #dayTemplate>
+                                    <div class="avatar bg-light-default-leave avatar-lg"  
+                                    *ngIf="itm.dayTypeId=='36'">
+                                       <span  (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                           class="avatar-content " [ngClass]="{'av': itm.totalHours === null, 'avatar-conten' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                   
+                                  </ng-template>
+                                  <ng-template #leaveTemplate>
+                                    <div class="avatar bg-light-default-leave avatar-lg"  
+                                    >
+                                       <span (click)="goTo(ats.isHourlyLog,ats.timeSheetId,itm.timeSheetDailyActivityId,itm.dayId)"
+                                           class="avatar-content " [ngClass]="{'av': itm.totalHours === null, 'avatar-conten' :  itm.totalHours !== null }" >{{commonFunctionService.getDayNameByDayId(itm.dayId)}}</span>
+                                   </div>
+                                  </ng-template>
+                                  {{itm.hours}}
+                                  <span *ngIf="itm.hours==null;else show_hours"> - {{itm.hours}}</span>
+                                  <ng-template >{{itm.hours}}</ng-template>
+                                <!-- <span> {{itm.hours}}  </span> -->
+                            </li>
+                        </ul>
+
+                    </ng-template>
+
+
+                   
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 border-top mt-1 text-right">
+            <button type="button" (click)="onDoneTimeSheetClick(ats)" class="btn btn-flat-success bottom-right-btn"
+                *ngIf=" type === 'In-Progress' && ats.status === 'In-Progress'" rippleEffect>
+                <span [data-feather]="'check'" class="mr-1"></span> Done
+            </button>
+            <div class="row">
+                <div class="col-4 mt-1 text-left">
+                    <div class="avatar-group">
+                        <div class="avatar pull-up" [ngbTooltip]="g.email" *ngFor="let g of ats.emailSendToDtos">
+                            <div class="avatar-content managerContarct" style="background: #7367f0 !important;"
+                                *ngIf="g.contactId==ats.managerContactId">
+                                {{g.email[0] + g.email[1] | uppercase}}
+                            </div>
+                            <div class="avatar-content" *ngIf="g.contactId!=ats.managerContactId">
+                                {{g.email[0] + g.email[1] | uppercase}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-3 mt-1">
+                    <p  *ngIf="type === 'In-Progress'">Pendding</p>
+                    <p  *ngIf="type === 'Sent'">Send</p>
+                    <p  *ngIf="type === 'Approved'">Approved</p>
+
+                </div> -->
+                <div class="col-8    text-right" *ngIf="type === 'In-Progress'">
+                    <!-- *ngIf="type === 'In-Progress'" -->
+                    <button type="button" (click)="onSendTimeSheet(ats)" class="btn btn-primary bottom-right-btn btn-sm"
+                        rippleEffect>
+                        <span [data-feather]="'send'" class="mr-1"></span>{{type.replace('-',' ')}}
+                    </button>
+                </div>
+                <div class="col-5" *ngIf="type === 'Sent' && ats.status !== 'Rejected'">
+                    <button (click)="onReSendTimeSheet(ats)" type="button" class="btn  btn-primary bottom-right-btn btn-sm" rippleEffect>
+                        <!-- <span  [data-feather]="'mail'" ></span> -->
+                        Emails
+                         <span class="badge badge-secondary">{{ats.emailSendCount}}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row" >
+                <!-- *ngIf="ats.status === 'Rejected' && type === 'Sent'" -->
+                <div class="col-12 align-self-center">
+                    <ngb-alert [type]="'danger'" class="timesheet-card-footer-alert" [dismissible]="false">
+                        <div class="alert-body"><strong>TimeSheet Rejected!</strong> Kindly Review the TimeSheet.</div>
+                    </ngb-alert>
+                </div>
+            </div>
+            <!-- <div class="row" > -->
+                <!-- <div class="col-7 align-self-center"> -->
+                    <!-- <div class="avatar-group">
+                        <div class="avatar pull-up" [ngbTooltip]="g.email" *ngFor="let g of ats.emailSendToDtos">
+                            <div class="avatar-content managerContarct" style="background: #7367f0 !important;" *ngIf="g.contactId==ats.managerContactId" >
+                                {{g.email[0] + g.email[1] | uppercase}} 
+                            </div>
+                            <div class="avatar-content" *ngIf="g.contactId!=ats.managerContactId" >
+                                {{g.email[0] + g.email[1] | uppercase}} 
+                            </div>
+                        </div>
+                    </div> -->
+                <!-- </div> -->
+               
+            <!-- </div> -->
+        </div>
+    </div>
+</ng-template>
+
+      <!-- modal -->
+      <ng-template #modalContentTG let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel10">Use Leave </h5>
+            <button type="button" class="close"
+                    (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <div class="col-12 mt-1" *ngIf="this.jobLeavedetailList.length>0">
+                <table class="table timesheet-table table-striped">
+                    <thead>
+                        <tr>
+                            <!-- <th style="width: 10%">Date</th> -->
+                            <th style="width: 5%">Type</th>
+                            <th style="width: 5%">Hours</th>
+                            <th style="width:  80%">Comments</th>
+
+                            <!-- <th style="width: 30%">Date</th>
+                            <th style="width: 30%">Type </th>
+                            <th style="width: 30%">Hours</th>
+                            <th style="width: 50%">Comments</th> -->
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let item of jobLeavedetailList ;index as i">
+              
+                        <!-- <td> {{item.date | date:'shortDate'}} </td> -->
+                        <td>{{item.description}}</td>
+                        <td>{{item.totalHours}}</td>
+                        <td>{{item.comments}}</td>
+
+                    </tr>
+
+
+                </table>
+            </div>
+            <div class="error-txt" *ngIf="this.jobLeavedetailList.length==0" > <h3 class="error-txt">There is no recoed found </h3></div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #btnSub
+                    (click)="modal.dismiss('Cancel')" rippleEffect>
+                Cancel
+            </button>
+        </div>
+    </ng-template>

@@ -1,0 +1,72 @@
+<form #dayForm="ngForm">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label for="shift"></label>
+                </div>
+                <div class="col-sm-2 text-left col-form-label">
+                    <label for="shift" style="font-weight: 900;;" >Shift</label>
+                </div>
+                <div class="col-sm-4">
+                    <!-- <ng-select disabled [items]="shiftTypes" id="shift"
+                        bindLabel="description" [(ngModel)]="shiftType">
+                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                            {{ item.description }}
+                        </ng-template>
+                    </ng-select> -->
+                    <input type="text"  disabled class="disabled form-control" value={{shiftName}}>
+
+                </div>
+                <div class="col-sm-2 text-left col-form-label">
+                    <label for="weekendDay" style="font-weight: 600;" >Day Off</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row" *ngFor="let dow of jobService.getDaysOfWeek(jobService.week); let i = index">
+                <div class="col-sm-2">
+                    <div class="col-form-label">
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <!-- <input type="radio"  class="custom-control-input" [checked]="dow.isStartingDay"  id="isStartingDay{{dow.id}}"
+                            name="isStartingDay{{dow.id}}" [(ngModel)]="dow.isStartingDay" #dowModel1="ngModel"  (change)="sortDays(i)" />
+                        <label class="custom-control-label" for="isStartingDay{{dow.id}}">
+
+                        </label> -->
+                        <label  >
+                            <input type="radio" name="options" (change)="sortDays(i)"
+                            [checked]="dow.isStartingDay">{{radiobutton}}
+                          </label>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-form-label">
+                    <label>{{dow.name}}</label>
+                </div>
+                <div class="col-sm-2">
+                    <input  mask="00:00" ngbTooltip="Start Time" type="time" [(ngModel)]="dow.startDate" #dowModel="ngModel" [ngClass]="{ 'is-invalid': !dowModel.valid && nextClicked,
+                                                                      'is-valid': dowModel.touched && dowModel.valid }"
+                        required class="form-control" name="startTime{{i}}" />
+                        <span *ngIf="dow.isStartError"  class="startEndDateRequired" style="color: red;" >feild is required</span>
+                </div>
+                <div class="col-sm-2">
+                    <input mask="00:00" [ngStyle]="{'border':true  ? '1px solid red !important' : '1px solid red !important' }"  ngbTooltip="End Time" type="time" [(ngModel)]="dow.endDate" #dowModelE="ngModel"
+                        [ngClass]="{ 'is-invalid': !dowModelE.valid && nextClicked,
+                                                                      'is-valid': dowModelE.touched && dowModelE.valid }" required class="form-control" name="endTime{{i}}" />
+                    <span *ngIf="dow.isEndError" class="startEndDateRequired" style="color: red;" >feild is required</span>
+                
+                </div>
+                <div class="col-sm-1 col-form-label">
+                    <input type="checkbox" class="form-control"   name="isWeekendDay{{i}}" (click)="isWeekEndOff(i)"  [checked]="dow.isWeekendDay"  [(ngModel)]="dow.isWeekendDay" #dowModel="ngModel"/>
+                   
+                </div>
+                <div class="col-sm-2 col-form-label">
+                    <button type="button" class="btn btn-danger btn-icon btn-flat-primary " (click)="clearDate(i)">x</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

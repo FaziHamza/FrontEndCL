@@ -1,0 +1,403 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+
+        <ng-template #selectOrganization let-modal>
+            <div class="modal-header organizationHeader ">
+                <h5 class="modal-title organizationHeaderTxt">Select Organization</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" tabindex="0" ngbAutofocus>
+                <ul class="organizations-list">
+                    <li *ngFor="let org of organizations">
+                        <div class="custom-control custom-radio ">
+                            <input type="radio" class="custom-control-input"
+                                (change)="onChangeOrganization(org.organizationId, inputElement)" #inputElement
+                                [value]="org.organizationId" id="org{{org.organizationId}}"
+                                [checked]="tempOrgId === org.organizationId" />
+                            <label class="custom-control-label" for="org{{org.organizationId}}"
+                                style="font-size: 20px;font-style: inherit;"> <span></span> {{org.name}} </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" style="margin: 0px 209px 0px 0px;" class="btn btn-primary text-center" #btnSub
+                    (click)="onSubmitSearchCreateOrganization()" rippleEffect>
+                    Ok
+                </button>
+            </div>
+        </ng-template>
+
+        <!-- content-header component -->
+        <!--        <app-content-header [contentHeader]="contentHeader"></app-content-header>-->
+
+        <!-- Basic Alerts start -->
+        <section id="home-actions">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom: 0.5rem;">
+                        <div class="card-body d-inline-flex align-items-center">
+                            <h2 class="content-header-title float-left mb-0">
+                                {{ 'Home' }}
+                            </h2>
+                            <!--                            <div class="h3 ml-1 mb-0">Selected Organization:</div>-->
+                            <div class="content-header-title h4 ml-1 mb-0 cursor-pointer"
+                                (click)="onClickOrganization()">{{organization?.name || 'No Organization Selected!'}}
+                            </div>
+                            <button ngbTooltip="Select Organization" *ngIf="organizations.length>1"
+                                class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                (click)="onSelectOrganization(selectOrganization)">
+                                <i class="feather icon-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 2nd nav bar fixed-->
+            <div class="row" *ngIf="tsService.pendingItems.length>0">
+                <div class="col-12">
+                    <div class="card" style="margin-bottom:4px ;">
+                        <div class="card-body align-items-center" style="padding: 6px 0px 1px 10px !important;;">
+                            <div class="row" style="font-size: 20px;">
+                                <div class="col-md-2 ml-1">
+                                    <p><b>{{tsService.counter+1}}</b>/{{tsService.pendingItems.length}}
+                                        <button type="button" class="btn btn-primary btn-sm mr-1 d-inline cursor-show"
+                                            style="cursor :pointer" (click)="tsService.onPrevious()"
+                                            [disabled]="tsService.counter===0">
+                                            &lt;</button>
+                                        <button type="button" class="btn btn-primary btn-sm d-inline  cursor-show  "
+                                            style="cursor :pointer" (click)="tsService.onNext()"
+                                            [disabled]="this.tsService.counter == this.tsService.pendingItems.length - 1">
+                                            &gt; </button>
+                                    </p>
+                                </div>
+                                <div class="col-md-7">
+                                    <div [@animSlider]="tsService.counter">
+                                        <ng-container *ngFor="let o of tsService.pendingItems; let i=index">
+                                            <hello *ngIf="i===tsService.counter" name="{{i}}">
+                                                {{o.detail}}
+                                            </hello>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 text-right" style="font-size:12px;">
+                                    <div *ngIf="tsService.txt!=='Generate Timesheets'">
+                                        <a class="btn btn-primary btn-sm"
+                                            routerLink="{{this.tsService.link}}">{{tsService.txt.replace('_',' ')}} <i
+                                                class="feather icon-edit ng-tns-c188-4"></i>
+                                        </a>
+                                    </div>
+                                    <div *ngIf="tsService.txt==='Generate Timesheets' ">
+                                        <button [disabled]="tsService.isTimeSheetAdded==0" type="button"
+                                            class="btn btn-primary" #btnSub
+                                            (click)="onTimeSheetClick(modalContentTG,modal)" rippleEffect>
+                                            Generate Timesheet
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-2">
+                                
+                              </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block " [ngClass]="{ 
+                        'disabled': isTimeInActive 
+                         }" (click)="saveClockTime('Time In')" rippleEffect>Time In</button>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <button type="button" [ngClass]="{ 
+                        'disabled': isTimeOutActive 
+                         }" class="btn btn-primary btn-block" (click)="saveClockTime('Time Out')" rippleEffect>
+                            Time Out
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <button type="button" [ngClass]="{ 
+                        'disabled': isBreakInActive 
+                         }" class="btn btn-primary btn-block" (click)="saveClockTime('Break In')" rippleEffect>
+                            Break In
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <button type="button" [ngClass]="{ 
+                        'disabled': isTimeInActive 
+                         }" class="btn btn-primary btn-block" (click)="saveClockTime('Break Out')" rippleEffect>
+                            Break Out
+                        </button>
+                    </div>
+                </div>
+                <!-- //leave -->
+
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <button type="button" [ngClass]="{ 
+                        'disabled': isBreakInActive 
+                         }" class="btn btn-primary btn-block" (click)="modalOpenLeaveHourly(modalContentLeave,'','Leave In')" rippleEffect>
+                         Leave In
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <button type="button" [ngClass]="{ 
+                        'disabled': isTimeInActive 
+                         }" class="btn btn-primary btn-block"  (click)="saveClockTime('Leave Out')" rippleEffect>
+                            Leave Out
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <block-ui></block-ui>
+        <section id="widgets">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Timesheet Section</h4>
+                            <h4 class="card-title" *ngIf="tsService.isTimeSheetAdded==0">
+                                <button _ngcontent-sda-c343="" (click)="onNextWeekSaveClick(modalContentTG)"
+                                    ngbtooltip="Generate New TimeSheet" class="btn btn-icon btn-primary flex-shrink-1"
+                                    ng-reflect-ngb-tooltip="Generate New TimeSheet"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-plus">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg></button>
+                            </h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table timesheet-table table-striped">
+                                <thead>
+                                    <tr class="timesheet-table-header-1">
+                                        <th colspan="3" class="text-center weekDiv">Week</th>
+                                        <th colspan="10" class="text-center">Current Week</th>
+                                        <th colspan="2" class="invoiceDiv"></th>
+                                    </tr>
+                                    <tr class="timesheet-table-header-2">
+                                        <th class="week-num caption weekDiv">Week#</th>
+                                        <th class="start-date caption feather weekDiv" (click)="onSortClick($event)">
+                                            Start Date</th>
+                                        <th class="end-date caption weekDiv">End Date</th>
+
+                                        <th class="hours-caption">Hrs</th>
+                                        <th class="day-of-week caption" *ngFor="let dayId of this.week.days">
+
+
+                                            <div *ngIf="dayId.name!=='S'" class="avatar bg-light-success ">
+                                                <span class="avatar-content">{{dayId.name}}</span>
+                                            </div>
+                                            <div *ngIf="dayId.name==='S'" class="avatar bg-light-danger ">
+                                                <span class="avatar-content">{{dayId.name}}</span>
+                                            </div>
+                                        </th>
+
+                                        <th class="pay caption">Pay</th>
+                                        <th class="expense caption">Expense</th>
+                                        <th class="timesheet caption invoiceDiv">TimeSheet</th>
+                                        <th class="invoice caption invoiceDiv">Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let ts of timeSheetDetail; index as i">
+                                        <td class="weekDiv">
+                                            <a [routerLink]="'/timesheet/'">{{ts.week}} - {{ts.timeSheetId}}</a>
+                                        </td>
+                                        <!-- <td class="weekDiv">
+                                            <a [routerLink]="'/timesheet/'+ts.id">{{ts.week}}</a>
+                                        </td> -->
+                                        <td class="weekDiv">
+                                            {{ts.startDate | date:'MM/dd/YYYY'}}
+                                        </td>
+                                        <td class="weekDiv">
+                                            {{ts.endDate| date:'MM/dd/YYYY' }}
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light-primary" style="color: red;"
+                                                *ngIf="ts.hours>this.job.hoursPerWeek">
+                                                {{ts.hours}} </span>
+                                            <span *ngIf="this.job.hoursPerWeek>ts.hours">{{ts.hours}} </span>
+                                            <!-- [routerLink]="'/timesheet/daily-activity/'+ hw.timeSheetDailyActivityId" -->
+                                            <!-- <a [routerLink]="'/timesheet/daily-activity/'+ts.week">{{ts.hours}}{{ts.this.job.hoursPerWeek}}</a> -->
+                                        </td>
+                                        <td class="day-of-week value" *ngFor="let hw of ts.timeSheetDailyActivityDtos">
+                                            <a (click)="goTo(ts.timeSheetId,hw.timeSheetDailyActivityId,0)"
+                                                [ngbTooltip]="getStatusOfDay(hw)">
+                                                {{hw?.hours}}
+                                                <span *ngIf="hw?.hours==null;else show_hours">- {{hw?.hours}}</span>
+                                                <ng-template>{{hw?.hours}}</ng-template>
+                                            </a>
+                                        </td>
+
+                                        <td>
+
+                                            {{ts.payAmount | currency}}
+                                        </td>
+                                        <td>
+                                            <a [routerLink]="'/timesheet/expenses/'+ts.week">{{ts.expenseAmount |
+                                                currency}}</a>
+                                        </td>
+                                        <td class="invoiceDiv"><span
+                                                class=" badge badge-pill badge-light-primary mr-1 time-sheet-status-white">
+                                                {{ts.timeSheetStatus}}</span>
+                                        </td>
+                                        <td class="invoiceDiv">
+                                            000001
+                                            <!-- {{ts.invoice}} -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Basic Alerts end -->
+
+        <!-- modal -->
+
+        <ng-template #modalContentTG let-modal>
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel10">Create Time Sheet</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" tabindex="0" ngbAutofocus>
+                <form class="form form-horizontal">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="startDate">Start Date</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="mm-dd-yyyy" name="startDate" id="startDate"
+                                        bsDatepicker required [minDate]="timeSheetGen.startDate"
+                                        [(ngModel)]="timeSheetGen.startDate" #basicSD="bsDatepicker" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary feather icon-calendar"
+                                            (click)="basicSD.toggle()" type="button" rippleEffect></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="endDate">End Date</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="mm-dd-yyyy" name="endDate" id="endDate"
+                                        bsDatepicker required [minDate]="timeSheetGen.endDate"
+                                        [(ngModel)]="timeSheetGen.endDate" #basicED="bsDatepicker" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary feather icon-calendar"
+                                            (click)="basicED.toggle()" type="button" rippleEffect></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #btnSub (click)="modal.dismiss('Cancel')" rippleEffect>
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" #btnSub (click)="onTimesheetSaveClick(steCont,modal)"
+                    rippleEffect>
+                    OK
+                </button>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+
+
+
+<ng-template #modalContentLeave let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel10">Select Leave </h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus style="padding:0px">
+        <div class="col-12 mt-1" *ngIf="this.tsService.jobLeavedetailList.length>0">
+            <table class="table  table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 80%">Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="width: 5%">Hours</th>
+                        <th style="width: 5%">Consumed</th>
+                        <th style="width: 5%">Remaining</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tsService.jobLeavedetailList ;let idx=index;
+                        let even=even"
+                        [style.background-color]="tsService.selectRowClicked == idx ? '#7367f0' : (even ? '' : '')"
+                        (click)="!tsService.isLocalLeave && changeTableRowColor(idx,item)">
+                        <td>{{item.description}}</td>
+                        <td>{{item.totalHours}}</td>
+                        <td>{{item.totalConsummedHours}}</td>
+                        <td>{{item.totalHours - item.totalConsummedHours}}</td>
+
+
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="error-txt" *ngIf="this.tsService.jobLeavedetailList.length==0">
+            <h3 class="error-txt">There is no recoed found </h3>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <div class="row" style="margin:9px 175px 6px 7px !important;">
+
+
+            <button type="button" class=" mr-2 btn btn-secondary" #btnSub (click)="[modal.dismiss('Cancel')]"
+                rippleEffect>
+                Cancel
+            </button>
+            <button *ngIf="this.tsService.jobLeavedetailList.length!=0" type="button" class="btn btn-primary" #btnSub
+                (click)="[modal.dismiss('Cancel'),saveClockTime('Leave In') ]" rippleEffect>
+                leave OK
+            </button>
+
+
+        </div>
+    </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open()">Launch demo modal</button>

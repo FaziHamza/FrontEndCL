@@ -1,0 +1,251 @@
+<app-content-header [contentHeader]="contentHeader" [elementRef]="button"></app-content-header>
+<ng-template #button>
+    <div class="d-flex align-items-center">
+        <div class="custom-control custom-control-primary custom-switch"
+             [ngbTooltip]="searchExternal ? 'Searching External Contacts': 'Searching Internal Contacts'">
+            <input class="custom-control-input" id="systemNotification" [(ngModel)]="searchExternal"
+                   [checked]="searchExternal" (click)="searchExternalCheck()" type="checkbox" />
+            <label class="custom-control-label" for="systemNotification"></label>
+        </div>
+        <div class="input-group input-group-merge search-input-header">
+            <input type="text" class="form-control " (keyup.enter)="onSearchContactsClick()"
+                   [(ngModel)]="pagination.search" placeholder="Search Contacts...">
+            <div class="input-group-append search-button-merge" id="button-addon2">
+                <button class="btn btn-primary  btn-icon btn-flat-primary" [disabled]="disableBtn"
+                        (click)="onSearchContactsClick()"
+                        type="button" rippleEffect><span data-feather="search"></span></button>
+                <button type="button" class=" btn btn-danger btn-icon btn-flat-primary" (click)="onSearchClear()">x
+                </button>
+            </div>
+
+        </div>
+
+        <button type="button" class="btn btn-primary flex-grow-1 button-header" rippleEffect
+                (click)="showContactCollapse = !showContactCollapse" [attr.aria-expanded]="showContactCollapse"
+                aria-controls="showContactCollapse">
+            <span [data-feather]="'plus'" [class]="'mr-25'"></span>New Contact
+        </button>
+    </div>
+
+</ng-template>
+<!-- {{this.contactService.getContactList | json}} -->
+<block-ui></block-ui>
+<div [ngbCollapse]="!showContactCollapse" class="mb-2">
+    <div class="card mb-0">
+        <div class="card-body">
+            <app-add-edit-contact (onSubmitClicked)="onContactSubmitted($event)"
+                                  [onSubmitClicked]="onContactSubmit"
+                                  [onContactModelUpdated]="onContactModelUpdated"
+                                  [contactModel]="contact"></app-add-edit-contact>
+        </div>
+        <div class="card-footer text-right">
+            <button type="button" (click)="onContactClear()" rippleEffect
+                    class="btn btn-outline-secondary mr-1">Cancel
+            </button>
+            <button type="button" (click)="onSubmitContactForm()" rippleEffect class="btn btn-primary">Submit
+            </button>
+        </div>
+    </div>
+</div>
+<ul ngbNav #nav="ngbNav" [(activeId)]="activeContactTypeId" (activeIdChange)="onContactTypeChange()" class="nav-tabs">
+    <li *ngFor="let contactType of contactTypes" [ngbNavItem]="contactType.lookupId">
+        <a ngbNavLink>{{ contactType.description }} <span
+                class="badge ml-auto mr-1 badge-light-primary badge-pill ng-star-inserted"> {{contactType.countOfContacts}} </span></a>
+        <ng-template ngbNavContent class="mango-class-test">
+
+        </ng-template>
+    </li>
+</ul>
+<!--<div class="row">-->
+<!--    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 contact-widget" [contextMenuTrigger]="animatedContextMenu"-->
+<!--         *ngFor="let contact of contacts">-->
+
+<!--        <ng-template #contactPopOverContent>-->
+<!--            <div class="avatar avatar-xl" rippleEffect >-->
+<!--                <span class="avatar-content avatar-lg">{{getContactFullName(contact) | initials}}</span>-->
+<!--            </div>-->
+<!--            <h4>Name: </h4> {{getContactFullName(contact)}}-->
+<!--            <h4>Email: </h4> {{contact.email}}-->
+<!--            <h4>Phone: </h4> {{contact.phone}}-->
+<!--        </ng-template>-->
+
+<!--        <div class="card contact-card">-->
+<!--            <div class="actions-container top-right">-->
+<!--                <div class="custom-control custom-switch custom-switch-primary ml-25"-->
+<!--                     ngbTooltip="Is Public Contact?">-->
+<!--                    <input type="checkbox" class="custom-control-input" id="isPublicC{{contact.id}}"-->
+<!--                           [(ngModel)]="contact.isPublic"-->
+<!--                           (ngModelChange)="onContactAction(contact,'publicChange')"/>-->
+<!--                    <label class="custom-control-label" for="isPublicC{{contact.id}}">-->
+<!--                        <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>-->
+<!--                        <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <button ngbTooltip="Edit Contact"-->
+<!--                        class="action-btn btn btn-icon btn-primary btn-sm ml-25"-->
+<!--                        (click)="onContactAction(contact, 'edit')">-->
+<!--                    <i class="feather icon-edit"></i>-->
+<!--                </button>-->
+<!--                <button ngbTooltip="Remove Contact"-->
+<!--                        class="action-btn btn btn-icon btn-danger btn-sm ml-25"-->
+<!--                        (click)="onContactAction(contact, 'remove')">-->
+<!--                    <i class="feather icon-x"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--            <div class="badge badge-primary top-left-badge-1"-->
+<!--                 [ngbTooltip]="'Contact Type: ' +  contact?.contactType?.description">-->
+<!--                {{contact?.contactType?.description |initials | uppercase}}</div>-->
+<!--            &lt;!&ndash; <div class="badge badge-info top-left-badge-2"-->
+<!--                 [ngbTooltip]="'Contact Scope: ' +  'Internal'">{{'INT' | uppercase}}</div> &ndash;&gt;-->
+
+<!--            <div class="card-body">-->
+<!--                <div class="row text-center">-->
+<!--                    <div class="offset-3 col-6 text-center">-->
+<!--                        <div class="avatar avatar-xl" rippleEffect triggers="click:blur" [ngbPopover]="contactPopOverContent"-->
+<!--                             container="body">-->
+<!--                            <span class="avatar-content avatar-lg">{{getContactFullName(contact) | initials}}</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-12 mt-1 contact-content">-->
+<!--                        <h4 class="text-ellipsis">{{getContactFullName(contact)}}</h4>-->
+<!--                        <p class="text-ellipsis">{{contact.title}}</p>-->
+<!--                        <p class="text-ellipsis">{{contact.email}}-->
+<!--                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-flat-success"-->
+<!--                                    ngbTooltip="Send Invite Link" rippleEffect>-->
+<!--                                <span [data-feather]="'share'"></span></button>-->
+<!--                            <span *ngFor="let data1 of filterFunction(contact.emails)"-->
+<!--                                  class="badge badge-pill badge-primary badge-up badge-email-left"-->
+<!--                                  ngbTooltip="Total Number of Emails {{contact.emails}}">{{filterFunctionCount(contact.emails)}}</span>-->
+<!--                        </p>-->
+<!--                        <p>{{contact.organizationId}}</p>-->
+<!--                        <p class="text-ellipsis ls-1">{{contact.phone}}-->
+<!--                            <span *ngFor="let data of filterFunction(contact.phoneNumbers)"-->
+<!--                                  class="badge badge-pill badge-primary badge-up badge-phone-left"-->
+<!--                                  ngbTooltip="Total Number of Phones  {{contact.phoneNumbers}}">{{filterFunctionCount(contact.phoneNumbers)}}</span>-->
+<!--                        </p>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-12 bottom-groups">-->
+<!--                        <div class="avatar-group">-->
+<!--                            <div class="avatar pull-up" *ngFor="let g of contact.groupMembers;let i=index"-->
+<!--                                 [ngbTooltip]="g.group.name" container="body" [routerLink]="'/commons/groups'">-->
+<!--                                <div class="avatar-content">-->
+<!--                                    {{g.group.name | initials}}-->
+<!--                                    &lt;!&ndash; Id {{contact.GroupIds[i]}} &ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div [ngbNavOutlet]="nav" class="mt-2 row"></div>
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 contact-widget"
+         [contextMenuTrigger]="animatedContextMenu"
+         *ngFor="let contact of contacts">
+
+        <ng-template #contactPopOverContent>
+            <div class="avatar avatar-xl" rippleEffect>
+                <span class="avatar-content avatar-lg">{{getContactFullName(contact) | initials}}</span>
+            </div>
+            <h4>Name: </h4> {{getContactFullName(contact)}}
+            <h4>Email: </h4> {{contact.email}}
+            <h4>Phone: </h4> {{contact.phone}}
+        </ng-template>
+
+        <div class="card contact-card">
+            <div class="actions-container top-right">
+                <div class="custom-control custom-switch custom-switch-primary ml-25"
+                     ngbTooltip="Is Public Contact?">
+                    <input type="checkbox" class="custom-control-input" id="isPublicC{{contact.contactId}}"
+                           [(ngModel)]="contact.isPublic"
+                           (ngModelChange)="onContactAction(contact,'publicChange')"/>
+                    <label class="custom-control-label" for="isPublicC{{contact.contactId}}">
+                        <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                        <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                    </label>
+                </div>
+                <button ngbTooltip="Edit Contact"
+                        class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                        (click)="onContactAction(contact, 'edit')">
+                    <i class="feather icon-edit"></i>
+                </button>
+                <button ngbTooltip="Remove Contact"
+                        class="action-btn btn btn-icon btn-danger btn-sm ml-25"
+                        (click)="onContactAction(contact, 'remove')">
+                    <i class="feather icon-x"></i>
+                </button>
+            </div>
+
+            <!--            <div class="badge badge-primary top-left-badge-1"-->
+            <!--                 [ngbTooltip]="'Contact Type: ' +  contact?.contactType?.description">-->
+            <!--                {{contact?.contactType?.description |initials | uppercase}}</div>-->
+
+            <!-- <div class="badge badge-info top-left-badge-2"
+                 [ngbTooltip]="'Contact Scope: ' +  'Internal'">{{'INT' | uppercase}}</div> -->
+
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="offset-3 col-6 text-center">
+                        <div class="avatar avatar-xl" rippleEffect triggers="click:blur"
+                             [ngbPopover]="contactPopOverContent"
+                             container="body">
+                            <span class="avatar-content avatar-lg">{{getContactFullName(contact) | initials}}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-1 contact-content">
+                        <h4 class="text-ellipsis">{{getContactFullName(contact)}}</h4>
+                        <p class="text-ellipsis">{{contact.title}}</p>
+                        <p class="text-ellipsis">{{contact.email}}
+                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-flat-success"
+                                    ngbTooltip="Send Invite Link" rippleEffect>
+                                <span [data-feather]="'share'"></span></button>
+                            <span *ngFor="let data1 of filterFunction(contact.emails)"
+                                  class="badge badge-pill badge-primary badge-up badge-email-left"
+                                  ngbTooltip="Total Number of Emails {{contact.emails}}">{{filterFunctionCount(contact.emails)}}</span>
+                        </p>
+                        <p>{{contact.organizationId}}</p>
+                        <p class="text-ellipsis ls-1">{{contact.phone}}
+                            <span *ngFor="let data of filterFunction(contact.phoneNumbers)"
+                                  class="badge badge-pill badge-primary badge-up badge-phone-left"
+                                  ngbTooltip="Total Number of Phones  {{contact.phoneNumbers}}">{{filterFunctionCount(contact.phoneNumbers)}}</span>
+                        </p>
+                    </div>
+                    <div class="col-12 bottom-groups">
+                        <div class="avatar-group">
+                            <div class="avatar pull-up" *ngFor="let g of contact.groupMembers;let i=index"
+                                 [ngbTooltip]="g.group.name" container="body" [routerLink]="'/commons/groups'">
+                                <div class="avatar-content">
+                                    {{g.group.name | initials}}
+                                    <!-- Id {{contact.GroupIds[i]}} -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<ngb-pagination [collectionSize]="70"   [(page)]="pageSize" aria-label="Default pagination">
+    <ng-template ngbPaginationPrevious (pageChange)="onPageChange($event)"
+      ><span [data-feather]="'chevron-left'" [size]="18" [class]="'font-weight-bolder'"></span>
+    </ng-template>
+
+  </ngb-pagination> -->
+
+<!-- <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="contactService.totalCount" #numPagesExp1 [(page)]="currentPage"  [boundaryLinks]="true"></ngb-pagination> -->
+<div *ngIf="contacts.length !== 0" class="bottom-data">
+    <ngb-pagination [collectionSize]="pagination.total" [(page)]="pagination.page" [pageSize]="pagination.pageSize"
+                    (pageChange)="onPageChange($event);">
+    </ngb-pagination>
+</div>
+<div *ngIf="contacts.length === 0" class="text-center error-message">
+    <h2 style="color: red;">No data found..!! Please Search Something else!</h2>
+</div>

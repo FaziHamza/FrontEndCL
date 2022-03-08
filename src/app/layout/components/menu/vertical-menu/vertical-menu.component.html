@@ -1,0 +1,37 @@
+<!-- Menu header -->
+<!--<div class="navbar-header">-->
+<!--  <ul class="nav navbar-nav flex-row">-->
+<!--&lt;!&ndash;    <li class="nav-item mr-auto">&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash; App Branding &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      <a class="navbar-brand" [routerLink]="['/']">&ndash;&gt;-->
+<!--&lt;!&ndash;        <span class="brand-logo">&ndash;&gt;-->
+<!--&lt;!&ndash;          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" />&ndash;&gt;-->
+<!--&lt;!&ndash;        </span>&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </li>&ndash;&gt;-->
+
+<!--    &lt;!&ndash; Menu Toggler &ndash;&gt;-->
+<!--&lt;!&ndash;    <li class="nav-item nav-toggle">&ndash;&gt;-->
+<!--&lt;!&ndash;      <a class="nav-link modern-nav-toggle d-none d-xl-block pr-0" (click)="toggleSidebarCollapsible()">&ndash;&gt;-->
+<!--&lt;!&ndash;        <i&ndash;&gt;-->
+<!--&lt;!&ndash;          [ngClass]="isCollapsed === true ? 'icon-circle' : 'icon-disc'"&ndash;&gt;-->
+<!--&lt;!&ndash;          class="toggle-icon feather font-medium-4 collapse-toggle-icon text-primary"&ndash;&gt;-->
+<!--&lt;!&ndash;        ></i>&ndash;&gt;-->
+<!--&lt;!&ndash;      </a>&ndash;&gt;-->
+<!--&lt;!&ndash;      <a class="nav-link modern-nav-toggle d-block d-xl-none pr-0" (click)="toggleSidebar()">&ndash;&gt;-->
+<!--&lt;!&ndash;        <i data-feather="x" class="font-medium-4 text-primary toggle-icon"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;      </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </li>&ndash;&gt;-->
+<!--  </ul>-->
+<!--</div>-->
+<!--/ Menu header -->
+
+<!-- Navbar shadow -->
+<div class="shadow-bottom" [ngClass]="{ 'd-block': isScrolled }"></div>
+
+<!-- Main menu -->
+<div class="main-menu-content" [perfectScrollbar] (scroll)="onSidebarScroll()">
+  <ul class="navigation navigation-main" layout="vertical" core-menu></ul>
+</div>
+<!--/ Main menu -->

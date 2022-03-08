@@ -1,0 +1,211 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Timesheet Expense Documents</h4>
+        <div class="header-actions">
+            <button
+                    type="button"
+                    class="btn"
+                    [class.btn-outline-primary]="isCollapsed"
+                    [class.btn-primary]="!isCollapsed"
+                    (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapse"
+                    rippleEffect
+            >
+                Add Expense
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div [ngbCollapse]="isCollapsed">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <form class="form form-vertical" [formGroup]="expenseForm">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="expense-types">Expense Type</label>
+                                    <ng-select
+                                            [items]="expenseTypes"
+                                            bindLabel="name"
+                                            bindValue="name"
+                                            formControlName="expenseType"
+                                            required
+                                            [ngClass]="{ 'is-invalid': expenseForm.controls.expenseType.touched && expenseForm.controls.expenseType.errors,
+                                                                       'is-valid': expenseForm.controls.expenseType.touched && expenseForm.controls.expenseType.valid }"
+                                            id="expense-types"
+                                    >
+                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                            {{ item.name }}
+                                        </ng-template>
+                                    </ng-select>
+                                    <small class="form-text text-danger"
+                                           *ngIf="expenseForm.controls.expenseType.invalid && expenseForm.controls.expenseType.touched">
+                                        Expense Type is Required.</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <input type="number" id="amount"
+                                           [ngClass]="{ 'is-invalid': expenseForm.controls.amount.touched && expenseForm.controls.amount.errors,
+                                                                      'is-valid': expenseForm.controls.amount.touched && expenseForm.controls.amount.valid }"
+                                           class="form-control" formControlName="amount"
+                                           required
+                                           min="0"
+                                           placeholder="Amount"/>
+                                    <small class="form-text text-danger"
+                                           *ngIf="expenseForm.controls.amount.invalid && expenseForm.controls.amount.touched">
+                                        Amount is Required</small>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="comment">Comment</label>
+                                    <input type="text" id="comment"
+                                           [ngClass]="{ 'is-invalid': expenseForm.controls.comment.touched && expenseForm.controls.comment.errors,
+                                                                      'is-valid': expenseForm.controls.comment.touched && expenseForm.controls.comment.valid }"
+                                           class="form-control" formControlName="comment"
+                                           placeholder="Comment"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="amount">Expense File:</label>
+                                    <div class="custom-file">
+                                        <input type="file"
+                                               [ngClass]="{ 'is-invalid': expenseForm.controls.expenseFile.touched && expenseForm.controls.expenseFile.errors,
+                                                                          'is-valid': expenseForm.controls.expenseFile.touched && expenseForm.controls.expenseFile.valid }"
+                                               formControlName="expenseFile" class="custom-file-input"
+                                               id="customFile"/>
+                                        <label class="custom-file-label"
+                                               for="customFile">{{expenseForm.controls.expenseFile.value === '' ? 'Choose File' : getPlainFileName(expenseForm.controls.expenseFile.value)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-right">
+                                <button type="reset" rippleEffect (click)="onCancel()"
+                                        class="btn btn-outline-secondary mr-1">Cancel
+                                </button>
+                                <button type="button" (click)="onAddExpense()" rippleEffect class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Datatable -->
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th *ngIf="isEmployer">Approved Amount</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let exp of availableExpenses">
+                    <th>
+                        {{exp.id}}
+                    </th>
+                    <td>
+                        <a href="javascript:void(0);">
+                            <div class="avatar bg-light-primary rounded" [ngbTooltip]="exp.fileName">
+                                <div class="avatar-big avatar-content">
+                                    <span class="avatar-big avatar-content">{{exp.extension | uppercase}}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <span>{{exp.expenseType}}</span>
+                    </td>
+                    <td>{{exp.amount | currency:'USD'}}</td>
+                    <td>
+                        <div class="badge badge-{{getStyleForStatus(exp.status)}}">{{exp.status}}</div>
+                    </td>
+                    <td *ngIf="isEmployer">
+                        <input type="number" class="form-control" [(ngModel)]="exp.amountApproved" [min]="0"
+                               [max]="2000"
+                               name="Approved Amount"
+                               #approvedAmountRef="ngModel"
+
+                               [disabled]="exp.status === 'Approved'"
+                               placeholder="Approved Amount"/>
+
+                    </td>
+                    <td class="overflow-hidden d-flex">
+                        <button *ngIf="isEmployer && exp.status !== 'Approved'" type="button" ngbTooltip="Approve"
+                                class="btn btn-icon rounded-circle btn-outline-primary mr-1"
+                                (click)="onApproveExpenseClick(true,exp)"
+                                rippleEffect>
+                            <span [data-feather]="'check'"></span></button>
+
+                        <button *ngIf="isEmployer" type="button" ngbTooltip="Disapprove"
+                                class="btn btn-icon rounded-circle btn-outline-danger mr-1"
+                                (click)="onApproveExpenseClick(false,exp)"
+                                rippleEffect>
+                            <span [data-feather]="'x'"></span></button>
+
+                        <button type="button" ngbTooltip="Download File"
+                                class="btn btn-icon rounded-circle btn-outline-primary"
+                                rippleEffect>
+                            <span [data-feather]="'download'"></span></button>
+
+                        <div ngbDropdown container="body" class="align-self-center">
+                            <button type="button" class="btn btn-sm hide-arrow ml-1" ngbDropdownToggle
+                                    data-toggle="dropdown">
+                                <i data-feather="more-vertical"></i>
+                            </button>
+                            <div ngbDropdownMenu>
+                                <a ngbDropdownItem href="javascript:void(0);" (click)="onEditExpense(exp)"
+                                ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                ><a ngbDropdownItem href="javascript:void(0);" (click)="onDeleteExpense(exp)"
+                            ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                            >
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--/ Responsive Datatable -->
+        <form class="form form-horizontal" (ngSubmit)="(UserForm.form.valid)" #UserForm="ngForm">
+            <!--            <div class="row">-->
+            <!--                <div class="offset-2 col-8">-->
+            <!--                    <div class="row">-->
+            <!--                        <div class="form-group">-->
+            <!--                            <label for="selectLarge">Select Large</label>-->
+            <!--                            <select class="form-control form-control-lg mb-1" id="selectLarge">-->
+            <!--                                <option selected>Open this select menu</option>-->
+            <!--                                <option value="1">One</option>-->
+            <!--                                <option value="2">Two</option>-->
+            <!--                                <option value="3">Three</option>-->
+            <!--                            </select>-->
+            <!--                        </div>-->
+            <!--                        <div class="form-group">-->
+            <!--                            <label for="selectLarge">Amount</label>-->
+            <!--                            <input type="number">-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </form>
+
+    </div>
+    <!--    <div class="card-footer text-right">-->
+    <!--        <button type="reset" rippleEffect class="btn btn-outline-secondary mr-1">Reset</button>-->
+    <!--        <button type="submit" (click)="(UserForm.onSubmit($event))" rippleEffect class="btn btn-primary">Submit</button>-->
+    <!--    </div>-->
+</div>

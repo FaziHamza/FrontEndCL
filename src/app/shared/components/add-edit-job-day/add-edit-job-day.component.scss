@@ -1,0 +1,36 @@
+input[type='radio']:after {
+    width: 22px;
+    height: 22px;
+    border-radius: 22px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 22px;
+    height: 22px;
+    border-radius: 22px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #6610f2;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+// input[type="time" ] {
+//     color: #6610f2;
+// }
+.startEndDateRequired{
+    color: red;
+}
+.maxTime_bordered{
+    border: 1px solid rgb(238, 238, 43) !important;
+}

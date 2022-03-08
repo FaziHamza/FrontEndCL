@@ -1,0 +1,21 @@
+.flatpickr-input > input {
+  display: none;
+}
+
+
+//.invoice-card-icon {
+//  font-size: 4rem;
+//}
+
+.email-avatar {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.invoice-card-icon {
+  width: fit-content;
+  padding: 20px;
+  border-radius: 50% !important;
+  margin-bottom: 1rem;
+}

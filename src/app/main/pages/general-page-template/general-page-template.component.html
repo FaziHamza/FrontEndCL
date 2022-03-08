@@ -1,0 +1,1130 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!--        <app-content-header [contentHeader]="contentHeader"></app-content-header>-->
+        <section id="basic-buttons">
+            <div class="row">
+                <div class="col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">Buttons</h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="card-text mb-0">
+                                    </p>
+                                    <div class="demo-inline-spacing">
+                                        <button type="button" class="btn btn-primary" rippleEffect>Primary
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" rippleEffect></button>
+                                        <button type="button" class="btn btn-outline-primary round" rippleEffect>Primary
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" rippleEffect>
+                                            <span [data-feather]="'home'" [class]="'mr-25'"></span>Home
+                                        </button>
+                                        <button type="button" class="btn btn-icon rounded-circle btn-outline-primary"
+                                                rippleEffect>
+                                            <span [data-feather]="'search'"></span></button
+                                        >
+                                        <button type="button" class="btn btn-icon btn-icon rounded-circle btn-warning"
+                                                rippleEffect>
+                                            <span [data-feather]="'inbox'"></span></button
+                                        >
+                                        <button type="button"
+                                                class="btn btn-icon btn-icon rounded-circle btn-flat-success"
+                                                rippleEffect>
+                                            <span [data-feather]="'trash'"></span></button
+                                        >
+
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6 col-12 mb-1 mb-lg-0">
+                                            <div class="btn-group btn-group-toggle">
+                                                <label class="btn-primary" ngbButtonLabel rippleEffect
+                                                ><input type="checkbox" ngbButton [(ngModel)]="checkboxModel.left"/>Active
+                                                </label>
+                                                <label class="btn-primary" ngbButtonLabel rippleEffect
+                                            ><input type="checkbox" ngbButton [(ngModel)]="checkboxModel.middle"/>Checkbox
+                                            </label
+                                            ><label class="btn-primary" ngbButtonLabel rippleEffect
+                                            ><input type="checkbox" ngbButton [(ngModel)]="checkboxModel.right"/>Checkbox
+                                            </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-12">
+                                            <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+                                                 [(ngModel)]="radioModel">
+                                                <label ngbButtonLabel class="btn-outline-primary" rippleEffect
+                                                ><input ngbButton type="radio" [value]="1"/>Active </label
+                                                ><label ngbButtonLabel class="btn-outline-primary" rippleEffect
+                                            ><input ngbButton type="radio" value="middle"/>Radio </label
+                                            ><label ngbButtonLabel class="btn-outline-primary" rippleEffect
+                                            ><input ngbButton type="radio" [value]="false"/>Radio
+                                            </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </core-card-snippet>
+                </div>
+            </div>
+        </section>
+        <section id="headings">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">HTML headings <small class="text-muted">Default</small></h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <thead>
+                                <tr>
+                                    <th>Preview</th>
+                                    <th class="text-right">Font Size</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <h1>H1 Heading</h1>
+                                    </td>
+                                    <td class="type-info text-right">2rem</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h2>H2 Heading</h2>
+                                    </td>
+                                    <td class="type-info text-right">1.714rem</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>H3 Heading</h3>
+                                    </td>
+                                    <td class="type-info text-right">1.5rem</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4>H4 Heading</h4>
+                                    </td>
+                                    <td class="type-info text-right">1.286rem</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>H5 Heading</h5>
+                                    </td>
+                                    <td class="type-info text-right">1.07rem</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>H6 Heading</h6>
+                                    </td>
+                                    <td class="type-info text-right">1rem</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Light / Bold Headings</h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <thead>
+                                <tr>
+                                    <th>Light headings</th>
+                                    <th class="text-right">Bold headings</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <h1 class="font-weight-normal">Heading 1</h1>
+                                    </td>
+                                    <td class="text-right">
+                                        <h1 class="font-weight-bolder">Heading 1</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h2 class="font-weight-normal">Heading 2</h2>
+                                    </td>
+                                    <td class="text-right">
+                                        <h2 class="font-weight-bolder">Heading 2</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3 class="font-weight-normal">Heading 3</h3>
+                                    </td>
+                                    <td class="text-right">
+                                        <h3 class="font-weight-bolder">Heading 3</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4 class="font-weight-normal">Heading 4</h4>
+                                    </td>
+                                    <td class="text-right">
+                                        <h4 class="font-weight-bolder">Heading 4</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5 class="font-weight-normal">Heading 5</h5>
+                                    </td>
+                                    <td class="text-right">
+                                        <h5 class="font-weight-bolder">Heading 5</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6 class="font-weight-normal">Heading 6</h6>
+                                    </td>
+                                    <td class="text-right">
+                                        <h6 class="font-weight-bolder">Heading 6</h6>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Basic Horizontal form layout section start -->
+        <section id="basic-horizontal-layouts">
+            <div class="row match-height">
+                <div class="col-md-6 col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">Horizontal Form</h4>
+
+                        <div class="card-body">
+                            <form class="form form-horizontal">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="first-name">First Name</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="first-name" class="form-control" name="fname"
+                                                       placeholder="First Name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="email-id">Email</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="email" id="email-id" class="form-control" name="email-id"
+                                                       placeholder="Email"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="contact-info">Mobile</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input
+                                                        type="number"
+                                                        id="contact-info"
+                                                        class="form-control"
+                                                        name="contact"
+                                                        placeholder="Mobile"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="password">Password</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input
+                                                        type="password"
+                                                        id="password"
+                                                        class="form-control"
+                                                        name="password"
+                                                        placeholder="Password"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1"/>
+                                                <label class="custom-control-label" for="customCheck1">Remember
+                                                    me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>
+                                        <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </core-card-snippet>
+                </div>
+                <div class="col-md-6 col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">Horizontal Form with Icons</h4>
+
+                        <div class="card-body">
+                            <form class="form form-horizontal">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="fname-icon">First Name</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><span
+                                                                [data-feather]="'user'"></span></span>
+                                                    </div>
+                                                    <input
+                                                            type="text"
+                                                            id="fname-icon"
+                                                            class="form-control"
+                                                            name="fname-icon"
+                                                            placeholder="First Name"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="email-icon">Email</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><span
+                                                                [data-feather]="'mail'"></span></span>
+                                                    </div>
+                                                    <input
+                                                            type="email"
+                                                            id="email-icon"
+                                                            class="form-control"
+                                                            name="email-id-icon"
+                                                            placeholder="Email"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="contact-icon">Mobile</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><span
+                                                                [data-feather]="'smartphone'"></span></span>
+                                                    </div>
+                                                    <input
+                                                            type="number"
+                                                            id="contact-icon"
+                                                            class="form-control"
+                                                            name="contact-icon"
+                                                            placeholder="Mobile"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="pass-icon">Password</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><span
+                                                                [data-feather]="'lock'"></span></span>
+                                                    </div>
+                                                    <input
+                                                            type="password"
+                                                            id="pass-icon"
+                                                            class="form-control"
+                                                            name="contact-icon"
+                                                            placeholder="Password"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck2"/>
+                                                <label class="custom-control-label" for="customCheck2">Remember
+                                                    me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>
+                                        <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </core-card-snippet>
+                </div>
+            </div>
+        </section>
+        <!-- / Basic Horizontal form layout section end -->
+
+        <!-- Basic Vertical form layout section start -->
+        <section id="basic-vertical-layouts">
+            <div class="row match-height">
+                <div class="col-md-6 col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">Vertical Form</h4>
+
+                        <div class="card-body">
+                            <form class="form form-vertical">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">First Name</label>
+                                            <input
+                                                    type="text"
+                                                    id="first-name-vertical"
+                                                    class="form-control"
+                                                    name="fname"
+                                                    placeholder="First Name"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="email-id-vertical">Email</label>
+                                            <input
+                                                    type="email"
+                                                    id="email-id-vertical"
+                                                    class="form-control"
+                                                    name="email-id"
+                                                    placeholder="Email"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-info-vertical">Mobile</label>
+                                            <input
+                                                    type="number"
+                                                    id="contact-info-vertical"
+                                                    class="form-control"
+                                                    name="contact"
+                                                    placeholder="Mobile"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="password-vertical">Password</label>
+                                            <input
+                                                    type="password"
+                                                    id="password-vertical"
+                                                    class="form-control"
+                                                    name="contact"
+                                                    placeholder="Password"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck3"/>
+                                                <label class="custom-control-label" for="customCheck3">Remember
+                                                    me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>
+                                        <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </core-card-snippet>
+                </div>
+                <div class="col-md-6 col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">Vertical Form with Icons</h4>
+                        <div class="card-body">
+                            <form class="form form-vertical">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="first-name-icon">First Name</label>
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span [data-feather]="'user'"></span></span>
+                                                </div>
+                                                <input
+                                                        type="text"
+                                                        id="first-name-icon"
+                                                        class="form-control"
+                                                        name="fname-icon"
+                                                        placeholder="First Name"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="email-id-icon">Email</label>
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span [data-feather]="'mail'"></span></span>
+                                                </div>
+                                                <input
+                                                        type="email"
+                                                        id="email-id-icon"
+                                                        class="form-control"
+                                                        name="email-id-icon"
+                                                        placeholder="Email"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-info-icon">Mobile</label>
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span
+                                                            [data-feather]="'smartphone'"></span></span>
+                                                </div>
+                                                <input
+                                                        type="number"
+                                                        id="contact-info-icon"
+                                                        class="form-control"
+                                                        name="contact-icon"
+                                                        placeholder="Mobile"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="password-icon">Password</label>
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span [data-feather]="'lock'"></span></span>
+                                                </div>
+                                                <input
+                                                        type="password"
+                                                        id="password-icon"
+                                                        class="form-control"
+                                                        name="contact-icon"
+                                                        placeholder="Password"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck4"/>
+                                                <label class="custom-control-label" for="customCheck4">Remember
+                                                    me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>
+                                        <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </core-card-snippet>
+                </div>
+            </div>
+        </section>
+        <!-- / Basic Vertical form layout section end -->
+
+
+        <!-- Striped rows -->
+        <div class="row" id="table-striped">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><h4 class="card-title">Striped rows</h4></div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Client</th>
+                                <th>Users</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <img
+                                            src="assets/images/icons/angular.svg"
+                                            class="mr-75"
+                                            height="20"
+                                            width="20"
+                                            alt="Angular"
+                                    /><span class="font-weight-bold">Angular Project</span>
+                                </td>
+                                <td>Peter Charls</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-primary mr-1">Active</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/icons/react.svg" class="mr-75" height="20" width="20" alt="React" /><span
+                                        class="font-weight-bold"
+                                >React Project</span
+                                >
+                                </td>
+                                <td>Ronald Frest</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-success mr-1">Completed</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/icons/vuejs.svg" class="mr-75" height="20" width="20" alt="Vuejs" /><span
+                                        class="font-weight-bold"
+                                >Vuejs Project</span
+                                >
+                                </td>
+                                <td>Jack Obes</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-info mr-1">Scheduled</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img
+                                            src="assets/images/icons/bootstrap.svg"
+                                            class="mr-75"
+                                            height="20"
+                                            width="20"
+                                            alt="Bootstrap"
+                                    /><span class="font-weight-bold">Bootstrap Project</span>
+                                </td>
+                                <td>Jerry Milton</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-warning mr-1">Pending</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Striped rows -->
+
+        <!-- Hoverable rows -->
+        <div class="row" id="table-hover-row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><h4 class="card-title">Hoverable rows</h4></div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Client</th>
+                                <th>Users</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <img
+                                            src="assets/images/icons/angular.svg"
+                                            class="mr-75"
+                                            height="20"
+                                            width="20"
+                                            alt="Angular"
+                                    /><span class="font-weight-bold">Angular Project</span>
+                                </td>
+                                <td>Peter Charls</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-primary mr-1">Active</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/icons/react.svg" class="mr-75" height="20" width="20" alt="React" /><span
+                                        class="font-weight-bold"
+                                >React Project</span
+                                >
+                                </td>
+                                <td>Ronald Frest</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-success mr-1">Completed</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/icons/vuejs.svg" class="mr-75" height="20" width="20" alt="Vuejs" /><span
+                                        class="font-weight-bold"
+                                >Vuejs Project</span
+                                >
+                                </td>
+                                <td>Jack Obes</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-info mr-1">Scheduled</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img
+                                            src="assets/images/icons/bootstrap.svg"
+                                            class="mr-75"
+                                            height="20"
+                                            width="20"
+                                            alt="Bootstrap"
+                                    /><span class="font-weight-bold">Bootstrap Project</span>
+                                </td>
+                                <td>Jerry Milton</td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Lilian Nenez"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                        <div
+                                                data-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                placement="top"
+                                                container="body"
+                                                title=""
+                                                class="avatar pull-up my-0"
+                                                ngbTooltip="Alberto Glotzbach"
+                                        >
+                                            <img src="assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="26" width="26" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-pill badge-light-warning mr-1">Pending</span></td>
+                                <td class="overflow-hidden">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                            ><i data-feather="edit-2" class="mr-50"></i><span>Edit</span></a
+                                            ><a ngbDropdownItem href="javascript:void(0);"
+                                        ><i data-feather="trash" class="mr-50"></i><span>Delete</span></a
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Hoverable rows -->
+
+    </div>
+</div>

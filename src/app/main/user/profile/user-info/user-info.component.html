@@ -1,0 +1,275 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">User Information </h4>
+    </div>
+    <div class="card-body">
+        <form class="form form-horizontal" (ngSubmit)="(UserForm.form.valid)" #UserForm="ngForm">
+            <div class="row">
+                <div class="offset-2 col-8">
+                    <div class="row">
+                        <div class="offset-3 col-6 text-center padding-3">
+                            <div class="avatar avatar-xxxl">
+                                <img src="../../../../../assets/images/portrait/small/avatar-s-20.jpg" alt="avatar">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="first-name">First Name</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="first-name" class="form-control" name="firstname"
+                                           [class.error]="UserForm.submitted && firstname.invalid"
+                                           [(ngModel)]="firstName"
+                                           required #firstname="ngModel" placeholder="First Name"/>
+                                    <span *ngIf="UserForm.submitted && firstname.invalid" class="invalid-form">
+                                        <small class="form-text text-danger" *ngIf="firstname.errors.required">This
+                                            field is required!</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="middle-name">Middle Name</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="middle-name" class="form-control" name="middleName"
+                                           placeholder="Middle Name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="last-name">Last Name</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="last-name" class="form-control" name="lastName"
+                                           placeholder="Last Name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="email-id">Email</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="email" id="email-id" class="form-control" name="email-id"
+                                           placeholder="Email"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="language">Language</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <ng-select [items]="languages" bindLabel="name" bindValue="name" name="language"
+                                               id="language" [(ngModel)]="language">
+                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                            {{ item.name }}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="dateOfBirth">Date of Birth</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="mm-dd-yyyy" name="dateOfBirth"
+                                               id="dateOfBirth" [(ngModel)]="dateOfBirth" ngbDatepicker
+                                               #basicDP="ngbDatepicker"/>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary feather icon-calendar"
+                                                    (click)="basicDP.toggle()" type="button" rippleEffect></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="address1">Address Line 1</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="Address1" id="address1"
+                                           placeholder="Address Line 1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="address2">Address 2</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="Address2" id="address2"
+                                           placeholder="Address Line 2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="city">City</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="City" id="city" placeholder="City">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="state">State</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="State" id="state" placeholder="State">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="state">Country</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="Country" id="Country"
+                                           placeholder="Country">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="zip">Zip</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="Zip" id="zip" placeholder="Zip">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="gender">Gender</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <ng-select [items]="genders" bindLabel="name" bindValue="name" name="language"
+                                               id="gender" [(ngModel)]="gender">
+                                        <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                                            {{ item.name }}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="maritalStatus">Marital Status</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="demo-inline-spacing" id="maritalStatus">
+                                        <div class="custom-control custom-radio"
+                                             *ngFor="let item of maritalStatuses; index as i">
+                                            <input type="radio" id="customRadio{{i}}" name="maritalStatus"
+                                                   class="custom-control-input"
+                                                   [checked]="item.name === maritalStatus"/>
+                                            <label class="custom-control-label"
+                                                   for="customRadio{{i}}">{{item.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="timeZone">Time Zone</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="TimeZone" id="timeZone"
+                                           placeholder="Time Zone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="dateFormat">Date Format</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="DateFormat" id="dateFormat"
+                                           placeholder="DateFormat">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="timeFormat">Time Format</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="TimeFormat" id="timeFormat"
+                                           placeholder="Time Format">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-form-label">
+                                    <label for="remember">Remember</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="remember" checked/>
+                                        <label class="custom-control-label" for="remember">
+                                            <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                            <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--        <div class="row mt-5">-->
+        <!--            <div class="col-md-2"></div>-->
+        <!--            <div class="col-md-8">-->
+        <!--                <form class="form form-vertical">-->
+        <!--                    <div class="row mt-5">-->
+
+
+        <!--                        <div class="col-12">-->
+        <!--                            <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>-->
+        <!--                            <button type="reset" rippleEffect class="btn btn-outline-secondary">Reset</button>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </form>-->
+        <!--            </div>-->
+        <!--            <div class="col-md-2"></div>-->
+
+        <!--        </div>-->
+    </div>
+    <div class="card-footer text-right">
+        <button type="reset" rippleEffect class="btn btn-outline-secondary mr-1">Reset</button>
+        <button type="submit" (click)="(UserForm.onSubmit($event))" rippleEffect class="btn btn-primary">Submit</button>
+    </div>
+</div>

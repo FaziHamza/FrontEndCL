@@ -1,0 +1,787 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">User Info</h4>
+        <h4 class="d-inline text-right">
+            <button type="button" class="btn btn-icon btn-primary"
+                    (click)="onEditSaveClick()"
+                    [ngbTooltip]="isEditProfileMode ? 'Save' : 'Edit Profile'">
+                <i class="feather {{isEditProfileMode ? 'icon-save' : 'icon-edit'}}"></i>
+            </button>
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row app-user-view">
+            <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                <div class="user-avatar-section">
+                    <div class="d-flex justify-content-start">
+                        <div *ngIf="userInfo.avatar.length > 0; else customAvatar">
+                            <img class="img-fluid rounded-circle" [src]="userInfo.avatar" height="104" width="104"
+                                 alt="User avatar"/>
+                        </div>
+                        <ng-template #customAvatar>
+                            <div class="mr-1 ml-0">
+                                <div
+                                        [ngClass]="{
+                              'bg-light-success': userInfo.status == 'active',
+                              'bg-light-secondary': userInfo.status == 'inactive',
+                              'bg-light-warning': userInfo.status == 'pending'
+                            }"
+                                        class="align-items-center d-flex justify-content-center rounded-circle wh-same p-2"
+                                >
+                                    <h2
+                                            [ngClass]="{
+                                'text-success': userInfo.status == 'active',
+                                'text-secondary': userInfo.status == 'inactive',
+                                'text-warning': userInfo.status == 'pending'
+                              }"
+                                            class="m-0"
+                                    >
+                                        {{ userInfo.fullName | initials }}
+                                    </h2>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <div class="d-flex flex-column ml-1">
+                            <div class="user-info mb-1">
+                                <h4 class="mb-0" *ngIf="!isEditProfileMode">{{ userInfo.fullName }}</h4>
+                                <div class="d-inline-flex">
+                                    <div class="form-group mb-0 mt-50" *ngIf="isEditProfileMode">
+                                        <input type="text" #firstNameRef="ngModel"
+                                               [ngClass]="validateControl(firstNameRef)"
+
+                                               class="form-control form-control-sm" required
+                                               [(ngModel)]="userInfo.firstName">
+                                    </div>
+                                    <div class="form-group mb-0 mt-50 ml-50" *ngIf="isEditProfileMode">
+                                        <input type="text" #lastNameRef="ngModel"
+                                               required [ngClass]="validateControl(lastNameRef)"
+                                               class="form-control form-control-sm" [(ngModel)]="userInfo.lastName">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="card-text" *ngIf="!isEditProfileMode">{{ userInfo.email }}</span>
+                                    <div class="form-group mb-0 mt-50" *ngIf="isEditProfileMode">
+                                        <input type="text" #emailRef="ngModel"
+                                               required [ngClass]="validateControl(emailRef)"
+
+                                               class="form-control form-control-sm" [(ngModel)]="userInfo.email">
+                                    </div>
+                                    <br *ngIf="!isEditProfileMode">
+                                    <span class="card-text" *ngIf="!isEditProfileMode">{{ userInfo.phoneNo }}</span>
+                                    <div class="form-group mb-0 mt-50" *ngIf="isEditProfileMode">
+                                        <input type="text" #phoneRef="ngModel"
+
+                                               required [ngClass]="validateControl(phoneRef)"
+                                               class="form-control form-control-sm" [(ngModel)]="userInfo.phoneNo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap">
+
+
+                                <!--                                <a routerLink="/apps/user/user-edit/{{ data.id }}" class="btn btn-primary" rippleEffect-->
+                                <!--                                >Edit</a-->
+                                <!--                                >-->
+                                <!--                                <button class="btn btn-danger ml-1" rippleEffect>Delete</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center user-total-numbers">
+                    <div class="d-flex align-items-center mr-2">
+                        <div class="color-box bg-light-primary">
+                            <i [data-feather]="'star'" [class]="'text-primary'"></i>
+                        </div>
+                        <div class="ml-1">
+                            <h5 class="mb-0">
+                                <span class="rating rating-sm">
+                                    <ngb-rating readonly [(rate)]="userInfo.rating" max="5"
+                                                class="outline-none"></ngb-rating>
+                                </span>
+                            </h5>
+                            <small>Rating</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="color-box bg-light-success">
+                            <i [data-feather]="'trending-up'" [class]="'text-success'"></i>
+                        </div>
+                        <div class="ml-1">
+                            <h5 class="mb-0">108</h5>
+                            <small>Total Views</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                <div class="user-info-wrapper">
+                    <div class="d-flex flex-wrap address-actions" *ngIf="isEditProfileMode">
+                        <div class="left flex-grow-1">
+                            <button class="address-btn center btn btn-icon btn-outline-primary btn-sm"
+                                    ngbTooltip="Add Address" (click)="onAddAddress()">
+                                <span data-feather="plus"></span>
+                            </button>
+                            <button class="address-btn center btn btn-icon btn-outline-primary btn-sm"
+                                    ngbTooltip="Edit Address" (click)="onEditAddress()">
+                                <i class="feather {{isEditAddress ? 'icon-save' : 'icon-edit'}}"></i>
+                            </button>
+
+                        </div>
+                        <div class="center flex-grow-1">
+                            <button class="address-btn center btn btn-icon btn-outline-primary btn-sm">
+                                <span>{{(currentAddress + 1)}}</span> / <span>{{userInfo.addresses.length}}</span>
+                            </button>
+                        </div>
+                        <div class="right flex-grow-1">
+
+                            <button class="address-btn start btn btn-icon btn-outline-primary btn-sm"
+                                    ngbTooltip="Previous Address" (click)="onChangeAddress('prev')">
+                                <span data-feather="arrow-left"></span>
+                            </button>
+                            <button class="address-btn end btn btn-icon btn-outline-primary btn-sm"
+                                    ngbTooltip="Next Address" (click)="onChangeAddress('next')">
+                                <span data-feather="arrow-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngFor="let ad of getCurrentAddress()">
+                        <div class="d-flex flex-wrap">
+                            <div class="user-info-title">
+                                <i [data-feather]="'map-pin'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">Address Line 1</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.address1 }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <input type="text" #address1Ref="ngModel"
+                                       required [ngClass]="validateControl(address1Ref)"
+
+                                       class="form-control form-control-sm" [(ngModel)]="ad.address1">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap my-50">
+                            <div class="user-info-title">
+                                <i [data-feather]="'map-pin'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">Address Line 1</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.address2 }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <input type="text" #address2Ref="ngModel"
+                                       required [ngClass]="validateControl(address2Ref)"
+
+                                       class="form-control form-control-sm" [(ngModel)]="ad.address2">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap my-50">
+                            <div class="user-info-title">
+                                <i [data-feather]="'map'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">City</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.city }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <input type="text" #cityRef="ngModel"
+
+                                       required [ngClass]="validateControl(cityRef)"
+                                       class="form-control form-control-sm" [(ngModel)]="ad['city']">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap my-50">
+                            <div class="user-info-title">
+                                <i [data-feather]="'map'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">State</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.state }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <input type="text" #stateRef="ngModel"
+                                       required [ngClass]="validateControl(stateRef)"
+
+                                       class="form-control form-control-sm" [(ngModel)]="ad.state">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap my-50">
+                            <div class="user-info-title">
+                                <i [data-feather]="'flag'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">Country</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.country }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <input type="text" #countryRef="ngModel"
+                                       required [ngClass]="validateControl(countryRef)"
+
+                                       class="form-control form-control-sm" [(ngModel)]="ad.country">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap my-50">
+                            <div class="user-info-title">
+                                <i [data-feather]="'check'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">Is Current</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.isCurrent }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <div class="custom-control custom-switch custom-switch-primary ml-25"
+
+                                     ngbTooltip="Is Current Skill?">
+                                    <input type="checkbox" class="custom-control-input" id="isCurrentAd{{ad.id}}"
+                                           [(ngModel)]="ad.isCurrent"/>
+                                    <label class="custom-control-label" for="isCurrentAd{{ad.id}}">
+                                        <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                        <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <div class="user-info-title">
+                                <i [data-feather]="'globe'" class="mr-1"></i>
+                                <span class="card-text user-info-title font-weight-bold mb-0">Is Public</span>
+                            </div>
+                            <p *ngIf="!isEditAddress" class="card-text mb-0">{{ ad.isPublic }}</p>
+                            <div class="form-group mb-0" *ngIf="isEditAddress">
+                                <div class="custom-control custom-switch custom-switch-success ml-25"
+                                     ngbTooltip="Is Skill Public?">
+                                    <input type="checkbox" class="custom-control-input" id="isPublicAd{{ad.id}}"
+                                           [(ngModel)]="ad.isPublic"/>
+                                    <label class="custom-control-label" for="isPublicAd{{ad.id}}">
+                                        <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                        <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form class="form form-horizontal" *ngIf="false" (ngSubmit)="(UserForm.form.valid)" #UserForm="ngForm">
+            <div class="row">
+                <div class="offset-2 col-8">
+                    <div class="row">
+                        <div class="offset-3 col-6 text-center padding-3">
+                            <div class="avatar avatar-xxxl">
+                                <img src="../../../../../assets/images/portrait/small/avatar-s-20.jpg"
+                                     alt="avatar">
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-center my-2">
+                            <h4>JOHN AB</h4>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Name</b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>John Ab</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Last Name</b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>Ab</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Phone No</b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>John Ab</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Phone No</b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>Phone No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Email </b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>John@info.com</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Address</b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>Ad# 09577 CJ. USA</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>City</b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>USA </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>State </b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>CA</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-right">
+                                    <label><b>Country </b></label>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <label>USA</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--        <div class="row mt-5">-->
+        <!--            <div class="col-md-2"></div>-->
+        <!--            <div class="col-md-8">-->
+        <!--                <form class="form form-vertical">-->
+        <!--                    <div class="row mt-5">-->
+
+
+        <!--                        <div class="col-12">-->
+        <!--                            <button type="submit" rippleEffect class="btn btn-primary mr-1">Submit</button>-->
+        <!--                            <button type="reset" rippleEffect class="btn btn-secondary">Reset</button>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </form>-->
+        <!--            </div>-->
+        <!--            <div class="col-md-2"></div>-->
+
+        <!--        </div>-->
+    </div>
+</div>
+
+<!-- Work Experience -->
+<div class="card">
+    <ng-template #addEditExperienceModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Work Experience</h5>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <app-work-experience (onSubmitForm)="onSubmitForm($event)"
+                                 [data]="selectedData"></app-work-experience>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #btnSub
+                    (click)="modal.dismiss('Cancel')" rippleEffect>
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" #btnSub
+                    (click)="onSubmitExperience()" rippleEffect>
+                Save
+            </button>
+        </div>
+    </ng-template>
+    <div class="card-header">
+        <h4 class="card-title">Work Experience </h4>
+        <h4 class="d-inline text-right">
+            <button type="button" ngbTooltip="Add Work Experience"
+                    (click)="onWorkExperienceAction(addEditExperienceModal, null, 'add')"
+                    class="btn btn-icon btn-primary">
+                <i class="feather icon-plus"></i>
+            </button>
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="row ml-1 mr-1">
+                    <div class="col-2 job-experience-widget" *ngFor="let item of workExperiences">
+                        <div class="actions-container top-right">
+                            <div class="custom-control custom-switch custom-switch-primary ml-25"
+                                 ngbTooltip="Is Public Work Experience?">
+                                <input type="checkbox" class="custom-control-input" id="isPublicWE{{item.id}}"
+                                       [(ngModel)]="item.isPublic"
+                                       (ngModelChange)="onWorkExperienceAction(null, item,'publicChange')"/>
+                                <label class="custom-control-label" for="isPublicWE{{item.id}}">
+                                    <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                    <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                </label>
+                            </div>
+                            <button ngbTooltip="Edit Work Experience"
+                                    class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                    (click)="onWorkExperienceAction(addEditExperienceModal, item, 'edit')">
+                                <i class="feather icon-edit"></i>
+                            </button>
+                            <button ngbTooltip="Remove Work Experience"
+                                    class="action-btn btn btn-icon btn-danger btn-sm ml-25"
+                                    (click)="onWorkExperienceAction(addEditExperienceModal, item, 'remove')">
+                                <i class="feather icon-x"></i>
+                            </button>
+
+                        </div>
+                        <div *ngIf="item.organizationLogo.length > 0; else customAvatar">
+                            <img class="img-fluid rounded-circle" [src]="item.organizationLogo" height="104"
+                                 width="104"
+                                 alt="User avatar"/>
+                        </div>
+                        <ng-template #customAvatar>
+                            <div>
+                                <div class="align-items-center bg-light-warning d-flex justify-content-center rounded-circle wh-same p-2">
+                                    <h2 class=" text-warning m-0">
+                                        {{ item.organizationName.length > 3 ? (item.organizationName | initials) : item.organizationName}}
+                                    </h2>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <h2>{{item.organizationName}}</h2>
+                        <h4>{{item.title}}</h4>
+                        <div class="skills-container">
+                            <div class="badge badge-primary" *ngFor="let skill of item.skills">
+                                <span> {{skill}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Skill -->
+<div class="card">
+    <ng-template #addSkillsModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Work Experience</h5>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <app-skill (onSubmitForm)="onSubmitForm($event)"
+                       [data]="selectedData"></app-skill>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #btnSub
+                    (click)="modal.dismiss('Cancel')" rippleEffect>
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" #btnSub
+                    (click)="onSubmitSkill()" rippleEffect>
+                Save
+            </button>
+        </div>
+    </ng-template>
+    <div class="card-header">
+        <h4 class="card-title">Skill </h4>
+        <h4 class="d-inline text-right">
+            <button type="button" ngbTooltip="Add Skill" class="btn btn-icon btn-primary"
+                    (click)="onAddSkillClick(addSkillsModal)"><i
+                    class="feather icon-plus"></i></button>
+        </h4>
+
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="divider divider-left divider-primary">
+                    <div class="divider-text">Current Skills</div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="form-group row ml-1">
+                            <div class="skill-badge ml-25 mt-25" *ngFor="let item of getSkills('current'); index as i">
+                                <a (click)="onSkillCrossClick(item)" ngbTooltip="Remove Skill">
+                                    <span [data-feather]="'x'" [class]="'mr-25 ml-25'"></span>
+                                </a>
+
+                                <div class="badge badge-primary">
+                                    <span> {{item.name}}</span>
+                                </div>
+                                <div class="actions">
+
+                                    <div class="custom-control custom-switch custom-switch-primary ml-25"
+
+                                         ngbTooltip="Is Current Skill?">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="isCurrentSkill{{item.id}}"
+                                               [(ngModel)]="item.isCurrent"
+                                               (ngModelChange)="onSkillChange(item,true)"/>
+                                        <label class="custom-control-label" for="isCurrentSkill{{item.id}}">
+                                            <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                            <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-switch custom-switch-success ml-25"
+                                         ngbTooltip="Is Skill Public?">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="isPublicSkill{{item.id}}"
+                                               [(ngModel)]="item.isPublic"
+                                               (ngModelChange)="onSkillChange(item,false)"/>
+                                        <label class="custom-control-label" for="isPublicSkill{{item.id}}">
+                                            <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                            <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider divider-left">
+                    <div class="divider-text">Other Skills</div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="form-group row ml-1">
+                            <div class="skill-badge ml-25 mt-25"
+                                 *ngFor="let item of getSkills('not-current'); index as i">
+                                <a (click)="onSkillCrossClick(item)" ngbTooltip="Remove Skill">
+                                    <span [data-feather]="'x'" [class]="'mr-25 ml-25'"></span>
+                                </a>
+
+                                <div class="badge badge-secondary">
+                                    <span> {{item.name}}</span>
+                                </div>
+
+                                <div class="actions">
+                                    <div class="custom-control custom-switch custom-switch-primary ml-25"
+                                         ngbTooltip="Is Current Skill?">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="isCurrentSkillC{{item.id}}"
+                                               (ngModelChange)="onSkillChange(item,true)"
+                                               [(ngModel)]="item.isCurrent"/>
+                                        <label class="custom-control-label" for="isCurrentSkillC{{item.id}}">
+                                            <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                            <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-switch custom-switch-success ml-25"
+                                         ngbTooltip="Is Skill Public?">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="isPublicSkillP{{item.id}}"
+                                               (ngModelChange)="onSkillChange(item,false)"
+                                               [(ngModel)]="item.isPublic"/>
+                                        <label class="custom-control-label" for="isPublicSkillP{{item.id}}">
+                                            <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                                            <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Education -->
+<div class="card">
+    <ng-template #addEditEducationModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Education</h5>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <app-education (onSubmitForm)="onSubmitForm($event)"
+                           [data]="selectedData"></app-education>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #btnSub
+                    (click)="modal.dismiss('Cancel')" rippleEffect>
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" #btnSub
+                    (click)="onSubmitEducation()" rippleEffect>
+                Save
+            </button>
+        </div>
+    </ng-template>
+    <div class="card-header">
+        <h4 class="card-title">Education </h4>
+        <h4 class="d-inline text-right">
+            <button ngbTooltip="Add Education" (click)="onEducationAction(addEditEducationModal, null, 'add')"
+                    type="button" class="btn btn-icon btn-primary"><i
+                    class="feather icon-plus"></i></button>
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4 education-widget" *ngFor="let item of educations">
+                <div class="actions-container top-right">
+                    <div class="custom-control custom-switch custom-switch-primary ml-25"
+                         ngbTooltip="Is Public Education?">
+                        <input type="checkbox" class="custom-control-input" id="isPublicE{{item.id}}"
+                               [(ngModel)]="item.isPublic"
+                               (ngModelChange)="onEducationAction(null, item,'publicChange')"/>
+                        <label class="custom-control-label" for="isPublicE{{item.id}}">
+                            <span class="switch-icon-left"><i [data-feather]="'check'"></i></span>
+                            <span class="switch-icon-right"><i [data-feather]="'x'"></i></span>
+                        </label>
+                    </div>
+                    <button ngbTooltip="Edit Education"
+                            class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                            (click)="onEducationAction(addEditEducationModal, item,'edit')">
+                        <i class="feather icon-edit"></i>
+                    </button>
+                    <button ngbTooltip="Remove Education"
+                            class="action-btn btn btn-icon btn-danger btn-sm ml-25"
+                            (click)="onEducationAction(addEditEducationModal, item,'remove')">
+                        <i class="feather icon-x"></i>
+                    </button>
+
+                </div>
+                <div class="align-self-center">
+                    <div *ngIf="item.instituteLogo.length > 0; else customAvatar">
+                        <img class="img-fluid rounded-circle" [src]="item.instituteLogo" height="100" width="100"
+                             alt="User avatar"/>
+                    </div>
+                    <ng-template #customAvatar>
+                        <div class="mr-100 ml-0">
+                            <div class="align-items-center bg-light-primary d-flex justify-content-center rounded-circle wh-same p-2">
+                                <h2 class="text-primary m-0">
+                                    {{ item.title | initials }}
+                                </h2>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="education-content">
+                    <h4 class="mb-0"> {{item.title}} </h4>
+                    <small> {{item.degreeType}} </small>
+                    <p class="mt-50"><b>GPA:</b> {{item.gpa}}</p>
+                    <p><b>Institute:</b> {{item.instituteName}}</p>
+                    <p><b ngbTooltip="Start Date">{{item.startDate | date:'MM-dd-YYYY'}}</b> -
+                        <b ngbTooltip="End Date">{{item.isCurrent ? 'In-Progress' : (item.startDate | date:'MM-dd-YYYY')}}</b>
+                    </p>
+                    <small>{{item.detail}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ref -->
+<div class="card">
+    <ng-template #addReferenceModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">{{isEdit ? 'Edit' : 'Add'}} Reference</h5>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            <app-reference (onSubmitReferenceForm)="onSubmitReferenceForm($event)"
+                           [referenceData]="selectedData"></app-reference>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #btnSub
+                    (click)="modal.dismiss('Cancel')" rippleEffect>
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" #btnSub
+                    (click)="onSubmitReferenceClick()" rippleEffect>
+                Save
+            </button>
+        </div>
+    </ng-template>
+    <div class="card-header">
+        <h4 class="card-title">Reference </h4>
+        <h4 class="d-inline text-right">
+            <button ngbTooltip="Add Reference" (click)="addReferenceClick(addReferenceModal)" type="button"
+                    class="btn btn-icon btn-primary">
+                <i class="feather icon-plus"></i>
+            </button>
+        </h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="row ml-1 mr-1">
+                    <div class="col-2 reference-widget" *ngFor="let item of references">
+                        <div class="actions-container top-right">
+                            <button ngbTooltip="Edit Reference"
+                                    class="action-btn btn btn-icon btn-primary btn-sm ml-25"
+                                    (click)="onReferenceAction(item,'edit', addReferenceModal)">
+                                <i class="feather icon-edit"></i>
+                            </button>
+                            <button ngbTooltip="Remove Reference"
+                                    class="action-btn btn btn-icon btn-danger btn-sm ml-25"
+                                    (click)="onReferenceAction(item,'remove')">
+                                <i class="feather icon-x"></i>
+                            </button>
+
+                        </div>
+                        <div class="align-self-center">
+                            <div *ngIf="item.imgUrl.length > 0; else customAvatar">
+                                <img class="img-fluid rounded-circle" [src]="item.imgUrl" height="60" width="60"
+                                     alt="User avatar"/>
+                            </div>
+                            <ng-template #customAvatar>
+                                <div class="mr-50 ml-0">
+                                    <div class="align-items-center bg-light-primary d-flex justify-content-center rounded-circle wh-same small p-2">
+                                        <h5 class="text-primary m-0">
+                                            {{ getFullName(item) | initials }}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <div class="overflow-hidden">
+                            <p [ngbTooltip]="getFullName(item).length > 14 ? getFullName(item): ''"
+                               class="h6 content-header-title text-ellipsis"><span [data-feather]="'user'"
+                                                                                   class="mr-50"></span>
+                                <span>{{getFullName(item)}}</span>
+                            </p>
+                            <p class="h5 text-ellipsis" [ngbTooltip]="item.email.length > 14 ? item.email: ''">
+                                <a href="mailto:{{item.email}}" target="_blank">
+                                    <span [data-feather]="'mail'" class="mr-50"></span>
+                                    <span class="small">{{item.email}}</span>
+                                </a>
+                            </p>
+                            <p class="h5">
+                                <span ngbTooltip="Reference Type">
+                                    <span [data-feather]="'chevrons-right'"
+                                          class="mr-50"></span>
+                                </span>
+                                <span class="small">{{item.referenceType}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
